@@ -5,7 +5,7 @@
 Frontend: React y TailwindCSS
 Backend: Django y Django REST Framework
 
-#Funcionalidades:
+# Funcionalidades:
 
 Inicio: Visualización de información general de la constructora, proyectos destacados y noticias.
 Proyectos: Listado de proyectos con filtros, detalles de cada proyecto, gestión de tareas y documentos.
