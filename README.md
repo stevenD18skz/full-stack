@@ -34,7 +34,7 @@ Iniciar el servidor:
 Frontend: npm start
 Backend: python manage.py runserver
 
-#Acceso:
+# Acceso:
 
 Frontend: http://localhost:3000
 API REST: http://localhost:8000/api/
