@@ -12,7 +12,7 @@ class Rol(models.Model):
 
 
 class Usuario(AbstractUser):
-    fotografia = models.ImageField(upload_to='usuarios/', blank=True, null=True)
+    fotografia = models.ImageField(upload_to='usuarios/imagenes/', blank=True, null=True)
 
     TIPO_IDENTIFICACION_CHOICES = (
         ('CC', 'Cédula de Ciudadanía'),

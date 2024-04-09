@@ -35,6 +35,9 @@ export function UsersList() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Name
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Apellido
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -48,6 +51,9 @@ export function UsersList() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {usuario.nombres || '-'}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {usuario.apellidos || '-'}
                   </td>
                 </tr>
               ))}
