@@ -1,6 +1,6 @@
-Descripción:
+#Descripción:
 
-Este proyecto crea una página web para la gestión de proyectos de una constructora, utilizando las siguientes tecnologías:
+## Este proyecto crea una página web para la gestión de proyectos de una constructora, utilizando las siguientes tecnologías:
 
 Frontend: React y TailwindCSS
 Backend: Django y Django REST Framework
