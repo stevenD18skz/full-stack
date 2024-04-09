@@ -1,4 +1,4 @@
-#Descripción:
+# Descripción:
 
 ## Este proyecto crea una página web para la gestión de proyectos de una constructora, utilizando las siguientes tecnologías:
 
