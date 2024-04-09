@@ -56,5 +56,5 @@ Correo electrónico:
 Este proyecto está licenciado bajo la licencia MIT.
 
 # Contribuciones:
-gabriel 
+gabriel con su experencia
 Se aceptan contribuciones al proyecto. Para más información, consulte el archivo CONTRIBUTING.md.
