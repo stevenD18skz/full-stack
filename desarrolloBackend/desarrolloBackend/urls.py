@@ -3,12 +3,12 @@ from django.urls import path, include
 from rest_framework import routers
 
 #Importacion de Vistas
-from paginaDeInicio.views import UsuarioViewSet
-
+from paginaDeInicio.views import *
 
 
 router = routers.DefaultRouter()
-router.register('api/users', UsuarioViewSet)
+router.register('api/users', UsuarioViewSet, 'lista_usuarios')
+router.register('api/task', TaskView, 'tareas')
 
 
 urlpatterns = [

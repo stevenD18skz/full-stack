@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Usuario
+from .models import *
+from django.contrib.auth import authenticate
 
 class UsuarioSerializer(serializers.ModelSerializer):
     nombre = serializers.CharField(source='get_full_name', read_only=True)
@@ -7,4 +8,12 @@ class UsuarioSerializer(serializers.ModelSerializer):
    
     class Meta:
         model = Usuario
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'fotografia', 'tipo_identificacion', 'nro_identificacion', 'genero', 'direccion', 'celular', 'rol', 'nombre')
+        fields = '__all__'
+
+
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ('id', 'title', 'descripcion', 'done')
