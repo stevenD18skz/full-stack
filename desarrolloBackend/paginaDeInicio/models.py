@@ -21,8 +21,6 @@ class Usuario(AbstractUser):
     )
     tipo_identificacion = models.CharField(max_length=2, choices=TIPO_IDENTIFICACION_CHOICES)
     nro_identificacion = models.CharField(max_length=20)
-    apellidos = models.CharField(max_length=255)
-    nombres = models.CharField(max_length=255)
 
 
     GENERO_CHOICES = (
@@ -46,6 +44,6 @@ class Usuario(AbstractUser):
     """
     def get_full_name(self):
         # Tu lógica personalizada para obtener el nombre completo
-        return f"nombre: {self.apellidos}: Apellido: {self.nombres}"
+        return f"nombre: {self.first_name}: Apellido: {self.last_name}"
     
     

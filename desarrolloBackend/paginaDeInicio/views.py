@@ -20,6 +20,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
   serializer_class = UsuarioSerializer
   permission_classes = []
 
+
+
   @action(detail=True, methods=['get'])
   def get_name(self, request, pk=None):
     usuario = self.get_object()
