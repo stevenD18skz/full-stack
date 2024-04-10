@@ -7,8 +7,8 @@ from paginaDeInicio.views import *
 
 
 router = routers.DefaultRouter()
-router.register('api/users', UsuarioViewSet, 'lista_usuarios')
-router.register('api/task', TaskView, 'tareas')
+router.register('api/users', UsuarioViewSet, 'nombra_urls_usuarios')
+router.register('api/task',  TaskView,       'nombra_urls_task')
 
 
 urlpatterns = [

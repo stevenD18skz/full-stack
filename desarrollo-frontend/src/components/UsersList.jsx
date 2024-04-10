@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../api/api'
 
+
+/*
+EN REALIDAD ES UINA TABLA
+*/
 export function UsersList() {
   const [usuarios, setUsuarios] = useState([]);
 

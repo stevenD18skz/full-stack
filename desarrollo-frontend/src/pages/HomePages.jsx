@@ -2,27 +2,26 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Navigation } from '../components/Navigation';
 
+
 export function HomePage() {
-    const [name, setName] = useState(''); // State for the retrieved name
-    const [userId, setUserId] = useState(1); // State for the user ID
+    const [name, setName] = useState(''); 
+    const [userId, setUserId] = useState(1); 
 
     useEffect(() => {
-        console.log('SE CARGOOO');
-    }, []); // Empty dependency array ensures useEffect runs only once on mount
+        console.log('se cargo la pagina');
+    }, []); 
 
     const handleInputChange = (event) => {
-        setUserId(parseInt(event.target.value)); // Convert input to integer
+        setUserId(parseInt(event.target.value)); 
     };
 
     const handleButtonClick = async () => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/api/users/${userId}/name/`);
             setName(response.data);
-            console.log("se cargo correctamente")
         } catch (error) {
             setName("Usuario no encontrado");
             console.log('!!!!!Error fetching name:', error);
-            // Handle errors gracefully, e.g., display an error message to the user
         }
     };
 
