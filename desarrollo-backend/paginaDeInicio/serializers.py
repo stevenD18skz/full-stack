@@ -3,14 +3,9 @@ from .models import Usuario, Task
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
-#otro error
 
-
-"""
-SERIALIZADOR NORMAL DE USUARIO
-"""
 class UsuarioSerializer(serializers.ModelSerializer):
-    nombre = serializers.CharField(source='get_full_name', read_only=True)
+    #nombre = serializers.CharField(source='get_full_name', read_only=True)
     rol = serializers.SlugRelatedField(read_only=True, slug_field='nombre')
    
     class Meta:

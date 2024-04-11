@@ -3,9 +3,8 @@ from django.db import models
 from django.contrib.auth.models import Group, Permission
 
 
-"""
-ESTO YA  ESTA HEHCO
-"""
+
+
 
 class Rol(models.Model):
     nombre = models.CharField(max_length=255)
@@ -13,6 +12,8 @@ class Rol(models.Model):
 
     def str(self):
         return self.nombre
+
+
 
 class Usuario(AbstractUser):
     fotografia = models.ImageField(upload_to='usuarios/imagenes/', blank=True, null=True)
@@ -46,6 +47,7 @@ class Usuario(AbstractUser):
     """
     def get_full_name(self):
         return f"nombre: {self.first_name}: Apellido: {self.last_name}"
+    
     
     
     
