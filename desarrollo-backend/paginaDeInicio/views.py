@@ -15,9 +15,6 @@ from .serializers import *
 def login(request):
    return Response({})
 
-@api_view(['POST'])
-def register(request):
-   return Response({})
 
 
 
