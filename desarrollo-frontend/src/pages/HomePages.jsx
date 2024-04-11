@@ -22,7 +22,7 @@ export function HomePage() {
             setName(response.data);
         } catch (error) {
             setName("Usuario no encontrado");
-            console.log('!!!!!Error fetching name:', error);
+            console.log('!!!!!Error encontrado:', error);
         }
     };
 
