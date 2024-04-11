@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Navigation } from '../components/Navigation';
 
 
+
 export function HomePage() {
     const [name, setName] = useState(''); 
     const [userId, setUserId] = useState(1); 
@@ -27,14 +28,13 @@ export function HomePage() {
 
     return (
         <div>
-            <div className="w-full p-5 bg-blue-500 shadow-lg flex items-center justify-center">
-                <h1 className="text-xl font-medium text-white">HOME</h1>
-            </div>
             <Navigation></Navigation>
 
             <div className="flex flex-col items-center mt-10 w-2/5 h-96 bg-slate-500/[100] rounded-lg m-8 justify-center">
                 <label htmlFor="user-id" className="mb-2 text-gray-700">
+                
                     User ID:
+
                 </label>
 
                 <input
