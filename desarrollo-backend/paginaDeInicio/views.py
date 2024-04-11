@@ -1,8 +1,13 @@
-from rest_framework.response import Response
 from rest_framework import viewsets, permissions
+from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+
+from django.contrib.auth import login, authenticate
+from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import AuthenticationFailed
+
 
 from .models import Usuario
 from .serializers import UsuarioSerializer
@@ -36,7 +41,9 @@ class GerentePermission(permissions.BasePermission):
         return False
 
 
-
+"""
+VISTA PARA LA PETICION POST DEL LOGIN
+"""
 class LoginView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -54,6 +61,7 @@ class LoginView(APIView):
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             return Response({'error': 'Ha ocurrido un error inesperado.'}, status=500)
+
 
 
 
