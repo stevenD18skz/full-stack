@@ -47,3 +47,4 @@ class Usuario(AbstractUser):
     """
     def get_full_name(self):
         return f"nombre: {self.first_name}: Apellido: {self.last_name}"
+    
