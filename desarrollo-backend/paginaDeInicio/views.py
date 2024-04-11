@@ -1,3 +1,7 @@
+"""
+VISTAS V1
+"""
+
 from django.contrib.auth import authenticate
 
 from rest_framework.authtoken.models import Token
@@ -23,43 +27,22 @@ class LoginView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
 
+
     def post(self, request):
-        usuario = request.data.get('usuario')
-        password = request.data.get('contrasena')
 
         try:
-            # Buscar al usuario por nombre de usuario en la base de datos
-            usuario_obj = Usuario.objects.get(username=usuario)
+            usuario = request.data.get('nombre')
+            password = request.data.get('contrasena')
 
-            # Verificar la contraseña del usuario
-            if usuario_obj.check_password(password):
-                print(f"Información del usuario: {user_data}")
-                # Autenticar al usuario y generar un token de autenticación
-                user = authenticate(username=usuario, password=password)
-                if user is not None:
-                    login(request, user)
-                    token, _ = Token.objects.get_or_create(user=user)
+            primer_usuario = Usuario.objects.get(username=usuario)
+            serializer = UsuarioSerializer(primer_usuario)
+            return Response(serializer.data)
 
-                    user_data = {
-                        'id': user.id,
-                        'documento': usuario_obj.nro_identificacion,
-                        'nombre': usuario_obj.get_full_name(),
-                        'tipo_identificacion': usuario_obj.tipo_identificacion,
-                        'genero': usuario_obj.genero,
-                        'direccion': usuario_obj.direccion,
-                        'celular': usuario_obj.celular,
-                        'rol': usuario_obj.rol.nombre,
-                        'foto_perfil': usuario_obj.fotografia.url if usuario_obj.fotografia else None,
-                    }
+        except Exception as e:  # Catch more general exceptions
+            # Log the error for debugging and potential improvements
+            print(f"An unexpected error occurred: {e}")
+            return Response({'error': 'Ha ocurrido un error inesperado.'}, status=500)
 
-                    return Response({'valid': True, 'token': token.key, **user_data})
-
-            raise AuthenticationFailed('Las credenciales proporcionadas son inválidas.')
-
-        except Usuario.DoesNotExist:
-            raise AuthenticationFailed('Las credenciales proporcionadas son inválidas.')
-
-        return Response({'valid': False})
 
 
 
@@ -78,6 +61,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
    
    @action(detail=True, methods=['get'])
    def get_name(self, request, pk=None):
+    print(self.queryset)
     usuario = self.get_object()
     nombre = usuario.get_full_name()  # Suponiendo que get_full_name devuelve el nombre
     return Response(nombre)  # Devuelve el nombre envuelto en una respuesta DRF
@@ -87,3 +71,5 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class TaskView(viewsets.ModelViewSet):
    serializer_class = TaskSerializer
    queryset = Task.objects.all()
+
+
