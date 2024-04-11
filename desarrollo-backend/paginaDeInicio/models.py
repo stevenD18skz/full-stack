@@ -14,7 +14,6 @@ class Rol(models.Model):
     def str(self):
         return self.nombre
 
-
 class Usuario(AbstractUser):
     fotografia = models.ImageField(upload_to='usuarios/imagenes/', blank=True, null=True)
 
