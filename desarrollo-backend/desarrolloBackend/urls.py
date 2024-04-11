@@ -2,9 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-#Importacion de Vistas
-from paginaDeInicio.views import *
-
+from paginaDeInicio.views import UsuarioViewSet, TaskView, LoginView
 
 router = routers.DefaultRouter()
 router.register('api/users', UsuarioViewSet, 'nombra_urls_usuarios')
@@ -18,5 +16,5 @@ urlpatterns = [
   #Urls del LogIn
   path('', include(router.urls)),
   path('api/users/<int:pk>/name/', UsuarioViewSet.as_view({'get': 'get_name'})),
-  #path('login/', LoginView.as_view(), name='login_view'),
+  path('login/', LoginView.as_view(), name='login_view'),
 ]

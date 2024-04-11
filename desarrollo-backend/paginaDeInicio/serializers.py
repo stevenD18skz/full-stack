@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from .models import *
+from .models import Usuario, Task
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+
+#otro error
 
 
 """
