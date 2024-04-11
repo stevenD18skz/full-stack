@@ -47,14 +47,3 @@ class Usuario(AbstractUser):
     """
     def get_full_name(self):
         return f"nombre: {self.first_name}: Apellido: {self.last_name}"
-    
-    
-    
-    
-class Task(models.Model):
-    title = models.CharField(max_length=20)
-    descripcion = models.CharField(max_length=20)
-    done = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.title

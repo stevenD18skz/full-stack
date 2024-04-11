@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from .models import Usuario, Task
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from .models import Usuario
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -11,9 +9,3 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = '__all__'
-
-
-class TaskSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Task
-        fields = ('id', 'title', 'descripcion', 'done')

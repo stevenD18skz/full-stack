@@ -2,13 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from paginaDeInicio.views import UsuarioViewSet, TaskView, LoginView, buscar_usuarios
+from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios
 
 
 
 router = routers.DefaultRouter()
 router.register('api/users', UsuarioViewSet, 'nombra_urls_usuarios')
-router.register('api/task',  TaskView,       'nombra_urls_task')
 
 urlpatterns = [
   path('admin/', admin.site.urls),

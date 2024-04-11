@@ -4,8 +4,9 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
-from .models import Usuario, Task
-from .serializers import UsuarioSerializer, TaskSerializer
+from .models import Usuario
+from .serializers import UsuarioSerializer
+
 
 
 """
@@ -22,6 +23,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     usuario = self.get_object()
     nombre = usuario.get_full_name()  # Suponiendo que get_full_name devuelve el nombre
     return Response(nombre)  # Devuelve el nombre envuelto en una respuesta DRF
+
 
 
 """
@@ -96,12 +98,3 @@ class buscar_usuarios(APIView):
     serializer = UsuarioSerializer(usuarios, many=True)
     return Response(serializer.data)
     """
-
-
-
-
-
-
-class TaskView(viewsets.ModelViewSet):
-   serializer_class = TaskSerializer
-   queryset = Task.objects.all()
