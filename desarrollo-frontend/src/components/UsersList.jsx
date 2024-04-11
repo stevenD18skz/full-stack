@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../api/api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEye, faLock, faEnvelope, faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEye, faLock, faEnvelope, faPenToSquare, faUserMinus} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -103,14 +103,8 @@ export function UsersList() {
                 {usuario.is_active || '-'}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <button type="button" className=" button-action text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Editar
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                </button>
-                
-
-                <button type="button" className="button-action text-red-700 hover:text-white border font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600"
-                  onClick={saludar}
-                >Inhabilitar</button>
+                <FontAwesomeIcon icon={faPenToSquare} size="lg" style={{color: "#d1a60a", paddingRight: 30,}} />
+                <FontAwesomeIcon icon={faUserMinus} size="lg" style={{color: "#c80909",}} />
               </td>
             </tr>
           ))}
