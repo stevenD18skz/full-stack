@@ -81,28 +81,43 @@ class buscar_usuarios(APIView):
         return Response(serializer.data)
 
 
-    """
-    def get(self, request):
-        nombre = request.GET.get('nombre', '')
-        primer_usuario = Usuario.objects.get(first_name=nombre)
-        serializer = UsuarioSerializer(primer_usuario)
-        return Response(serializer.data)
-        
+
+class inhabilitar_usuario(APIView):
+    permission_classes = [AllowAny]  
+    authentication_classes = [] 
+
+    def post(self, request):
+        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
+        username = request.data.get('username')
+
+        # Buscar el usuario en la base de datos
+        usuario = get_object_or_404(Usuario, username=username)
+
+        # Eliminar el usuario
+        usuario.is_active = False
+
+        usuario.save()
+
+        return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
+                        status=status.HTTP_200_OK)
     
 
 
-        return Response({'saludo': 'ola'}, status=200)
-    """
+class habilitar_usuario(APIView):
+    permission_classes = [AllowAny]  
+    authentication_classes = [] 
 
+    def post(self, request):
+        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
+        username = request.data.get('username')
 
-    """
-    nombre = request.GET.get('nombre', '')
-    correo = request.GET.get('correo', '')
+        # Buscar el usuario en la base de datos
+        usuario = get_object_or_404(Usuario, username=username)
 
-    # Se realiza la consulta a la base de datos
-    usuarios = Usuario.objects.filter(nombre__icontains=nombre, correo__icontains=correo)
+        # Eliminar el usuario
+        usuario.is_active = True
 
-    # Se serializan los datos para la respuesta
-    serializer = UsuarioSerializer(usuarios, many=True)
-    return Response(serializer.data)
-    """
+        usuario.save()
+
+        return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
+                        status=status.HTTP_200_OK)

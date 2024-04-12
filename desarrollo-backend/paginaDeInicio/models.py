@@ -40,11 +40,7 @@ class Usuario(AbstractUser):
     groups = models.ManyToManyField(Group, related_name='usuario_set')  # Agrega related_name
     user_permissions = models.ManyToManyField(Permission, related_name='usuario_set')  # Agrega related_name
     
-    
-    """
-    esta funcinon viene por defecto desde AbstractUser, pero aqui
-    se esta sobreescribiendo el metodo
-    """
+
     def get_full_name(self):
         return f"nombre: {self.first_name}: Apellido: {self.last_name}"
     
