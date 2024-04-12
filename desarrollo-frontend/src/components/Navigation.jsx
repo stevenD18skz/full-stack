@@ -18,10 +18,10 @@ export function Navigation() {
   const { pathname } = useLocation();
 
   const navigation = [
-    { name: 'Home', href: '/home', current: pathname === '/home' },
+    { name: 'Inicio', href: '/home', current: pathname === '/home' },
     { name: 'Usuarios', href: '/crud-users', current: pathname === '/crud-users' },
     { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
-    { name: 'About', href: '/about', current: pathname === '/about' },
+    { name: 'Sobre nosotros', href: '/about', current: pathname === '/about' },
   ];
 
 
@@ -121,7 +121,7 @@ export function Navigation() {
                             href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Your Profile
+                            Perfil
                           </a>
                         )}
                       </Menu.Item>
@@ -131,7 +131,7 @@ export function Navigation() {
                             href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Settings
+                            Ajustes
                           </a>
                         )}
                       </Menu.Item>
@@ -141,7 +141,7 @@ export function Navigation() {
                             to="/logIn" // Assuming "/sign-out" is your sign-out route
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Sign out
+                            Cerrar sesi
                           </Link>
                         )}
                       </Menu.Item>

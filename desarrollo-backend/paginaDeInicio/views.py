@@ -93,7 +93,7 @@ class inhabilitar_usuario(APIView):
         # Buscar el usuario en la base de datos
         usuario = get_object_or_404(Usuario, username=username)
 
-        # Eliminar el usuario
+        # Inhabilitar el usuario
         usuario.is_active = False
 
         usuario.save()
@@ -114,7 +114,7 @@ class habilitar_usuario(APIView):
         # Buscar el usuario en la base de datos
         usuario = get_object_or_404(Usuario, username=username)
 
-        # Eliminar el usuario
+        # Habilitar el usuario
         usuario.is_active = True
 
         usuario.save()
