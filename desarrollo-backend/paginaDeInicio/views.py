@@ -51,8 +51,8 @@ class LoginView(APIView):
 
     def post(self, request):
         try:
-            usuario = request.data.get('nombre')
-            password = request.data.get('contrasena')
+            usuario = request.data.get('username')
+            password = request.data.get('password')
 
             primer_usuario = Usuario.objects.get(username=usuario)
             serializer = UsuarioSerializer(primer_usuario)

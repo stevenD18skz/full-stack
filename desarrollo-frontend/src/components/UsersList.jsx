@@ -78,7 +78,7 @@ export function UsersList() {
 
                 <NavCrudUsers></NavCrudUsers>
 
-                <hr class="border border-slate-200 border-solid my-6 w-full" />
+                <hr className="border border-slate-200 border-solid my-6 w-full" />
 
                 <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
 
@@ -98,14 +98,13 @@ export function UsersList() {
                             className="button-action block p-2 ps-10 text-sm rounded-lg w-80 dark:bg-gray-200"
                             placeholder="Search for items"
                         />
-
                     </div>
 
                 </div>
             </div>
 
 
-            <hr class="border border-slate-200 border-solid my-6 w-full" />
+            <hr className="border border-slate-200 border-solid my-6 w-full" />
 
 
             <table className=" w-full  text-sm text-left rtl:text-right bg-slate-100">
