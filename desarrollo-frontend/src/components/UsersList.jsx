@@ -130,7 +130,6 @@ export function UsersList() {
     };
 
 
-
     return (
         <div className=" relative overflow-x-auto shadow-md sm:rounded-lg">
             <>
