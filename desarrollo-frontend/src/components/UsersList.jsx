@@ -69,11 +69,10 @@ export function UsersList() {
     };
 
 
-    
-    const handleEliminarClick = (e) => {
-        console.log("eliminar");
-    };
 
+    const handleEliminarClick = (usuario) => { // Pass the entire user object
+        console.log("Eliminar usuario con username:", usuario.username); // Access username
+    };
 
 
     return (
@@ -108,7 +107,7 @@ export function UsersList() {
                                     </div>
                                     <div className="col-span-2">
                                         <label htmlFor="description" className="block mb-2 text-sm font-medium ">Product Description</label>
-                                        <textarea id="description" name="description" rows="4" value={formData.description} onChange={handleChange} className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 dark:placeholder-gray-400" placeholder="Write product description here"/>
+                                        <textarea id="description" name="description" rows="4" value={formData.description} onChange={handleChange} className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 dark:placeholder-gray-400" placeholder="Write product description here" />
                                     </div>
                                 </div>
                                 <button type="submit" className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -199,10 +198,13 @@ export function UsersList() {
                                     onClick={handleEditClick}>
                                     <FontAwesomeIcon icon={faPenToSquare} size="lg" style={{ color: "#d1a60a" }} />
                                 </button>
+                                
+
                                 <button
                                     type="button"
-                                    className="icon-button py-4"
-                                    onClick={handleEliminarClick}>
+                                    className="icon-button px-6 py-4"
+                                    onClick={() => handleEliminarClick(usuario)} // Pass user object
+                                >
                                     <FontAwesomeIcon icon={faUserMinus} size="lg" style={{ color: "#c80909" }} />
                                 </button>
                             </td>

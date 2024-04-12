@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import login, authenticate
 from rest_framework.authtoken.models import Token
@@ -11,6 +12,7 @@ from rest_framework.exceptions import AuthenticationFailed
 
 from .models import Usuario
 from .serializers import UsuarioSerializer
+from rest_framework import status
 
 
 
@@ -69,8 +71,6 @@ class buscar_usuarios(APIView):
     permission_classes = [AllowAny]
 
 
-
-
     def get_queryset(self):
         nombre = self.request.GET.get('nombre', '')
         return Usuario.objects.filter(first_name__icontains=nombre).only('id', 'first_name', 'last_name')  # Seleccionar solo los campos específicos
@@ -106,3 +106,21 @@ class buscar_usuarios(APIView):
     serializer = UsuarioSerializer(usuarios, many=True)
     return Response(serializer.data)
     """
+
+
+class inhabilidar_usuario(APIView):
+    permission_classes = [AllowAny]  
+    authentication_classes = [] 
+
+    def post(self, request):
+        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
+        email = request.data.get('email')
+
+        # Buscar el usuario en la base de datos
+        usuario = get_object_or_404(Usuario, email=email)
+
+        # Eliminar el usuario
+        usuario.delete()
+
+        return Response({"mensaje": f"El usuario {email} ha sido eliminado correctamente."},
+                        status=status.HTTP_200_OK)
