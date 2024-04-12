@@ -141,7 +141,7 @@ export function Navigation() {
                             to="/logIn" // Assuming "/sign-out" is your sign-out route
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Cerrar sesi
+                            Salir
                           </Link>
                         )}
                       </Menu.Item>
