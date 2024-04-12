@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPenToSquare, faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPenToSquare, faUserMinus, faUserCheck, faCircleXmark, faXmark} from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/Modal.css';
@@ -14,13 +14,16 @@ export function UsersList() {
     const [formData, setFormData] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
 
+    const [isDisable, setisDisable] = useState(false);
+    const [isEnable,  setisEnable]  = useState(false);
+    const [eliminate, setEliminate] = useState([]);
+    const [availible, setAvailible] = useState([]);
 
 
     useEffect(() => {
         async function loadUsuarios() {
             const response = await axios.get('http://127.0.0.1:8000/api/users/')
-            const datosProyectos = response.data.results;
-            setUsuarios(datosProyectos);
+            setUsuarios(response.data.results);
         }
         loadUsuarios()
     }, []);
@@ -36,6 +39,30 @@ export function UsersList() {
     const closeModal = () => {
         setIsOpen(false);
     };
+
+
+
+    const openConfirmation = (user) => {
+        setisDisable(true);
+        setEliminate([user])
+        console.log(eliminate)
+    };
+
+    const closeConfirmation = () => {
+        setisDisable(false);
+    };
+
+
+    const openConf = (user) => {
+        setisEnable(true);
+        setAvailible([user])
+        console.log(eliminate)
+    };
+
+    const closeConf = () => {
+        setisEnable(false);
+    };
+
 
 
 
@@ -69,9 +96,37 @@ export function UsersList() {
     };
 
 
-    
-    const handleEliminarClick = (e) => {
-        console.log("eliminar");
+
+    const handleInhabilitarClick = () => { // Pass the entire user object
+        console.log("Eliminar usuario con username:", eliminate[0].username); // Access username
+        const nombre_usuario = eliminate[0].username
+        const response = axios.post('http://127.0.0.1:8000/inhabilitar/', {
+            "username": nombre_usuario
+        })
+
+        async function loadUsuarios() {
+            const response = await axios.get('http://127.0.0.1:8000/api/users/')
+            setUsuarios(response.data.results);
+        }
+        loadUsuarios()
+
+        closeConfirmation()
+    };
+
+
+    const handleHabilitarClick = () => {
+        console.log("Eliminar usuario con username:", availible[0].username); // Access username
+        const nombre_usuario = availible[0].username
+        const response = axios.post('http://127.0.0.1:8000/habilitar/', {
+            "username": nombre_usuario
+        })
+
+        async function loadUsuarios() {
+            const response = await axios.get('http://127.0.0.1:8000/api/users/')
+            setUsuarios(response.data.results);
+        }
+        loadUsuarios()
+        closeConf()
     };
 
 
@@ -83,37 +138,87 @@ export function UsersList() {
                     <div className="modal">
                         <div className="modal-content">
                             <span className="close" onClick={closeModal}>
-                                &times;
+                                <FontAwesomeIcon icon={faCircleXmark} size="lg" style={{ color: "#113778", }} />
                             </span>
-                            <form className="p-4 md:p-5" onSubmit={handleSubmit}>
-                                <div className="grid gap-4 mb-4 grid-cols-2">
+                            <form className="p-4 md:p-5" onSubmit={handleSubmit}>{
+                                /**
+                                 * username
+                                 * nombre
+                                 * apellidos
+                                 * Dirección de correo electrónico:
+                                 * Fotografia: (tal vez)
+                                 * Tipo identificacion:
+                                 * Nro identificacion:
+                                 * Genero:
+                                 * Direccion:
+                                 * Celular:
+                                 */
+                            }
+                                <div className="gap-4 mb-4 grid-cols-2">
                                     {/* <h3>Crear Usuario</h3> */}
                                     <div className="col-span-2">
-                                        <label htmlFor="name" className="block mb-2 text-sm font-medium">Nombre de Usuario:</label>
-                                        <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Type product name" required />
+                                        <label htmlFor="user" className=" block mb-2 text-sm font-medium">Nombre de Usuario</label>
+                                        <input type="text" name="user" id="user" value={formData.user} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5" placeholder="Nombre de Usuario" required />
+                                    </div>
+                                    <div className="m-4 grid gap-4 mb-4 grid-cols-2">
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="name" className="block mb-2 text-sm font-medium">Nombres</label>
+                                            <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 " placeholder="Nombres" required />
+                                        </div>
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="last_name" className="block mb-2 text-sm font-medium">Apellidos</label>
+                                            <input type="text" id="last_name" name="last_name" value={formData.last_name} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Apellidos" required>
+                                            </input>
+                                        </div>
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
-                                        <label htmlFor="price" className="block mb-2 text-sm font-medium">Price</label>
-                                        <input type="number" name="price" id="price" value={formData.price} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 " placeholder="$2999" required />
+                                        <label htmlFor="email" className="block mb-2 text-sm font-medium">Correo Electrónico</label>
+                                        <input type="text" id="email" name="email" value={formData.email} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5" placeholder="Correo Electrónico" required>
+                                        </input>
+                                    </div>
+                                    <div className="m-4 grid gap-4 mb-4 grid-cols-2">
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="identity" className="block mb-2 text-sm font-medium">Tipo de Identificación</label>
+                                            <select id="identity" name="identity" value={formData.identity} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                                <option value=""></option>
+                                                <option value="CC">Cédula de Ciudadania</option>
+                                                <option value="CE">Cédula de Extranjeria</option>
+                                                <option value="PA">Pasaporte</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="user_id" className="block mb-2 text-sm font-medium">N° Identificación</label>
+                                            <input type="text" id="user_id" name="user_id" value={formData.user_id} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="N° Identificación" required>
+                                            </input>
+                                        </div>
+                                    </div>
+                                    <div className="m-4 grid gap-4 mb-4 grid-cols-2">
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="gender" className="block mb-2 text-sm font-medium">Género</label>
+                                            <select id="gender" name="gender" value={formData.gender} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                                <option value=""></option>
+                                                <option value="FE">Femenino</option>
+                                                <option value="MA">Masculino</option>
+                                                <option value="NB">No Binario</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="phone" className="block mb-2 text-sm font-medium">Teléfono</label>
+                                            <input type="phone" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Teléfono" required>
+                                            </input>
+                                        </div>
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
-                                        <label htmlFor="category" className="block mb-2 text-sm font-medium">Category</label>
-                                        <select id="category" name="category" value={formData.category} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5">
-                                            <option value="">Select category</option>
-                                            <option value="TV">TV/Monitors</option>
-                                            <option value="PC">PC</option>
-                                            <option value="GA">Gaming/Console</option>
-                                            <option value="PH">Phones</option>
-                                        </select>
+                                        <label htmlFor="address" className="block mb-2 text-sm font-medium">Dirección</label>
+                                        <input type="address" id="address" name="phone" value={formData.address} onChange={handleChange} className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5" placeholder="Dirección" required>
+                                        </input>
                                     </div>
-                                    <div className="col-span-2">
-                                        <label htmlFor="description" className="block mb-2 text-sm font-medium ">Product Description</label>
-                                        <textarea id="description" name="description" rows="4" value={formData.description} onChange={handleChange} className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 dark:placeholder-gray-400" placeholder="Write product description here"/>
-                                    </div>
+
                                 </div>
-                                <button type="submit" className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
-                                    Add new product
+                                <button type="submit" className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white">
+                                    <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+                                    </svg> Crear Usuario
                                 </button>
                             </form>
                         </div>
@@ -125,7 +230,7 @@ export function UsersList() {
 
                 <div>
                     <button type="button" onClick={openModal} className="text-gray-900 hover:text-white border hover:bg-gray-700 font-semibold rounded-full text-sm px-3 py-2 text-center me-2 mb-2 dark:border-gray-600  dark:text-white dark:bg-gray-600">
-                        <FontAwesomeIcon icon={faPlus} className="text-indigo-400 h-4 w-4" /> Agregar Usuario
+                        <FontAwesomeIcon icon={faPlus} className="text-indigo-400 h-4 w-4" /> Crear Usuario
                     </button>
                 </div>
 
@@ -189,27 +294,112 @@ export function UsersList() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {usuario.rol || '-'}
                             </td>
+
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {usuario.is_active || '-'}
+                                {usuario.is_active ?
+                                    <div className="flex items-center">
+                                        <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Activo
+                                    </div>
+                                    :
+                                    <div className="flex items-center">
+                                        <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> Inhabilitado
+                                    </div>
+                                }
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <button
-                                    type="button"
-                                    className="icon-button px-6 py-4"
-                                    onClick={handleEditClick}>
-                                    <FontAwesomeIcon icon={faPenToSquare} size="lg" style={{ color: "#d1a60a" }} />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="icon-button py-4"
-                                    onClick={handleEliminarClick}>
-                                    <FontAwesomeIcon icon={faUserMinus} size="lg" style={{ color: "#c80909" }} />
-                                </button>
+                                <div>
+                                    {usuario.is_active ?
+                                        <button
+                                            type="button"
+                                            className="icon-button px-6 py-4"
+                                            onClick={() => handleEditClick(usuario)}>
+                                            <FontAwesomeIcon icon={faPenToSquare} size="lg" style={{ color: "#F3D21A" }} />
+                                        </button>
+                                        :
+                                        <button
+                                            type="button"
+                                            className="icon-button px-6 py-4">
+                                            <FontAwesomeIcon icon={faPenToSquare} size="lg" style={{ color: "#645F5D" }} />
+                                        </button>
+                                    }
+
+                                    {usuario.is_active ?
+                                        <button
+                                            type="button"
+                                            className="icon-button py-4"
+                                            onClick={() => openConfirmation(usuario)}
+                                        >
+                                            <FontAwesomeIcon icon={faUserMinus} size="lg" style={{ color: "#F22828" }} />
+                                        </button>
+                                        :
+                                        <button
+                                            type="button"
+                                            className="icon-button py-4"
+                                            onClick={() => openConf(usuario)}>
+                                            <FontAwesomeIcon icon={faUserCheck} size="lg" style={{ color: "#74C0FC", }} />
+                                        </button>
+                                    }
+                                </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+
+            {isDisable && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeConfirmation}>
+                            <FontAwesomeIcon icon={faXmark} style={{color: "#000000",}} />
+                        </span>
+                        <h3 className="mb-5 text-lg font-normal text-gray-800">
+                            ¿Éstas seguro que deseas inhabilitar este usuario?
+                        </h3>
+                        <button onClick={handleInhabilitarClick}
+                            data-modal-hide="popup-modal"
+                            type="button"
+                            className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Sí, inhabilitar
+                        </button>
+                        <button onClick={closeConfirmation}
+                            data-modal-hide="popup-modal"
+                            type="button"
+                            className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            No, cancelar
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {isEnable && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeConf}>
+                            <FontAwesomeIcon icon={faXmark} style={{color: "#000000",}} />
+                        </span>
+                        <h3 className="mb-5 text-lg font-normal text-gray-800">
+                            ¿Éstas seguro que deseas habilitar este usuario?
+                        </h3>
+                        <button onClick={handleHabilitarClick}
+                            data-modal-hide="popup-modal"
+                            type="button"
+                            className="text-white border-blue-700 dark:bg-blue-500 dark:hover:bg-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Sí, habilitar
+                        </button>
+                        <button onClick={closeConf}
+                            data-modal-hide="popup-modal"
+                            type="button"
+                            className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            No, cancelar
+                        </button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
+
+
+

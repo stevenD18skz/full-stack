@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import login, authenticate
 from rest_framework.authtoken.models import Token
@@ -11,6 +12,7 @@ from rest_framework.exceptions import AuthenticationFailed
 
 from .models import Usuario
 from .serializers import UsuarioSerializer
+from rest_framework import status
 
 
 
@@ -54,7 +56,7 @@ class LoginView(APIView):
             usuario = request.data.get('username')
             password = request.data.get('password')
 
-            primer_usuario = Usuario.objects.get(username=usuario)
+            primer_usuario = Usuario.objects.get(username=usuario, password=password)
             serializer = UsuarioSerializer(primer_usuario)
             return Response(serializer.data)
 
@@ -69,8 +71,6 @@ class buscar_usuarios(APIView):
     permission_classes = [AllowAny]
 
 
-
-
     def get_queryset(self):
         nombre = self.request.GET.get('nombre', '')
         return Usuario.objects.filter(first_name__icontains=nombre).only('id', 'first_name', 'last_name')  # Seleccionar solo los campos específicos
@@ -79,30 +79,43 @@ class buscar_usuarios(APIView):
         usuarios = self.get_queryset()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
-    
-
-    """
-    def get(self, request):
-        nombre = request.GET.get('nombre', '')
-        primer_usuario = Usuario.objects.get(first_name=nombre)
-        serializer = UsuarioSerializer(primer_usuario)
-        return Response(serializer.data)
-        
-    
 
 
-        return Response({'saludo': 'ola'}, status=200)
-    """
+class inhabilidar_usuario(APIView):
+    permission_classes = [AllowAny]  
+    authentication_classes = [] 
+
+    def post(self, request):
+        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
+        username = request.data.get('username')
+
+        # Buscar el usuario en la base de datos
+        usuario = get_object_or_404(Usuario, username=username)
+
+        # Eliminar el usuario
+        usuario.is_active = False
+
+        usuario.save()
+
+        return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
+                        status=status.HTTP_200_OK)
 
 
-    """
-    nombre = request.GET.get('nombre', '')
-    correo = request.GET.get('correo', '')
+class habilidar_usuario(APIView):
+    permission_classes = [AllowAny]  
+    authentication_classes = [] 
 
-    # Se realiza la consulta a la base de datos
-    usuarios = Usuario.objects.filter(nombre__icontains=nombre, correo__icontains=correo)
+    def post(self, request):
+        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
+        username = request.data.get('username')
 
-    # Se serializan los datos para la respuesta
-    serializer = UsuarioSerializer(usuarios, many=True)
-    return Response(serializer.data)
-    """
+        # Buscar el usuario en la base de datos
+        usuario = get_object_or_404(Usuario, username=username)
+
+        # Eliminar el usuario
+        usuario.is_active = True
+
+        usuario.save()
+
+        return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
+                        status=status.HTTP_200_OK)
