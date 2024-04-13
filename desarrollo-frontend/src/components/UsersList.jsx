@@ -5,10 +5,6 @@ import axios from 'axios';
 import '../css/Modal.css';
 import Swal from "sweetalert2";
 
-
-/*
-EN REALIDAD ES UINA TABLA
-*/
 export function UsersList() {
     const [usuarios, setUsuarios] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
