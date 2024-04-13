@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPenToSquare, faUserMinus, faUserCheck, faCircleXmark, faXmark} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPenToSquare, faUserMinus, faUserCheck, faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/Modal.css';
+import Swal from "sweetalert2";
 
 
 /*
@@ -15,7 +16,7 @@ export function UsersList() {
     const [searchTerm, setSearchTerm] = useState('');
 
     const [isDisable, setisDisable] = useState(false);
-    const [isEnable,  setisEnable]  = useState(false);
+    const [isEnable, setisEnable] = useState(false);
     const [eliminate, setEliminate] = useState([]);
     const [availible, setAvailible] = useState([]);
 
@@ -121,11 +122,9 @@ export function UsersList() {
             "username": nombre_usuario
         })
 
-        async function loadUsuarios() {
-            const response = await axios.get('http://127.0.0.1:8000/api/users/')
-            setUsuarios(response.data.results);
-        }
-        loadUsuarios()
+        const responseU = axios.get('http://127.0.0.1:8000/api/users/')
+        setUsuarios(responseU.data.results);
+
         closeConf()
     };
 
@@ -350,7 +349,7 @@ export function UsersList() {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeConfirmation}>
-                            <FontAwesomeIcon icon={faXmark} style={{color: "#000000",}} />
+                            <FontAwesomeIcon icon={faXmark} style={{ color: "#000000", }} />
                         </span>
                         <h3 className="mb-5 text-lg font-normal text-gray-800">
                             ¿Éstas seguro que deseas inhabilitar este usuario?
@@ -375,7 +374,7 @@ export function UsersList() {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeConf}>
-                            <FontAwesomeIcon icon={faXmark} style={{color: "#000000",}} />
+                            <FontAwesomeIcon icon={faXmark} style={{ color: "#000000", }} />
                         </span>
                         <h3 className="mb-5 text-lg font-normal text-gray-800">
                             ¿Éstas seguro que deseas habilitar este usuario?
