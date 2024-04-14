@@ -11,7 +11,7 @@ from rest_framework.exceptions import AuthenticationFailed
 
 
 from .models import Usuario
-from .serializers import UsuarioSerializer
+from .serializers import UsuarioSerializer, UsuarioSerializerCreate
 from rest_framework import status
 
 
@@ -121,3 +121,19 @@ class habilitar_usuario(APIView):
 
         return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
                         status=status.HTTP_200_OK)
+
+
+
+class createUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        serializer = UsuarioSerializerCreate(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Se crea el usuario y se guarda en la base de datos
+        usuario = serializer.save()
+
+        # Se puede devolver información adicional en la respuesta
+        return Response({
+            "usuario": UsuarioSerializerCreate(usuario).data
+        })

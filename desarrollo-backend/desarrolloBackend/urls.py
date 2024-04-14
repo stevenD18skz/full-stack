@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario
+from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario, createUserView
 
 
 
@@ -19,4 +19,5 @@ urlpatterns = [
   path('api/usuarios/buscar/', buscar_usuarios.as_view()),
   path('inhabilitar/', inhabilitar_usuario.as_view()),
   path('habilitar/', habilitar_usuario.as_view()),
+  path('crear-usuario/', createUserView.as_view()),
 ]
