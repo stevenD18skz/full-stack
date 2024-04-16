@@ -11,7 +11,7 @@ class Rol(models.Model):
     descripcion = models.TextField()
 
     def str(self):
-        return self.nombre
+        return self.descripcion
 
 
 
@@ -27,9 +27,9 @@ class Usuario(AbstractUser):
 
 
     genero = models.CharField(max_length=1, choices=(
-        ('F', 'Female'),
-        ('M', 'Male'),
-        ('H', 'Helicopteer'),
+        ('F', 'Femenino'),
+        ('M', 'Mascuilo'),
+        ('B', 'Helicopteer'),
     ))
     
     direccion = models.CharField(max_length=255)
