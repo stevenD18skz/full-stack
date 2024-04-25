@@ -21,7 +21,6 @@ export function Navigation() {
     { name: 'Inicio', href: '/home', current: pathname === '/home' },
     { name: 'Usuarios', href: '/crud-users', current: pathname === '/crud-users' },
     { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
-    { name: 'Sobre nosotros', href: '/about', current: pathname === '/about' },
   ];
 
 
