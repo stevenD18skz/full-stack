@@ -2,11 +2,11 @@ import React from "react";
 import { Navigation } from "../components/Navigation";
 
 
-export function DashBoardPage() {
+export function CrudWorkPage() {
   return (
     <div>
       <Navigation></Navigation>
-      <h1>SOY LA PAGINA DE DASHBOARD</h1>
+      <h1>HOLAAAAAAAAAAAAAA</h1>
     </div>
   );
 };

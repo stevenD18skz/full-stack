@@ -5,7 +5,15 @@ import axios from 'axios';
 import '../css/Modal.css';
 import Swal from "sweetalert2";
 
-//ola hito hito no mi
+/*
+hay que acomomdar estoooooooooo,
+que si sea un comoponente no una pagina entera
+VER SI HACEMOS ESTO PAGINAAAAA
+Y SI NO HCAMOES NADA, CREO QUE GANSMO LA MATERIA SIN HACER MAS
+*/
+
+
+
 export function UsersList() {
   const [usuarios, setUsuarios] = useState([]);
   const [formData, setFormData] = useState({

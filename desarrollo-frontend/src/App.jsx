@@ -1,8 +1,14 @@
 import React from "react";  
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import { Login } from "./pages/Login";
+
+//IMPORTACION DE PAGINAS
+import { LoginPage } from "./pages/LoginPage";
+
+//CRUDS
 import { CrudUsersPage } from "./pages/CrudUsersPage";
-import { HomePage } from "./pages/HomePages";
+import { CrudWorkPage } from "./pages/CrudWorkPage";
+
+
 import { DashBoardPage } from "./pages/DashBoardPage";
 
 
@@ -11,10 +17,19 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to={'/logIn'} />} />
-        <Route path="/logIn" element={<Login/>} />
+        <Route path="/logIn" element={<LoginPage/>} />
+
+      {/*
+        direcciones para el Gerente
+      */}
         <Route path="/crud-users" element={<CrudUsersPage/>} />
-        <Route path="/home" element={<HomePage/>} />
+        <Route path="/crud-work" element={<CrudWorkPage/>} />
         <Route path="/dashboard" element={<DashBoardPage/>} />
+
+      {/*
+        direcciones para el Director de obra
+      */}
+
       </Routes>
     </BrowserRouter>
   )

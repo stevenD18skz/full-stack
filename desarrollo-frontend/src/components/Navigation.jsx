@@ -7,6 +7,10 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 
+/**
+ * EL BACKEND TIENE QUE HACER LO DE LAS IMAGENES
+ * PARA LA FOTO DEL USUARIO
+ */
 
 
 function classNames(...classes) {
@@ -18,9 +22,9 @@ export function Navigation() {
   const { pathname } = useLocation();
 
   const navigation = [
-    { name: 'Inicio', href: '/home', current: pathname === '/home' },
     { name: 'Usuarios', href: '/crud-users', current: pathname === '/crud-users' },
     { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
+    { name: 'Obras', href: '/crud-work', current: pathname === '/crud-work' },
   ];
 
 

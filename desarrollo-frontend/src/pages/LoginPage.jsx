@@ -5,8 +5,9 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
+//SI LA BIBLIA ES TAN BIUENA PORQUE NO SACAN LA BIBILIA 2???????
 
-export function Login() {
+export function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
