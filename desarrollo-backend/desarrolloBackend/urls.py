@@ -5,9 +5,14 @@ from rest_framework import routers
 from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario, createUserView
 
 
+from crud.views import ObraViewSet
+
+
 
 router = routers.DefaultRouter()
 router.register('api/users', UsuarioViewSet, 'nombra_urls_usuarios')
+router.register('api/obras', ObraViewSet)
+
 
 urlpatterns = [
   path('admin/', admin.site.urls),

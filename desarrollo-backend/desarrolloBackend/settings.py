@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     #App representantes de Modulos
-    'paginaDeInicio'
+    'paginaDeInicio',
+    'crud'
+
 ]
 
 MIDDLEWARE = [
