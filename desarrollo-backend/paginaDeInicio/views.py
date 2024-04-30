@@ -24,6 +24,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
    serializer_class = UsuarioSerializer
    permission_classes = []
    
+   
    @action(detail=True, methods=['get'])
    def get_name(self, request, pk=None):
     print(self.queryset)
@@ -79,9 +80,52 @@ class buscar_usuarios(APIView):
         usuarios = self.get_queryset()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
+    
 
 
 
+
+"""
+VISTA PARA EL UPDATE DEL USUARIO
+"""
+class updateView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+
+    def post(self, request):
+        pass
+
+
+
+
+
+
+
+"""
+VISTA PARA EL CREAR USUARIO
+"""
+class createUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        serializer = UsuarioSerializerCreate(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Se crea el usuario y se guarda en la base de datos
+        usuario = serializer.save()
+
+        # Se puede devolver información adicional en la respuesta
+        return Response({
+            "usuario": UsuarioSerializerCreate(usuario).data
+        })
+    
+
+
+
+
+"""
+VISTA PARA ELIMINAR USUARIO
+"""
 class inhabilitar_usuario(APIView):
     permission_classes = [AllowAny]  
     authentication_classes = [] 
@@ -121,19 +165,3 @@ class habilitar_usuario(APIView):
 
         return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
                         status=status.HTTP_200_OK)
-
-
-
-class createUserView(APIView):
-    def post(self, request, *args, **kwargs):
-        print(request.data)
-        serializer = UsuarioSerializerCreate(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        # Se crea el usuario y se guarda en la base de datos
-        usuario = serializer.save()
-
-        # Se puede devolver información adicional en la respuesta
-        return Response({
-            "usuario": UsuarioSerializerCreate(usuario).data
-        })

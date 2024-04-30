@@ -499,7 +499,7 @@ export function CrudUsersPage() {
           </div>
         </div>
 
-        <TableCrud indice={2}/>
+        <TableCrud indice={1}/>
 
         {isOpenEdit && (
           <div className="modal">

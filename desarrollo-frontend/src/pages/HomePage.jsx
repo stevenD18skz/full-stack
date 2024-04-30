@@ -1,16 +1,13 @@
 import React from "react";
 import { Navigation } from "../components/Navigation";
-import { TableCrud } from "../components/TableCrud";
 
 
-export function CrudWorkPage() {
+
+export function HomePage() {
   return (
     <div>
       <Navigation></Navigation>
-
-      <div className="p-6">
-        <TableCrud indice={2}/>
-      </div>
+      <h1 className="">HOMEEEEEEEEEE</h1>
       
       
     </div>

@@ -36,14 +36,16 @@ export function TableCrud({ indice }) {
         `http://127.0.0.1:8000/api/${nombre_dato}/`
       );
       setListaDatos(response.data.results);
+
+
+      console.log(response.data.results)
+
+
+
     }
     cargarUsuarios();
   }, []);
 
-  const filteredUsers = listaDatos.filter(
-    (dato) =>
-      dato.nombre.toLowerCase().includes("")
-  );
 
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -57,7 +59,7 @@ export function TableCrud({ indice }) {
         </tr>
       </thead>
       <tbody>
-        {filteredUsers.map((usuario) => (
+        {listaDatos.map((usuario) => (
           <tr
             key={usuario.id}
             className="border-b border-gray-200 hover:bg-slate-200"
