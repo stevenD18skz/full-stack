@@ -15,14 +15,7 @@ import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 
-/*
-hay que acomomdar estoooooooooo,
-que si sea un comoponente no una pagina entera
-VER SI HACEMOS ESTO PAGINAAAAA
-Y SI NO HCAMOES NADA, CREO QUE GANSMO LA MATERIA SIN HACER MAS
-*/
 
-//<center className='px-8 py-6 container-table-users'><UsersList className></UsersList></center>
 
 export function CrudUsersPage() {
   const [usuarios, setUsuarios] = useState([]);
