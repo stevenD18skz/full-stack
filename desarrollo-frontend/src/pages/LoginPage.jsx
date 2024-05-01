@@ -14,13 +14,10 @@ export function LoginPage() {
     const navigate = useNavigate();
 
     const verificate = async () => {
-
         try {
-
             if (username.length == 0 | password.length == 0 | username.length > 30) {
                 setError(true)
             }
-
             else {
                 const response = await axios.post("http://localhost:8000/login/", {
                     username,
@@ -29,8 +26,6 @@ export function LoginPage() {
                 setError(false)
                 navigate("/home");
             }
-
-
         } catch (error) {
             console.log("NO PUDE HACER EL POST");
             console.error(error.message);

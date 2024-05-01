@@ -31,7 +31,7 @@ export function CrudUsersPage() {
     genero: "",
     direccion: "",
     celular: "",
-    //rol: null
+    rol: 0
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpenCreate, setIsOpenCreate] = useState(false);
@@ -58,6 +58,7 @@ export function CrudUsersPage() {
   const openEdit = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenEdit(true);
+    console.log("olaaaaaaaaaa")
   };
 
   const closeEdit = () => {
@@ -86,7 +87,7 @@ export function CrudUsersPage() {
           title: "Usuario creado con exito",
         });
         async function loadUsuarios() {
-          closeCreate();
+          //closeCreate();
           const response = await axios.get("http://127.0.0.1:8000/api/users/");
           setUsuarios(response.data.results);
         }
@@ -104,97 +105,7 @@ export function CrudUsersPage() {
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.onmouseenter = Swal.stopTimer;
-      toast.onmouseleave = Swal.resumeTimer;
-    },
-  });
 
-  const toastInhabilitar = (sol) => {
-    Swal.fire({
-      title: `Estás seguro que quieres desactivar a ${sol.first_name}`,
-      text: "No podra acceder mas a la pagina",
-      icon: "warning",
-      showCancelButton: true,
-      cancelButtonText: "no",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Inhabilitar(sol);
-        Toast.fire({
-          icon: "success",
-          title: "Usuario inhabilitado con exito",
-        });
-      } else {
-        Toast.fire({
-          icon: "error",
-          title: "el usuario no se inhabilito",
-        });
-      }
-    });
-  };
-
-  const Inhabilitar = (sol) => {
-    async function loadUsuarios() {
-      console.log("Eliminar usuario con username:", sol.username);
-      const nombre_usuario = sol.username;
-      axios.post("http://127.0.0.1:8000/inhabilitar/", {
-        username: nombre_usuario,
-      });
-      const response = axios.get("http://127.0.0.1:8000/api/users/");
-      setUsuarios(response.data.results);
-    }
-    loadUsuarios();
-  };
-
-  const habilitar = (luna) => {
-    async function loadUsuarios() {
-      console.log("Eliminar usuario con username:", luna.username);
-      const nombre_usuario = luna.username;
-      axios.post("http://127.0.0.1:8000/habilitar/", {
-        username: nombre_usuario,
-      });
-
-      const response = axios.get("http://127.0.0.1:8000/api/users/");
-      setUsuarios(response.data.results);
-    }
-
-    loadUsuarios();
-  };
-
-  const toastHabilitar = (luna) => {
-    Swal.fire({
-      title: "Estas seguro",
-      text: `Vas a habilitar a ${luna.first_name}`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        habilitar(luna);
-        Toast.fire({
-          icon: "success",
-          title: "Usuario Habilitado con exito",
-        });
-      } else {
-        Toast.fire({
-          icon: "error",
-          title: "el usuario continuara Inhabilitado",
-        });
-      }
-    });
-  };
 
   return (
     <div>
@@ -354,7 +265,7 @@ export function CrudUsersPage() {
                         htmlFor="phone"
                         className="block mb-2 text-sm font-medium"
                       >
-                        Teléfono
+                        Celular
                       </label>
                       <input
                         type="phone"
@@ -393,7 +304,7 @@ export function CrudUsersPage() {
                           htmlFor="rol"
                           className="block mb-2 text-sm font-medium"
                         >
-                          Tipo de usuario
+                          Rol
                         </label>
                         <select
                           id="rol"
@@ -415,7 +326,7 @@ export function CrudUsersPage() {
                           htmlFor="phone"
                           className="block mb-2 text-sm font-medium"
                         >
-                          Teléfono
+                          Foto de perfil
                         </label>
                         <input
                           type="file"
@@ -490,9 +401,24 @@ export function CrudUsersPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+
+
+
         </div>
 
-        <TableCrud indice={1}/>
+
+
+
+        <TableCrud 
+          indice={1}
+          openEdit={openEdit}/>
+
+
+
+
+
+
+
 
         {isOpenEdit && (
           <div className="modal">
