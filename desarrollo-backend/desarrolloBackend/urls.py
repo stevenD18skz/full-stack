@@ -8,6 +8,10 @@ from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inh
 from crud.views import ObraViewSet
 
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 
 router = routers.DefaultRouter()
@@ -37,6 +41,6 @@ urlpatterns = [
   #URLS DEL CRUD
   #create
   #read
-  #update
+  #updateS
   #delete
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -151,3 +151,7 @@ REST_FRAMEWORK = {
 #]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+MEDIA_ROOT = BASE_DIR / "files"
+MEDIA_URL = "/media-files/"
