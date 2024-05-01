@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario, createUserView
+from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario, createUserView, updateView
 
 
 from crud.views import ObraViewSet
@@ -28,9 +28,14 @@ urlpatterns = [
   path('login/', LoginView.as_view()),
 
   #URLS DEL CRUD
+  #create
   path('crear-usuario/', createUserView.as_view()),
+  #read
   path('api/usuarios/buscar/', buscar_usuarios.as_view()),
   #update
+  path('update-usuario/', updateView.as_view()),
+
+  #delete
   path('inhabilitar/', inhabilitar_usuario.as_view()),
   path('habilitar/', habilitar_usuario.as_view()),
 

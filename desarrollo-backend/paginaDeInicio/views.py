@@ -80,6 +80,36 @@ class buscar_usuarios(APIView):
         usuarios = self.get_queryset()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
+
+
+
+
+
+
+
+"""
+VISTA PARA EL CREAR USUARIO
+"""
+class createUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+
+        contra = "password123"
+        request.data["password"] = contra
+
+        serializer = UsuarioSerializerCreate(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Se crea el usuario y se guarda en la base de datos
+        usuario = serializer.save()
+
+        # Se puede devolver información adicional en la respuesta
+        return Response({
+            "usuario": UsuarioSerializerCreate(usuario).data
+        })
+    
+
+
     
 
 
@@ -94,31 +124,35 @@ class updateView(APIView):
 
 
     def post(self, request):
-        pass
+        try:
+            user = Usuario.objects.get(email=request.data.get('email'))
+
+            print(f"\n\n\n\n============={user}\n\n\n")
+
+
+            user.username = request.data.get('username')
+
+
+            print(f"\n\n\n\n============={user}\n\n\n")
 
 
 
 
+            return Response({
+                "usuario": UsuarioSerializerCreate(user).data}, 
+                status=status.HTTP_200_OK
+            )
+
+        except:
+            return Response(
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        
+
+       
 
 
-
-"""
-VISTA PARA EL CREAR USUARIO
-"""
-class createUserView(APIView):
-    def post(self, request, *args, **kwargs):
-        print(request.data)
-        serializer = UsuarioSerializerCreate(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        # Se crea el usuario y se guarda en la base de datos
-        usuario = serializer.save()
-
-        # Se puede devolver información adicional en la respuesta
-        return Response({
-            "usuario": UsuarioSerializerCreate(usuario).data
-        })
-    
 
 
 

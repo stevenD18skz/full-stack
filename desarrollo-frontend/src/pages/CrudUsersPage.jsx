@@ -47,6 +47,19 @@ export function CrudUsersPage() {
     loadUsuarios();
   }, []);
 
+  
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
+
   const openCreate = () => {
     setIsOpenCreate(true);
   };
@@ -78,6 +91,9 @@ export function CrudUsersPage() {
     e.preventDefault();
     console.log(formData);
 
+    console.log(seleccionado);
+
+
     axios
       .post("http://127.0.0.1:8000/crear-usuario/", formData)
       .then((response) => {
@@ -87,7 +103,7 @@ export function CrudUsersPage() {
           title: "Usuario creado con exito",
         });
         async function loadUsuarios() {
-          //closeCreate();
+          closeCreate();
           const response = await axios.get("http://127.0.0.1:8000/api/users/");
           setUsuarios(response.data.results);
         }
@@ -97,6 +113,38 @@ export function CrudUsersPage() {
         console.error("Error al obtener los chats:", error);
       });
   };
+
+
+
+  const handleSubmitEdit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    console.log(seleccionado);
+
+
+    axios
+      .post("http://127.0.0.1:8000/update-usuario/", formData)
+      .then((response) => {
+        // Actualiza el estado con los datos de la respuesta
+        Toast.fire({
+          icon: "success",
+          title: "Usuario creado con exito",
+        });
+        async function loadUsuarios() {
+          closeCreate();
+          const response = await axios.get("http://127.0.0.1:8000/api/users/");
+          setUsuarios(response.data.results);
+        }
+        loadUsuarios();
+      })
+      .catch((error) => {
+        console.error("Error al obtener los chats:", error);
+      });
+  };
+
+
+
 
   const filteredUsers = usuarios.filter(
     (user) =>
@@ -430,7 +478,7 @@ export function CrudUsersPage() {
                   style={{ color: "#113778" }}
                 />
               </span>
-              <form className="p-4 md:p-5" onSubmit={handleSubmit}>
+              <form className="p-4 md:p-5" onSubmit={handleSubmitEdit}>
                 <div className="gap-4 mb-4 grid-cols-2">
                   <h3 className="pb-8 text-3xl">
                     Trabajador {seleccionado.first_name}
