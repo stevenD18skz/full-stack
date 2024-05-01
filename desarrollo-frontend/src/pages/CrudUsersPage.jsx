@@ -15,7 +15,7 @@ import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 
-//hola
+
 
 export function CrudUsersPage() {
   const [usuarios, setUsuarios] = useState([]);
