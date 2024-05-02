@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Navega al directorio del backend
-cd desarrollo-backend
+cd backend
 
 # Inicia el servidor Django
 python manage.py runserver

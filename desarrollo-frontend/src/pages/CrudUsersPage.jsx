@@ -142,17 +142,15 @@ export function CrudUsersPage() {
     <div>
       <Navigation></Navigation>
 
-      <div className="px-8 py-6  relative overflow-x-auto shadow-md sm:rounded-lg">
-
-
+      <div className="bg-slate-500 m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
 
         {isOpenCreate && (
             <Modal
               modalType="users"
+              closeCreate={closeCreate}
               formData={formData}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
-              closeCreate={closeCreate}
             />
         )}
 
@@ -435,7 +433,9 @@ export function CrudUsersPage() {
             </div>
           </div>
         )}
+
       </div>
+
     </div>
   );
 }
