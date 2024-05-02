@@ -9,7 +9,7 @@ export function CrudWorkPage() {
       <Navigation></Navigation>
 
       <div className="p-6">
-        <TableCrud indice={2}/>
+        <TableCrud index={2}/>
       </div>
       
       

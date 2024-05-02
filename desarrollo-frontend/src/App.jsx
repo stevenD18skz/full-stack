@@ -30,8 +30,6 @@ function App() {
         <Route path="/crud-work"  element={<CrudWorkPage/>} />
         <Route path="/dashboard"  element={<DashBoardPage/>} />
 
-
-
       {/*
         direcciones para el Director de obra
       */}

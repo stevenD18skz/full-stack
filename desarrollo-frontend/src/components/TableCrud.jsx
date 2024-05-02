@@ -16,35 +16,37 @@ import Swal from "sweetalert2";
 
 
 
-export function TableCrud({ openEdit, indice }) {
-  const [listaDatos, setListaDatos] = useState([]);
+export function TableCrud({ openEdit, index }) {
+  const [dataList, setDataList] = useState([]);
 
-  const datos = {
+  const data = {
     1: [
-      ["ID", "Nombre", "Apellido", "Email", "Rol", "Estado", ""],
-      "users",
-      ["id", "first_name", "last_name", "email", "rol"],
-      "is_active"
+      ["ID", "Nombre", "Apellido", "Email", "Rol", "Estado", ""], //titulo para las columnas de la tabla
+      "users", //
+      ["id", "first_name", "last_name", "email", "role_user"], //nombre de los atributos que se mostraran en la tabla
+      "is_active",
+      "username",//atributo que usar el desabilitar para buscar el objeto
     ],
     2: [
       ["ID", "Nombre", "Ubicacion", "Tipo", "Descripcion", "Estado", ""],
       "obras",
-      ["id", "nombre", "ubicacion", "tipo", 'descripcion'],
-      "habilitado"
+      ["id", "name_work", "location_work", "type_work", 'description_work'],
+      "habilitado",
+      "name_work"
     ],
   };
 
-  const titulos = datos[indice][0];
-  const nombre_dato = datos[indice][1];
+  const titles = data[index][0];
+  const dataName = data[index][1];
 
   useEffect(() => {
-    async function cargarUsuarios() {
+    async function load() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/${nombre_dato}/`
+        `http://127.0.0.1:8000/api/${dataName}/`
       );
-      setListaDatos(response.data.results);
+      setDataList(response.data.results);
     }
-    cargarUsuarios();
+    load();
   }, []);
 
 
@@ -62,59 +64,59 @@ export function TableCrud({ openEdit, indice }) {
   });
 
 
-  const Inhabilitar = (sol) => {
-    async function loadUsuarios() {
-      console.log("Eliminar usuario con username:", sol.username);
-      const nombre_usuario = sol.username;
+  const disable = (disableObject) => {
+    async function load() {
+      console.log("Eliminar usuario con username:", disableObject[data[index][4]]);
+      const objectName = disableObject[data[index][4]];
       axios.post("http://127.0.0.1:8000/inhabilitar/", {
-        username: nombre_usuario,
+        username: objectName,
       });
     }
-    loadUsuarios();
+    load();
   };
 
-  const toastInhabilitar = (sol) => {
+  const toastDisable = (disableObject) => {
     Swal.fire({
-      title: `Estás seguro que quieres desactivar a ${sol.first_name}`,
-      text: "No podra acceder mas a la pagina",
+      title: `¿Estás seguro que quieres desactivar a ${disableObject[data[index][4]]}?`,
+      text: "No podrá acceder a la plataforma",
       icon: "warning",
       showCancelButton: true,
-      cancelButtonText: "no",
+      cancelButtonText: "No, cancelar",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes!",
+      confirmButtonText: "Sí, inhabilitar",
     }).then((result) => {
       if (result.isConfirmed) {
-        Inhabilitar(sol);
+        disable(disableObject);
         Toast.fire({
           icon: "success",
-          title: "Usuario inhabilitado con exito",
+          title: "Usuario inhabilitado con éxito",
         });
       } else {
         Toast.fire({
           icon: "error",
-          title: "el usuario no se inhabilito",
+          title: "No fue posible inhabilitar al usuario",
         });
       }
     });
   };
 
 
-  const habilitar = (luna) => {
-    async function loadUsuarios() {
-      console.log("Eliminar usuario con username:", luna.username);
-      const nombre_usuario = luna.username;
+  const enable = (enableObject) => {
+    async function load() {
+      console.log("Eliminar usuario con username:", enableObject[data[index][4]]);
+      const objectName = enableObject[data[index][4]];
       axios.post("http://127.0.0.1:8000/habilitar/", {
-        username: nombre_usuario,
+        username: objectName,
       });
     }
-    loadUsuarios();
+    load();
   };
 
-  const toastHabilitar = (luna) => {
+  const toastEnable = (enableObject) => {
     Swal.fire({
-      title: "Estas seguro",
-      text: `Vas a habilitar a ${luna.first_name}`,
+      title: "¿Estás seguro?",
+      text: `Vas a habilitar a ${enableObject[data[index][4]]}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -123,15 +125,15 @@ export function TableCrud({ openEdit, indice }) {
       cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
-        habilitar(luna);
+        enable(enableObject);
         Toast.fire({
           icon: "success",
-          title: "Usuario Habilitado con exito",
+          title: "Usuario habilitado con éxito",
         });
       } else {
         Toast.fire({
           icon: "error",
-          title: "el usuario continuara Inhabilitado",
+          title: "El usuario continuará inhabilitado",
         });
       }
     });
@@ -145,30 +147,31 @@ export function TableCrud({ openEdit, indice }) {
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          {titulos.map((titulo) => (
-            <th scope="col" className="px-6 py-3" key={titulo}>
-              {titulo}
+          {titles.map((title) => (
+            <th scope="col" className="px-6 py-3" key={title}>
+              {title}
             </th>
           ))}
         </tr>
+        
       </thead>
       <tbody>
-        {listaDatos.map((usuario) => (
+        {dataList.map((currentObject) => (
           <tr
-            key={usuario.id}
+            key={currentObject.id}
             className="border-b border-gray-200 hover:bg-slate-200"
           >
-            {datos[indice][2].map((item, i) => (
+            {data[index][2].map((item, i) => (
               <td
                 key={i}
                 className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
               >
-                {usuario[item]}
+                {currentObject[item]}
               </td>
             ))}
 
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {usuario[datos[indice][3]] ? (
+              {currentObject[data[index][3]] ? (
                 <div className="flex items-center">
                   <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>{" "}
                   Habilitado
@@ -184,11 +187,11 @@ export function TableCrud({ openEdit, indice }) {
 
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <div>
-                {usuario[datos[indice][3]] ? (
+                {currentObject[data[index][3]] ? (
                   <button
                     type="button"
                     className="icon-button px-6 py-4"
-                    onClick={() => openEdit(usuario)}
+                    onClick={() => openEdit(currentObject)}
                   >
                     <FontAwesomeIcon
                       icon={faPenToSquare}
@@ -206,11 +209,11 @@ export function TableCrud({ openEdit, indice }) {
                   </button>
                 )}
 
-                {usuario[datos[indice][3]] ? (
+                {currentObject[data[index][3]] ? (
                   <button
                     type="button"
                     className="icon-button py-4"
-                    onClick={() => toastInhabilitar(usuario)}
+                    onClick={() => toastDisable(currentObject)}
                   >
                     <FontAwesomeIcon
                       icon={faUserMinus}
@@ -222,7 +225,7 @@ export function TableCrud({ openEdit, indice }) {
                   <button
                     type="button"
                     className="icon-button py-4"
-                    onClick={() => toastHabilitar(usuario)}
+                    onClick={() => toastEnable(currentObject)}
                   >
                     <FontAwesomeIcon
                       icon={faUserCheck}
@@ -233,8 +236,6 @@ export function TableCrud({ openEdit, indice }) {
                 )}
               </div>
             </td>
-
-            
           </tr>
         ))}
       </tbody>
