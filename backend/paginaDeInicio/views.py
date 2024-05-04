@@ -176,8 +176,23 @@ class inhabilitar_usuario(APIView):
 
         usuario.save()
 
-        return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
-                        status=status.HTTP_200_OK)
+        
+
+        
+
+        usuarios = User.objects.all()
+
+        
+
+        usuarios_restantes = User.objects.all()
+        serializer = UsuarioSerializer(usuarios_restantes, many=True)
+        #print(f"===================================={serializer}")
+
+        return Response({
+            "mensaje": f"El usuario {username} ha sido eliminado correctamente.",
+            "resultados": serializer.data
+            },
+            status=status.HTTP_200_OK)
     
 
 
@@ -197,5 +212,10 @@ class habilitar_usuario(APIView):
 
         usuario.save()
 
-        return Response({"mensaje": f"El usuario {username} ha sido eliminado correctamente."},
+        usuarios_restantes = User.objects.all()
+        serializer = UsuarioSerializer(usuarios_restantes, many=True)
+
+        return Response({
+            "mensaje": f"El usuario {username} ha sido eliminado correctamente.",
+            "resultados": serializer.data},
                         status=status.HTTP_200_OK)

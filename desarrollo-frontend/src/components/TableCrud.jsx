@@ -42,6 +42,7 @@ export function TableCrud({ openEdit, index }) {
         `http://127.0.0.1:8000/api/${dataName}/`
       );
       setDataList(response.data.results);
+      console.log(response.data.results)
     }
     loadUsers();
   }, []);
@@ -65,34 +66,31 @@ export function TableCrud({ openEdit, index }) {
     async function postDisable() {
       console.log("Eliminar usuario con username:", disableObject[data[index][4]]);
       const objectName = disableObject[data[index][4]];
-      axios.post("http://127.0.0.1:8000/inhabilitar/", {
+      await axios.post("http://127.0.0.1:8000/inhabilitar/", {
         username: objectName,
       });
     }
-    postDisable();
-
-
 
     async function loadUsers() {
-      const response =  await axios.get(`http://127.0.0.1:8000/api/${dataName}/`);
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/${dataName}/`
+      );
       console.log(response.data.results)
-      console.log("ya cargueeeeeeeee")
+      setDataList(response.data.results)
     }
-    setTimeout(() => {
-      loadUsers();
-    }, 1000);
-
+    
     async function handleDisable() {
       const result = await postDisable();
-      console.log("Resultado de la deshabilitación:", result);
+      console.log("ya termine de deshabilitar");
+      loadUsers()
     }
-
     handleDisable()
-    
 
 
 
-    
+
+
+
   };
 
   const toastDisable = (disableObject) => {
@@ -125,7 +123,7 @@ export function TableCrud({ openEdit, index }) {
 
 
 
-  const enable = (enableObject) => {
+  async function enable(enableObject) {
     async function postEnable() {
       console.log("Eliminar usuario con username:", enableObject[data[index][4]]);
       const objectName = enableObject[data[index][4]];
@@ -133,7 +131,21 @@ export function TableCrud({ openEdit, index }) {
         username: objectName,
       });
     }
-    postEnable();
+    
+    async function loadUsers() {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/${dataName}/`
+      );
+      console.log(response.data.results)
+      setDataList(response.data.results)
+    }
+    
+    async function handleDisable() {
+      const result = await postEnable();
+      console.log("ya termine de deshabilitar");
+      loadUsers()
+    }
+    handleDisable()
   };
 
   const toastEnable = (enableObject) => {
