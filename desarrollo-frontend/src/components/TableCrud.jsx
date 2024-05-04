@@ -15,7 +15,6 @@ import Swal from "sweetalert2";
 
 export function TableCrud({ openEdit, index }) {
   const [dataList, setDataList] = useState([]);
-
   const data = {
     1: [
       ["ID", "Nombre", "Apellido", "Email", "Rol", "Estado", ""], //titulo para las columnas de la tabla
@@ -32,18 +31,19 @@ export function TableCrud({ openEdit, index }) {
       "name_work"
     ],
   };
-
   const titles = data[index][0];
   const dataName = data[index][1];
 
+
+
   useEffect(() => {
-    async function load() {
+    async function loadUsers() {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/${dataName}/`
       );
       setDataList(response.data.results);
     }
-    load();
+    loadUsers();
   }, []);
 
 
@@ -62,18 +62,19 @@ export function TableCrud({ openEdit, index }) {
 
 
   async function disable(disableObject) {
-    async function load() {
+    async function postDisable() {
       console.log("Eliminar usuario con username:", disableObject[data[index][4]]);
       const objectName = disableObject[data[index][4]];
       axios.post("http://127.0.0.1:8000/inhabilitar/", {
         username: objectName,
       });
     }
-    load();
+    postDisable();
+
+
 
     async function loadUsers() {
       const response =  await axios.get(`http://127.0.0.1:8000/api/${dataName}/`);
-      setDataList(response.data.results)
       console.log(response.data.results)
       console.log("ya cargueeeeeeeee")
     }
@@ -81,12 +82,18 @@ export function TableCrud({ openEdit, index }) {
       loadUsers();
     }, 1000);
 
+    async function handleDisable() {
+      const result = await postDisable();
+      console.log("Resultado de la deshabilitación:", result);
+    }
+
+    handleDisable()
+    
+
 
 
     
   };
-
-
 
   const toastDisable = (disableObject) => {
     Swal.fire({
@@ -115,15 +122,18 @@ export function TableCrud({ openEdit, index }) {
   };
 
 
+
+
+
   const enable = (enableObject) => {
-    async function load() {
+    async function postEnable() {
       console.log("Eliminar usuario con username:", enableObject[data[index][4]]);
       const objectName = enableObject[data[index][4]];
       axios.post("http://127.0.0.1:8000/habilitar/", {
         username: objectName,
       });
     }
-    load();
+    postEnable();
   };
 
   const toastEnable = (enableObject) => {
