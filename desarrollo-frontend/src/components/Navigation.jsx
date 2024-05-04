@@ -9,10 +9,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-/**
- * EL BACKEND TIENE QUE HACER LO DE LAS IMAGENES
- * PARA LA FOTO DEL USUARIO
- */
 
 
 function classNames(...classes) {
@@ -33,7 +29,7 @@ export function Navigation() {
   useEffect(() => {
     async function loadUsuarios() {
       const response = await axios.get("http://127.0.0.1:8000/api/users/1/");
-      setUserPhoto(response.data.fotografia);
+      setUserPhoto(response.data.photo_user);
     }
     loadUsuarios();
 

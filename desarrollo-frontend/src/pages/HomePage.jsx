@@ -12,7 +12,8 @@ export function HomePage() {
   useEffect(() => {
     async function loadUsuarios() {
       const response = await axios.get("http://127.0.0.1:8000/api/users/1/");
-      setUserPhoto(response.data.fotografia);
+      console.log(response.data)
+      setUserPhoto(response.data.photo_user);
     }
     loadUsuarios();
 

@@ -1,11 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlus,
   faPenToSquare,
   faUserMinus,
   faUserCheck,
-  faCircleXmark,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -64,7 +61,7 @@ export function TableCrud({ openEdit, index }) {
   });
 
 
-  const disable = (disableObject) => {
+  async function disable(disableObject) {
     async function load() {
       console.log("Eliminar usuario con username:", disableObject[data[index][4]]);
       const objectName = disableObject[data[index][4]];
@@ -73,7 +70,23 @@ export function TableCrud({ openEdit, index }) {
       });
     }
     load();
+
+    async function loadUsers() {
+      const response =  await axios.get(`http://127.0.0.1:8000/api/${dataName}/`);
+      setDataList(response.data.results)
+      console.log(response.data.results)
+      console.log("ya cargueeeeeeeee")
+    }
+    setTimeout(() => {
+      loadUsers();
+    }, 1000);
+
+
+
+    
   };
+
+
 
   const toastDisable = (disableObject) => {
     Swal.fire({

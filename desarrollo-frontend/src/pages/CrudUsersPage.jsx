@@ -63,7 +63,6 @@ export function CrudUsersPage() {
   const openEdit = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenEdit(true);
-    console.log("olaaaaaaaaaa");
   };
 
   const closeEdit = () => {
@@ -142,7 +141,7 @@ export function CrudUsersPage() {
     <div>
       <Navigation></Navigation>
 
-      <div className="bg-slate-500 m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
 
         {isOpenCreate && (
             <Modal
