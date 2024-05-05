@@ -67,7 +67,7 @@ export function CrudUsersPage() {
 
 
     //aqui el formData debe de llenarse con la informacion del usaurio 
-    console.log(usuario.email)
+    console.log(usuario)
     console.log(formData)
 
 
