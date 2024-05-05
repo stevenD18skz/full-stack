@@ -21,7 +21,7 @@ export default function ModalView({closeView}) {
     "last_name": "cantillo",
     "password": "qwerty",
     "phone_user": "3187091429",
-    "photo_user": null,
+    "photo_user": "http://127.0.0.1:8000/media-files/imagenes/anaGato.jpeg",
     "role_user": "Director de obra",
     "user_permissions": [3],
     "username": "ansoft",
@@ -36,6 +36,7 @@ export default function ModalView({closeView}) {
           X
         </span>
         <h1>{usuario.first_name}</h1>
+        <img src={usuario.photo_user} alt="Foto del usuario" width="100" height="100"/>
       </div>
     </div>
   );
