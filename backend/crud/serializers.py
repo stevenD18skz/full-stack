@@ -25,4 +25,3 @@ class TareasSerializer(serializers.ModelSerializer):
 
 
 
-# serializador, vista de tareas
