@@ -121,23 +121,26 @@ VISTA PARA EL UPDATE DEL USUARIO
 class updateView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
+    
+
+    def get(self, request):
+        print(f"{'*'*80}{request.data.get('email')}{'*'*80}")
+        user = User.objects.get(email=request.data.get('email'))
+        return Response({
+            "usuario": UsuarioSerializerCreate(user).data}, 
+            status=status.HTTP_200_OK
+        )
+
+
+
 
 
     def post(self, request):
         try:
             user = User.objects.get(email=request.data.get('email'))
-
             print(f"\n\n\n\n============={user}\n\n\n")
-
-
             user.username = request.data.get('username')
-
-
             print(f"\n\n\n\n============={user}\n\n\n")
-
-
-
-
             return Response({
                 "usuario": UsuarioSerializerCreate(user).data}, 
                 status=status.HTTP_200_OK

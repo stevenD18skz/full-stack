@@ -9,6 +9,7 @@ import "../css/Modal.css";
 import Swal from "sweetalert2";
 import ModalUsers from "../components/ModalUsers";
 import Modal from "../components/Modal";
+import ModalView from "../components/ModalView";
 
 export function CrudUsersPage() {
   const [usuarios, setUsuarios] = useState([]);
@@ -17,7 +18,7 @@ export function CrudUsersPage() {
     first_name: "",
     last_name: "",
     email: "",
-    //password: "",
+    password: "",
     photo_user: null,
     doc_type_user: "",
     doc_number_user: "",
@@ -26,9 +27,10 @@ export function CrudUsersPage() {
     phone_user: "",
     role_user: 0,
   });
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm]     = useState("");
   const [isOpenCreate, setIsOpenCreate] = useState(false);
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenEdit, setIsOpenEdit]     = useState(false);
+  const [isOpenView, setIsOpenView]     = useState(false);
 
   const [seleccionado, setSeleccionado] = useState();
 
@@ -60,8 +62,28 @@ export function CrudUsersPage() {
     setIsOpenCreate(false);
   };
 
-  const openEdit = (usuario) => {
+  async function openEdit(usuario) {
     setSeleccionado(usuario);
+
+
+    //aqui el formData debe de llenarse con la informacion del usaurio 
+    console.log(usuario.email)
+    console.log(formData)
+
+
+    const response = await axios.get("http://127.0.0.1:8000/update-usuario/", {
+      "email": "laura.horta@correunivalle.edu.co"
+    })
+
+
+    console.log(response)
+    console.log(formData)
+
+
+    
+
+
+
     setIsOpenEdit(true);
   };
 
@@ -69,9 +91,17 @@ export function CrudUsersPage() {
     setIsOpenEdit(false);
   };
 
+  const openView = (usuario) => {
+    setSeleccionado(usuario);
+    setIsOpenView(true);
+  };
+
+  const closeView = () => {
+    setIsOpenView(false);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -80,9 +110,6 @@ export function CrudUsersPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-
-    console.log(seleccionado);
 
     axios
       .post("http://127.0.0.1:8000/crear-usuario/", formData)
@@ -100,20 +127,17 @@ export function CrudUsersPage() {
         loadUsuarios();
       })
       .catch((error) => {
-        console.error("Error al obtener los chats:", error);
+        console.error("Error al crear el usuario:", error);
       });
   };
 
   const handleSubmitEdit = (e) => {
+    console.log(formData)
+
     e.preventDefault();
-    console.log(formData);
-
-    console.log(seleccionado);
-
     axios
       .post("http://127.0.0.1:8000/update-usuario/", formData)
       .then((response) => {
-        // Actualiza el estado con los datos de la respuesta
         Toast.fire({
           icon: "success",
           title: "Usuario creado con exito",
@@ -125,8 +149,11 @@ export function CrudUsersPage() {
         }
         loadUsuarios();
       })
+
+
+
       .catch((error) => {
-        console.error("Error al obtener los chats:", error);
+        console.error("Error al editar el usaurio:", error);
       });
   };
 
@@ -141,8 +168,8 @@ export function CrudUsersPage() {
     <div>
       <Navigation></Navigation>
 
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
-
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">   
+        {/* MODAL DE CREAR USUARIO */}
         {isOpenCreate && (
             <Modal
               modalType="users"
@@ -150,13 +177,13 @@ export function CrudUsersPage() {
               formData={formData}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
+              crudType="create"
             />
         )}
 
-
-
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
           <div>
+            {/* BOTON DE CREAR USUARIO */}
             <button
               type="button"
               onClick={openCreate}
@@ -197,244 +224,28 @@ export function CrudUsersPage() {
           </div>
         </div>
 
-        <TableCrud index={1} openEdit={openEdit} />
+        <TableCrud index={1} openEdit={openEdit} openView={openView} />
 
+        {/* MODAL DE EDITAR USUARIO */}
         {isOpenEdit && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={closeEdit}>
-                <FontAwesomeIcon
-                  icon={faCircleXmark}
-                  size="lg"
-                  style={{ color: "#113778" }}
-                />
-              </span>
-              <form className="p-4 md:p-5" onSubmit={handleSubmitEdit}>
-                <div className="gap-4 mb-4 grid-cols-2">
-                  <h3 className="pb-8 text-3xl">
-                    Trabajador {seleccionado.first_name}
-                  </h3>
-                  <div className="col-span-2">
-                    <label
-                      htmlFor="user"
-                      className=" block mb-2 text-sm font-medium"
-                    >
-                      Nombre de Usuario
-                    </label>
-                    <input
-                      type="text"
-                      name="user"
-                      id="user"
-                      value={formData.user}
-                      onChange={handleChange}
-                      className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-                      placeholder={seleccionado.username}
-                      required
-                    />
-                  </div>
-                  <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="name"
-                        className="block mb-2 text-sm font-medium"
-                      >
-                        Nombres
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={formData.first_name}
-                        onChange={handleChange}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 "
-                        placeholder={seleccionado.first_name}
-                        required
-                      />
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="last_name"
-                        className="block mb-2 text-sm font-medium"
-                      >
-                        Apellidos
-                      </label>
-                      <input
-                        type="text"
-                        id="last_name"
-                        name="last_name"
-                        value={formData.last_name}
-                        onChange={handleChange}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                        placeholder={seleccionado.last_name}
-                        required
-                      ></input>
-                    </div>
-                  </div>
-                  <div className="col-span-2 sm:col-span-1">
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium"
-                    >
-                      Correo Electrónico
-                    </label>
-                    <input
-                      type="text"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-                      placeholder={seleccionado.email}
-                      required
-                    ></input>
-                  </div>
-                  <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="identity"
-                        className="block mb-2 text-sm font-medium"
-                      >
-                        Tipo de Identificación
-                      </label>
-                      <select
-                        id="identity"
-                        name="identity"
-                        value={formData.identity}
-                        onChange={handleChange}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                      >
-                        <option value=""></option>
-                        <option value="CC">Cédula de Ciudadania</option>
-                        <option value="CE">Cédula de Extranjeria</option>
-                        <option value="PA">Pasaporte</option>
-                      </select>
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="user_id"
-                        className="block mb-2 text-sm font-medium"
-                      >
-                        N° Identificación
-                      </label>
-                      <input
-                        type="text"
-                        id="user_id"
-                        name="user_id"
-                        value={formData.user_id}
-                        onChange={handleChange}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                        placeholder={seleccionado.nro_identificacion}
-                        required
-                      ></input>
-                    </div>
-                  </div>
-                  <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="gender"
-                        className="block mb-2 text-sm font-medium"
-                      >
-                        Género
-                      </label>
-                      <select
-                        id="gender"
-                        name="gender"
-                        value={formData.gender}
-                        onChange={handleChange}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                      >
-                        <option value=""></option>
-                        <option value="F">Femenino</option>
-                        <option value="M">Masculino</option>
-                        <option value="B">No Binario</option>
-                      </select>
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="phone"
-                        className="block mb-2 text-sm font-medium"
-                      >
-                        Teléfono
-                      </label>
-                      <input
-                        type="phone"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                        placeholder={seleccionado.celular}
-                        required
-                      ></input>
-                    </div>
-                  </div>
-                  <div className="col-span-2 sm:col-span-1">
-                    <label
-                      htmlFor="address"
-                      className="block mb-2 text-sm font-medium"
-                    >
-                      Dirección
-                    </label>
-                    <input
-                      type="address"
-                      id="address"
-                      name="phone"
-                      value={formData.address}
-                      onChange={handleChange}
-                      className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-                      placeholder={seleccionado.direccion}
-                      required
-                    ></input>
-                  </div>
-
-                  <div className="col-span-2 sm:col-span-1">
-                    <label
-                      htmlFor="gender"
-                      className="block mb-2 text-sm font-medium"
-                    >
-                      Género
-                    </label>
-                    <select
-                      id="gender"
-                      name="rol"
-                      value={formData.rol}
-                      onChange={handleChange}
-                      className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-                    >
-                      <option value=""></option>
-                      <option value="gerente">gerente</option>
-                      <option value="dirctor de obra">dirctor de obra</option>
-                      <option value="capataz">capataz</option>
-                      <option value="peon">peon</option>
-                      <option value="ayudante">ayudante</option>
-                    </select>
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
-                >
-                  <svg
-                    className="me-1 -ms-1 w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>{" "}
-                  Crear Usuario
-                </button>
-              </form>
-            </div>
-          </div>
+            <Modal
+              modalType="users"
+              closeCreate={closeEdit}
+              formData={formData} 
+              setFormData={setFormData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmitEdit}
+              usuario={seleccionado}
+              crudType="edit"
+            />
         )}
 
+        {isOpenView && (
+          <ModalView
+          closeView={closeView}
+          />
+        )}
       </div>
-
     </div>
   );
 }

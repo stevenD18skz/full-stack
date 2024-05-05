@@ -6,17 +6,24 @@ export default function Modal({
   modalType,
   closeCreate,
   formData,
+  setFormData,
   handleChange,
   handleSubmit,
+  usuario,
+  crudType
 }) {
   const showInfoModal = (modalType) => {
     switch (modalType) {
       case "users":
         return (
           <ModalUsers
+            modalType={modalType}
             formData={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            usuario={usuario}
+            crudType={crudType}
+            setFormData={setFormData}
           />
         );
       case "works":

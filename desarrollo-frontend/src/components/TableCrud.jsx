@@ -3,6 +3,7 @@ import {
   faPenToSquare,
   faUserMinus,
   faUserCheck,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -11,9 +12,7 @@ import Swal from "sweetalert2";
 
 
 
-
-
-export function TableCrud({ openEdit, index }) {
+export function TableCrud({ openEdit, index, openView }) {
   const [dataList, setDataList] = useState([]);
   const data = {
     1: [
@@ -27,7 +26,7 @@ export function TableCrud({ openEdit, index }) {
       ["ID", "Nombre", "Ubicacion", "Tipo", "Descripcion", "Estado", ""],
       "obras",
       ["id", "name_work", "location_work", "type_work", 'description_work'],
-      "habilitado",
+      "enabled_work",
       "name_work"
     ],
   };
@@ -42,7 +41,6 @@ export function TableCrud({ openEdit, index }) {
         `http://127.0.0.1:8000/api/${dataName}/`
       );
       setDataList(response.data.results);
-      console.log(response.data.results)
     }
     loadUsers();
   }, []);
@@ -64,7 +62,6 @@ export function TableCrud({ openEdit, index }) {
 
   async function disable(disableObject) {
     async function postDisable() {
-      console.log("Eliminar usuario con username:", disableObject[data[index][4]]);
       const objectName = disableObject[data[index][4]];
       await axios.post("http://127.0.0.1:8000/inhabilitar/", {
         username: objectName,
@@ -75,23 +72,19 @@ export function TableCrud({ openEdit, index }) {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/${dataName}/`
       );
-      console.log(response.data.results)
       setDataList(response.data.results)
     }
     
     async function handleDisable() {
       const result = await postDisable();
-      console.log("ya termine de deshabilitar");
       loadUsers()
     }
     handleDisable()
 
 
 
-
-
-
   };
+
 
   const toastDisable = (disableObject) => {
     Swal.fire({
@@ -125,7 +118,6 @@ export function TableCrud({ openEdit, index }) {
 
   async function enable(enableObject) {
     async function postEnable() {
-      console.log("Eliminar usuario con username:", enableObject[data[index][4]]);
       const objectName = enableObject[data[index][4]];
       axios.post("http://127.0.0.1:8000/habilitar/", {
         username: objectName,
@@ -136,13 +128,11 @@ export function TableCrud({ openEdit, index }) {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/${dataName}/`
       );
-      console.log(response.data.results)
       setDataList(response.data.results)
     }
     
     async function handleDisable() {
       const result = await postEnable();
-      console.log("ya termine de deshabilitar");
       loadUsers()
     }
     handleDisable()
@@ -225,7 +215,7 @@ export function TableCrud({ openEdit, index }) {
                 {currentObject[data[index][3]] ? (
                   <button
                     type="button"
-                    className="icon-button px-6 py-4"
+                    className="icon-button p-4"
                     onClick={() => openEdit(currentObject)}
                   >
                     <FontAwesomeIcon
@@ -235,7 +225,7 @@ export function TableCrud({ openEdit, index }) {
                     />
                   </button>
                 ) : (
-                  <button type="button" className="icon-button px-6 py-4">
+                  <button type="button" className="icon-button p-4">
                     <FontAwesomeIcon
                       icon={faPenToSquare}
                       size="lg"
@@ -247,7 +237,7 @@ export function TableCrud({ openEdit, index }) {
                 {currentObject[data[index][3]] ? (
                   <button
                     type="button"
-                    className="icon-button py-4"
+                    className="icon-button p-4"
                     onClick={() => toastDisable(currentObject)}
                   >
                     <FontAwesomeIcon
@@ -259,7 +249,7 @@ export function TableCrud({ openEdit, index }) {
                 ) : (
                   <button
                     type="button"
-                    className="icon-button py-4"
+                    className="icon-button p-4"
                     onClick={() => toastEnable(currentObject)}
                   >
                     <FontAwesomeIcon
@@ -269,6 +259,30 @@ export function TableCrud({ openEdit, index }) {
                     />
                   </button>
                 )}
+
+                {currentObject[data[index][3]] ? (
+                 <button
+                 type ="button"
+                 className="icon-button p-4"
+                 onClick={openView}
+                  >
+                  <FontAwesomeIcon 
+                  icon={faEye}
+                  size="lg"
+                  style={{color: "#6e4398",}} />
+                  </button>  
+                ) : (
+                  <button
+                  type="button"
+                  className="icon-button p-4"
+                  >
+                    <FontAwesomeIcon
+                    icon={faEye}
+                    size="lg"
+                    style={{color: "#645F5D",}}/>
+                  </button>  
+                )}
+
               </div>
             </td>
           </tr>

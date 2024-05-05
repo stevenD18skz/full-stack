@@ -1,8 +1,45 @@
-export default function ModalUsers({ formData, handleChange, handleSubmit }) {
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+export default function ModalUsers({ formData, setFormData, handleChange, handleSubmit, crudType, usuario = {} }) {
+
+  const [selectedDocument, setSelectedDocument] = useState(usuario.doc_type_user);
+  const [selectedGender, setSelectedGender] = useState(usuario.gender_user);
+  const [selectedRole, setSelectedRole] = useState(usuario.role_user);
+
+
+  
+  const guardarTipoDocumento = (e) => {
+    //console.log(tipo)
+    //setSelectedDocument(tipo);
+    //formData.doc_type_user = tipo
+
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+
+  const [userPhoto, setUserPhoto] = useState([]);
+  useEffect(() => {
+    async function loadUsuarios() {
+      const response = await axios.get("http://127.0.0.1:8000/api/users/1/");
+      setUserPhoto(response.data.photo_user);
+    }
+    loadUsuarios();
+
+  }, []);
+
+
+
   return (
-    <form className="p-4 md:p-5" onSubmit={handleSubmit}>
+    <form 
+    className="p-4 md:p-5" 
+    onSubmit={handleSubmit}>
       <div className="gap-4 mb-4 grid-cols-2">
-        <h3 className="pb-8 text-3xl">Crear Usuario</h3>
+        <h3 className="pb-8 text-3xl">{crudType === "create" ? "Crear usuario" : "Editar usuario" } </h3>
 
         <div className="col-span-2">
           <label htmlFor="user" className=" block mb-2 text-sm font-medium">
@@ -15,8 +52,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
             value={formData.username}
             onChange={handleChange}
             className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-            placeholder="Nombre de Usuario"
-            required
+            placeholder={crudType === "create" ? "Nombre de Usuario" : usuario.username  }    
+            {...(crudType === "create" ? { required: true } : {})}
           />
         </div>
 
@@ -32,8 +69,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               value={formData.first_name}
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder="Nombres"
-              required
+              placeholder={crudType === "create" ? "Nombres" : usuario.first_name  } 
+              {...(crudType === "create" ? { required: true } : {})}
             />
           </div>
 
@@ -51,8 +88,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               value={formData.last_name}
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder="Apellidos"
-              required
+              placeholder={crudType === "create" ? "Apellidos" : usuario.last_name  } 
+              {...(crudType === "create" ? { required: true } : {})}
             ></input>
           </div>
         </div>
@@ -67,8 +104,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
             value={formData.email}
             onChange={handleChange}
             className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-            placeholder="Correo Electrónico"
-            required
+            placeholder={crudType === "create" ? "Correo electronico" : usuario.email } 
+            {...(crudType === "create" ? { required: true } : {})}
           ></input>
         </div>
 
@@ -76,11 +113,12 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
           <div className="col-span-2 sm:col-span-1">
             <label
               htmlFor="identity"
-              className="block mb-2 text-sm font-medium"
-            >
+              className="block mb-2 text-sm font-medium">
               Tipo de Identificación
             </label>
-            <select
+
+            {crudType === "create" ? 
+            ( <select
               id="doc_type_user"
               name="doc_type_user"
               value={formData.doc_type_user}
@@ -91,7 +129,20 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               <option value="CC">Cédula de Ciudadania</option>
               <option value="CE">Cédula de Extranjeria</option>
               <option value="PA">Pasaporte</option>
-            </select>
+            </select>) 
+            :
+            ( <select
+              id="doc_type_user"
+              name="doc_type_user"
+              value= {selectedDocument}
+              onChange={(e) => {guardarTipoDocumento(e)}}
+              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              >
+              <option value=""></option>
+              <option value="CC">Cédula de Ciudadania</option>
+              <option value="CE">Cédula de Extranjeria</option>
+              <option value="PA">Pasaporte</option>
+              </select>)  }
           </div>
           <div className="col-span-2 sm:col-span-1">
             <label htmlFor="user_id" className="block mb-2 text-sm font-medium">
@@ -104,8 +155,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               value={formData.doc_number_user}
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder="N° Identificación"
-              required
+              placeholder={crudType === "create" ? "N° identificacion" : usuario.doc_number_user } 
+              {...(crudType === "create" ? { required: true } : {})}
             ></input>
           </div>
         </div>
@@ -114,7 +165,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
             <label htmlFor="gender" className="block mb-2 text-sm font-medium">
               Género
             </label>
-            <select
+            {crudType === "create" ? 
+            ( <select
               id="gender_user"
               name="gender_user"
               value={formData.gender_user}
@@ -124,8 +176,19 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               <option value=""></option>
               <option value="F">Femenino</option>
               <option value="M">Masculino</option>
-              <option value="B">No Binario</option>
-            </select>
+            </select>) 
+            :
+            ( <select
+              id="gender_user"
+              name="gender_user"
+              value={selectedGender}
+              onChange={(e) => {guardarTipoDocumento(e)}}
+              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            >
+              <option value=""></option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+            </select>)  }
           </div>
           <div className="col-span-2 sm:col-span-1">
             <label htmlFor="phone" className="block mb-2 text-sm font-medium">
@@ -138,8 +201,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               value={formData.phone_user}
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder="Teléfono"
-              required
+              placeholder={crudType === "create" ? "Celular" : usuario.phone_user } 
+              {...(crudType === "create" ? { required: true } : {})}
             ></input>
           </div>
         </div>
@@ -154,8 +217,8 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
             value={formData.address_user}
             onChange={handleChange}
             className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-            placeholder="Dirección"
-            required
+            placeholder={crudType === "create" ? "Direccion" : usuario.address_user  } 
+            {...(crudType === "create" ? { required: true } : {})}
           ></input>
         </div>
         <div className="col-span-2 sm:col-span-1">
@@ -164,20 +227,36 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
               <label htmlFor="rol" className="block mb-2 text-sm font-medium">
                 Rol
               </label>
-              <select
-                id="role_user"
-                name="role_user"
-                value={formData.role_user}
-                onChange={handleChange}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="1">gerente</option>
-                <option value="2">dirctor de obra</option>
-                <option value="3">capataz</option>
-                <option value="4">peon</option>
-                <option value="5">ayudante</option>
-              </select>
+              {crudType === "create" ? 
+            (  <select
+              id="role_user"
+              name="role_user"
+              value={formData.role_user}
+              onChange={handleChange}
+              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            >
+              <option value=""></option>
+              <option value="1">Gerente</option>
+              <option value="2">Director de obra</option>
+              <option value="3">Capataz</option>
+              <option value="4">Peon</option>
+              <option value="5">Ayudante</option>
+            </select>) 
+            :
+            (  <select
+              id="role_user"
+              name="role_user"
+              value={selectedRole}
+              onChange={(e) => {guardarTipoDocumento(e)}}
+              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            >
+              <option value=""></option>
+              <option value="1">Gerente</option>
+              <option value="2">Director de obra</option>
+              <option value="3">Capataz</option>
+              <option value="4">Peon</option>
+              <option value="5">Ayudante</option>
+            </select>)  }
             </div>
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="phone" className="block mb-2 text-sm font-medium">
@@ -210,8 +289,10 @@ export default function ModalUsers({ formData, handleChange, handleSubmit }) {
             clipRule="evenodd"
           />
         </svg>{" "}
-        Crear Usuario
+        {crudType === "create" ? "Crear usuario" : "Editar usuario"  }
       </button>
+
+      <img src={userPhoto} alt="Foto del usuario" width="100" height="100"/>
     </form>
   );
 }
