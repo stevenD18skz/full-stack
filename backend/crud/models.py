@@ -2,7 +2,6 @@ from django.db import models
 from paginaDeInicio.models import User
 
 
-
 class Work(models.Model):
     # Clave primaria
     id = models.AutoField(primary_key=True)
@@ -33,7 +32,6 @@ class Work(models.Model):
 
     # Indica si la obra está habilitada
     enabled_work = models.BooleanField(default=True)
-
 
 
 
@@ -76,6 +74,35 @@ class Task(models.Model):
     # Indica si la tarea está habilitada
     task_enabled = models.BooleanField(default=True)
 
+
+
+
+
+class TaskProgress(models.Model):
+    # Clave primaria
+    id = models.AutoField(primary_key=True)
+
+    # Descripción del del avance realizado
+    task_progress_description = models.CharField(max_length=700)
+
+    # Porcentaje de avance de la tarea 
+    task_progress = models.FloatField()
+
+    # Fotografías que documentan el progreso 
+    progress_photos = models.ImageField(upload_to='imagenes/', blank=True, null=True)
+
+    # Necesidades para continuar con la tarea
+    task_progress_needs = models.CharField(max_length=500)
+
+    # Revision
+    inspection = models.BooleanField(default=False)
+
+    # Clave foránea para id_multimedi_avance
+    
+
+    # Fecha en que se registra el progreso
+    #date_recorded = models.DateTimeField(auto_now_add=True)
+    
     
     
 
