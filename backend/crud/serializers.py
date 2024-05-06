@@ -1,26 +1,24 @@
 from rest_framework import serializers
 from .models import Work
 from .models import Task
+from .models import TaskProgress
 
-class ObraSerializer(serializers.ModelSerializer):
-    #nombre = serializers.CharField(source='get_full_name', read_only=True)
-    #id_director = serializers.SlugRelatedField(read_only=True, slug_field='first_name')
-    #id_tarea = serializers.SlugRelatedField(read_only=True, slug_field='Tarea')
-    #id_usuarios = serializers.SlugRelatedField(read_only=True, slug_field='first_name')
-   
+class WorkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Work
         fields = '__all__'
 
 
-class TareasSerializer(serializers.ModelSerializer):
-    #nombre_obra = serializers.CharField(source='id_obra.nombre', read_only=True)
-    #nombre_capataz = serializers.CharField(source='id_capataz.first_name', read_only=True)
-    #trabajadores_asignados = serializers.ManyRelatedField(source='id_trabajadores', read_only=True)
-
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
+
+
+class TaskProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskProgress
+        fields = '__all__' 
 
 
 
