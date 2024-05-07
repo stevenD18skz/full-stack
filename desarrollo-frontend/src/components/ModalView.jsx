@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../css/ModalView.css";
 import axios from "axios";
 
 export default function ModalView({closeView}) {
-
 
   const usuario = {
     "address_user": "calle 22N",
@@ -32,11 +34,21 @@ export default function ModalView({closeView}) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <span className="close" onClick={closeView}>
-          X
-        </span>
-        <h1>{usuario.first_name}</h1>
-        <img src={usuario.photo_user} alt="Foto del usuario" width="100" height="100"/>
+        {/* <span className="close" onClick={closeView}>
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            size="lg"
+            style={{ color: "#6e4398" }}
+          />
+        </span> */}
+        <div className ="card">
+          <div className="photo">
+            <img src={usuario.photo_user} alt="Foto del usuario" className="profile"/>
+          </div>
+          <center><h2 className="profile-name">{usuario.first_name} {usuario.last_name}</h2></center>
+          <center><p class="about">{usuario.role_user}</p></center>
+          <center><button class="btn" onClick={closeView}>Cerrar</button></center>
+        </div>
       </div>
     </div>
   );

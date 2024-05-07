@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap");
+* {
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
+.photo {
+  position: relative;
+  background: #716EDF;
+  background-size: cover;
+  height: 180px;
+  border-radius: 5px 5px 0 0;
+}
+
+.profile {
+  position: absolute;
+  width: 120px;
+  bottom: -60px;
+  left: 169px;
+  border-radius: 40%;
+  border: 2px;
+  background: white;
+  padding: 5px;
+}
+
+.profile-name {
+  font-size: 25px;
+  margin-top: 65px;
+  font-family: Montserrat;
+  font-weight: bold;
+}
+
+.about {
+  font-size: 15px;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: #6e4398;
+}
+
+.btn {
+  margin: 30px 15px;
+  background: #716EDF;
+  padding: 10px 25px;
+  border-radius: 10px;
+  border: 1px solid #716EDF;
+  font-weight: bold;
+  font-family: Montserrat;
+  cursor: pointer;
+  color: #222;
+  transition: 0.2s;
+}
+
+.btn:last-of-type {
+  background: transparent;
+  border-color: #716EDF;
+  color: #716EDF;
+}
+
+.btn:hover {
+  background: #716EDF;
+  color: white;
+}
+css modalview
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}

@@ -65,7 +65,7 @@ export function CrudUsersPage() {
   async function openEdit(usuario) {
     setSeleccionado(usuario);
 
-
+    /*
     //aqui el formData debe de llenarse con la informacion del usaurio 
     console.log(usuario)
     console.log(formData)
@@ -77,7 +77,7 @@ export function CrudUsersPage() {
 
 
     console.log(response)
-    console.log(formData)
+    console.log(formData)*/
 
 
     
