@@ -5,18 +5,18 @@ from rest_framework import routers
 from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario, createUserView, updateView
 
 
-from crud.views import ObraViewSet
+from crud.views import WorkViewSet
 
 
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+#ola laura 
 
 
 router = routers.DefaultRouter()
 router.register('api/users', UsuarioViewSet, 'nombra_urls_usuarios')
-router.register('api/obras', ObraViewSet)
+router.register('api/obras', WorkViewSet)
 
 
 urlpatterns = [
@@ -41,7 +41,7 @@ urlpatterns = [
 
 
   #Urls de las obras
-  path('api/obras/por-director/{id_director}/', ObraViewSet.as_view({'get': 'filtrar_por_director'})),
+  path('api/obras/por-director/{id_director}/', WorkViewSet.as_view({'get': 'filtrar_por_director'})),
 
   #URLS DEL CRUD
   #create

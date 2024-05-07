@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import generics
-from django.http import HTTP_STATUS_CODE
+from rest_framework import status
 
 #importacion obras
 from .models import Work
@@ -12,28 +12,6 @@ from .serializers import WorkSerializer
 from .serializers import TaskSerializer
 from .serializers import TaskProgressSerializer
 
-
-
-class WorkViewSet(viewsets.ModelViewSet):
-    queryset = Work.objects.all()
-    serializer_class = WorkSerializer
-
-    # Permisos para la vista
-    permission_classes = [
-        #permissions.IsAuthenticated,
-        #permissions.IsAdminOrReadOnly,
-    ]
-
-    @action(detail=True, methods=['get'])
-    def filtrar_por_director(self, request, id_manager_work):
-        # Filtrar obras por ID del director
-        obras_filtradas = Work.objects.filter(id_manager_work=id_manager_work)
-
-        # Serializar las obras filtradas
-        serializer = ObraSerializer(obras_filtradas, many=True)
-
-        # Devolver la respuesta con las obras filtradas
-        return Response(serializer.data)
 
 
 class WorkViewSet(viewsets.ModelViewSet):
@@ -111,7 +89,7 @@ class WorkViewSet(viewsets.ModelViewSet):
         self.perform_destroy(obj)
 
         # Devolver una respuesta simple indicando que el objeto se eliminó
-        return Response(status_code=HTTP_STATUS_CODE['NO_CONTENT'])
+        return Response(status=status.HTTP_301_MOVED_PERMANENTLY)
 
 
 
@@ -179,7 +157,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         self.perform_destroy(obj)
 
         # Devolver una respuesta simple indicando que el objeto se eliminó
-        return Response(status_code=HTTP_STATUS_CODE['NO_CONTENT'])
+        return Response(status=status.HTTP_200_OK)
 
 
 
@@ -246,4 +224,4 @@ class TaskProgressViewSet(viewsets.ModelViewSet):
         self.perform_destroy(obj)
 
         # Devolver una respuesta simple indicando que el objeto se eliminó
-        return Response(status_code=HTTP_STATUS_CODE['NO_CONTENT'])
+        return Response(status=status.HTTP_200_OK)
