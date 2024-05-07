@@ -80,16 +80,23 @@ class WorkViewSet(viewsets.ModelViewSet):
         # Devolver la respuesta con el objeto actualizado
         return Response(serializer.data)
 
-    # Método para eliminar un objeto existente
-    def destroy(self, request, pk=None):
-        # Obtener el objeto con el ID especificado
+    # Método para deshabilitar un objeto existente
+    def disable(self, request, pk=None):
+
+        # Obtener el objeto con la clave primaria especificada
         obj = self.get_object()
 
-        # Eliminar el objeto de la base de datos
-        self.perform_destroy(obj)
+        # Verificar si el usuario tiene permisos para deshabilitar el objeto
+        # (Agregar verificación de permisos aquí si es necesario)
 
-        # Devolver una respuesta simple indicando que el objeto se eliminó
-        return Response(status=status.HTTP_301_MOVED_PERMANENTLY)
+        # Deshabilitar el objeto
+        obj.is_active = False
+        obj.save()
+
+        # Devolver una respuesta JSON con un mensaje que confirma la deshabilitación
+        return Response({
+        "mensaje": f"La tarea {obj.nombre} ha sido deshabilitada correctamente.",
+        }, status=status.HTTP_200_OK)
 
 
 
@@ -148,16 +155,23 @@ class TaskViewSet(viewsets.ModelViewSet):
         # Devolver la respuesta con el objeto actualizado
         return Response(serializer.data)
 
-    # Método para eliminar un objeto existente
-    def destroy(self, request, pk=None):
-        # Obtener el objeto con el ID especificado
+    # Método para deshabilitar un objeto existente
+    def disable(self, request, pk=None):
+
+        # Obtener el objeto con la clave primaria especificada
         obj = self.get_object()
 
-        # Eliminar el objeto de la base de datos
-        self.perform_destroy(obj)
+        # Verificar si el usuario tiene permisos para deshabilitar el objeto
+        # (Agregar verificación de permisos aquí si es necesario)
 
-        # Devolver una respuesta simple indicando que el objeto se eliminó
-        return Response(status=status.HTTP_200_OK)
+        # Deshabilitar el objeto
+        obj.is_active = False
+        obj.save()
+
+        # Devolver una respuesta JSON con un mensaje que confirma la deshabilitación
+        return Response({
+        "mensaje": f"La tarea {obj.nombre} ha sido deshabilitada correctamente.",
+        }, status=status.HTTP_200_OK)
 
 
 
@@ -215,13 +229,20 @@ class TaskProgressViewSet(viewsets.ModelViewSet):
         # Devolver la respuesta con el objeto actualizado
         return Response(serializer.data)
     
-    # Método para eliminar un objeto existente
-    def destroy(self, request, pk=None):
-        # Obtener el objeto con el ID especificado
+    # Método para deshabilitar un objeto existente
+    def disable(self, request, pk=None):
+
+        # Obtener el objeto con la clave primaria especificada
         obj = self.get_object()
 
-        # Eliminar el objeto de la base de datos
-        self.perform_destroy(obj)
+        # Verificar si el usuario tiene permisos para deshabilitar el objeto
+        # (Agregar verificación de permisos aquí si es necesario)
 
-        # Devolver una respuesta simple indicando que el objeto se eliminó
-        return Response(status=status.HTTP_200_OK)
+        # Deshabilitar el objeto
+        obj.is_active = False
+        obj.save()
+
+        # Devolver una respuesta JSON con un mensaje que confirma la deshabilitación
+        return Response({
+        "mensaje": f"La tarea {obj.nombre} ha sido deshabilitada correctamente.",
+        }, status=status.HTTP_200_OK)
