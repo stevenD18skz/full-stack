@@ -7,6 +7,8 @@ Backend: Django y Django REST Framework
 
 # Funcionalidades:
 
+#ola tonotos
+
 Inicio: Visualización de información general de la constructora, proyectos destacados y noticias.
 Proyectos: Listado de proyectos con filtros, detalles de cada proyecto, gestión de tareas y documentos.
 Clientes: Registro y gestión de clientes, visualización de sus proyectos y contratos.
