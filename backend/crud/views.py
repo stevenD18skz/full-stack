@@ -14,6 +14,8 @@ from .serializers import TaskProgressSerializer
 
 #Hola lindo
 
+#hola satanas mi señor
+
 class WorkViewSet(viewsets.ModelViewSet):
     queryset = Work.objects.all()
     serializer_class = WorkSerializer
