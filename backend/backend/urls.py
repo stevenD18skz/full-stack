@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, inhabilitar_usuario, habilitar_usuario, createUserView, updateView
+from paginaDeInicio.views import UsuarioViewSet, LoginView, buscar_usuarios, chageEstateUser, createUserView, updateView
 
 
 from crud.views import WorkViewSet
@@ -16,29 +16,39 @@ from django.conf.urls.static import static
 
 
 router = routers.DefaultRouter()
-router.register('api/users', UsuarioViewSet, 'nombra_urls_usuarios')
-router.register('api/obras', WorkViewSet)
+router.register('users', UsuarioViewSet)
+router.register('works', WorkViewSet)
 
 
 urlpatterns = [
   path('admin/', admin.site.urls),
   path('', include(router.urls)),
 
+
+  #path('usuarios/', UsuarioViewSet.as_view({'get': 'list', 'post': 'create'}), name='usuarios-list'),
+  #path('usuarios/<int:pk>/', UsuarioViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='usuarios-detail'),
+
+
+
+
   #Urls del Usuario
-  path('api/users/<int:pk>/name/', UsuarioViewSet.as_view({'get': 'get_name'})),
+  path('users/<int:pk>/name/', UsuarioViewSet.as_view({'get': 'get_name'})),
   path('login/', LoginView.as_view()),
 
   #URLS DEL CRUD
   #create
-  path('crear-usuario/', createUserView.as_view()),
+  path('users/create/', createUserView.as_view()),
   #read
-  path('api/usuarios/buscar/', buscar_usuarios.as_view()),
+  path('users/serch/',  buscar_usuarios.as_view()),
   #update
-  path('update-usuario/', updateView.as_view()),
-
+  path('users/update/', updateView.as_view()),
   #delete
-  path('inhabilitar/', inhabilitar_usuario.as_view()),
-  path('habilitar/', habilitar_usuario.as_view()),
+  path('users/change/', chageEstateUser.as_view()),
+
+
+
+
+
 
 
   #Urls de las obras

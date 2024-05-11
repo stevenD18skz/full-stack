@@ -26,6 +26,14 @@ export function Navigation() {
 
 
   const [userPhoto, setUserPhoto] = useState([]);
+  
+  /**
+   * Función asíncrona que carga la foto de un usuario específico.
+   * 
+   * 
+   * @return {Promise<void>} Promesa que se resuelve cuando se carga la foto del usuario.
+   *   
+   * */
   useEffect(() => {
     async function loadUsuarios() {
       const response = await axios.get("http://127.0.0.1:8000/api/users/1/");

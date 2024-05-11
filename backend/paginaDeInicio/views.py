@@ -163,62 +163,29 @@ class updateView(APIView):
 """
 VISTA PARA ELIMINAR USUARIO
 """
-class inhabilitar_usuario(APIView):
-    permission_classes = [AllowAny]  
-    authentication_classes = [] 
+class chageEstateUser(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request):
-        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
+        # Suponiendo que pasas el nombre de usuario y la acción en el cuerpo de la solicitud
         username = request.data.get('username')
+        action = request.data.get('action')  # 'inhabilitar' o 'habilitar'
 
         # Buscar el usuario en la base de datos
         usuario = get_object_or_404(User, username=username)
 
-        # Inhabilitar el usuario
-        usuario.is_active = False
+        if action == 'inhabilitar':
+            usuario.is_active = False
+        elif action == 'habilitar':
+            usuario.is_active = True
+        else:
+            raise ValueError(f"Acción inválida: {action}")
 
         usuario.save()
 
-        
-
-        
-
-        usuarios = User.objects.all()
-
-        
-
-        usuarios_restantes = User.objects.all()
-        serializer = UsuarioSerializer(usuarios_restantes, many=True)
-        #print(f"===================================={serializer}")
-
+        serializer = UsuarioSerializer(User.objects.all(), many=True)
         return Response({
-            "mensaje": f"El usuario {username} ha sido eliminado correctamente.",
+            "mensaje": f"El usuario {username} ha sido {action}do correctamente.",
             "resultados": serializer.data
-            },
-            status=status.HTTP_200_OK)
-    
-
-
-class habilitar_usuario(APIView):
-    permission_classes = [AllowAny]  
-    authentication_classes = [] 
-
-    def post(self, request):
-        # Suponiendo que pasas el nombre de usuario en el cuerpo de la solicitud
-        username = request.data.get('username')
-
-        # Buscar el usuario en la base de datos
-        usuario = get_object_or_404(User, username=username)
-
-        # Habilitar el usuario
-        usuario.is_active = True
-
-        usuario.save()
-
-        usuarios_restantes = User.objects.all()
-        serializer = UsuarioSerializer(usuarios_restantes, many=True)
-
-        return Response({
-            "mensaje": f"El usuario {username} ha sido eliminado correctamente.",
-            "resultados": serializer.data},
-                        status=status.HTTP_200_OK)
+        }, status=status.HTTP_200_OK)

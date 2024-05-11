@@ -10,5 +10,8 @@ python manage.py runserver
 # Navega al directorio del frontend
 cd desarrollo-frontend
 
+#para inicializar el proyecto despues de clonarlo
+npm i
+
 # Inicia el servidor de desarrollo React
 npm run dev
