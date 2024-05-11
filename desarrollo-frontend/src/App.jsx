@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 //IMPORTACION DE PAGINAS
-import { LoginPage } from "./pages/loginPage";
+import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 
 //CRUDS
@@ -17,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to={'/logIn'} />} />
+        <Route path="/" element={<Navigate to={'/logln'} />} />
         <Route path="/logIn" element={<LoginPage/>} />
         <Route path="/home"  element={<HomePage/>} />
 
