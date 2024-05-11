@@ -1,12 +1,6 @@
 
 #!/bin/bash
 
-# Navega al directorio del backend
-cd backend
-
-# Inicia el servidor Django
-python manage.py runserver
-
 # Navega al directorio del frontend
 cd desarrollo-frontend
 
@@ -15,3 +9,10 @@ npm i
 
 # Inicia el servidor de desarrollo React
 npm run dev
+
+# Navega al directorio del backend
+cd backend
+
+# Inicia el servidor Django
+python manage.py runserver
+
