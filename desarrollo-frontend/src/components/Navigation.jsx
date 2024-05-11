@@ -26,7 +26,7 @@ export function Navigation() {
 
 
   const [userPhoto, setUserPhoto] = useState([]);
-  
+
   /**
    * Función asíncrona que carga la foto de un usuario específico.
    * 
@@ -104,6 +104,9 @@ export function Navigation() {
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
+
+
+                  
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
@@ -115,6 +118,10 @@ export function Navigation() {
                       />
                     </Menu.Button>
                   </div>
+
+
+
+
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"

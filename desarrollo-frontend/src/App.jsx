@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 //IMPORTACION DE PAGINAS
-import { LoginPage } from "./pages/LoginPage";
+import { LoginPage } from "./pages/loginPage";
 import { HomePage } from "./pages/HomePage";
 
 //CRUDS

@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigation } from "../components/Navigation";
 
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -24,7 +25,7 @@ export function HomePage() {
   return (
     <div>
       <Navigation></Navigation>
-      <h1 className="">HOMEEEEEEEEEE</h1>
+      <h1 className="text-center">HOMEEEEEEEEEE</h1>
       <img src={userPhoto} alt="Foto del usuario" width="100" height="100"/>
 
       
