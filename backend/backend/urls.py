@@ -33,7 +33,7 @@ urlpatterns = [
   #Urls del Usuario
   path('login/', LoginView.as_view()),
 
-  
+
 
   #URLS DEL CRUD
   #create
