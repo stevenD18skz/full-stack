@@ -1,8 +1,9 @@
 from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.decorators import action
 from rest_framework import generics
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import action
+
 
 #importacion obras
 from .models import Work
@@ -11,6 +12,7 @@ from .models import TaskProgress
 from .serializers import WorkSerializer
 from .serializers import TaskSerializer
 from .serializers import TaskProgressSerializer
+
 
 class WorkViewSet(viewsets.ModelViewSet):
     queryset = Work.objects.all()
@@ -78,9 +80,9 @@ class WorkViewSet(viewsets.ModelViewSet):
         # Devolver la respuesta con el objeto actualizado
         return Response(serializer.data)
 
+
     # Método para deshabilitar un objeto existente
     def disable(self, request, pk=None):
-
         # Obtener el objeto con la clave primaria especificada
         obj = self.get_object()
 
@@ -95,7 +97,6 @@ class WorkViewSet(viewsets.ModelViewSet):
         return Response({
         "mensaje": f"La tarea {obj.nombre} ha sido deshabilitada correctamente.",
         }, status=status.HTTP_200_OK)
-
 
 
 

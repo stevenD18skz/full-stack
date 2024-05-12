@@ -20,10 +20,7 @@ class Work(models.Model):
 
     # Descripción de la obra
     description_work = models.CharField(max_length=500)
-
-    # Clave foránea para la tarea asociada a la obra
-    #id_tareas = models.ForeignKey("tarea", on_delete=models.CASCADE, null=True, blank=True)
-
+    
     # Clave foránea para los usuarios asignados a la obra
     id_user_work = models.ManyToManyField(User, related_name='obras_asignadas')
 
@@ -32,6 +29,10 @@ class Work(models.Model):
 
     # Indica si la obra está habilitada
     enabled_work = models.BooleanField(default=True)
+
+
+    def str(self):
+        return self.name_work
 
 
 
@@ -52,9 +53,6 @@ class Task(models.Model):
 
     # Clave foránea para id de Trabajadores
     id_workers = models.ManyToManyField(User, related_name="tareas_asignadas")
-    
-    # Clave foránea para id de Avances 
-    #id_avances = models.ForeignKey("Avance-tarea", on_delete=models.CASCADE, null=True, blank=True)
 
     # Tipo de tarea
     task_type = models.CharField(max_length=500)

@@ -16,3 +16,9 @@ cd backend
 # Inicia el servidor Django
 python manage.py runserver
 
+
+#MIGRACIONES BACKEND
+python manage.py makemigrations
+
+python manage.py migrate 
+

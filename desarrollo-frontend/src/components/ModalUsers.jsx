@@ -10,10 +10,6 @@ export default function ModalUsers({ formData, setFormData, handleChange, handle
 
   
   const guardarTipoDocumento = (e) => {
-    //console.log(tipo)
-    //setSelectedDocument(tipo);
-    //formData.doc_type_user = tipo
-
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -21,16 +17,6 @@ export default function ModalUsers({ formData, setFormData, handleChange, handle
     }));
   };
 
-
-  const [userPhoto, setUserPhoto] = useState([]);
-  useEffect(() => {
-    async function loadUsuarios() {
-      const response = await axios.get("http://127.0.0.1:8000/api/users/1/");
-      setUserPhoto(response.data.photo_user);
-    }
-    loadUsuarios();
-
-  }, []);
 
 
 
@@ -291,8 +277,6 @@ export default function ModalUsers({ formData, setFormData, handleChange, handle
         </svg>{" "}
         {crudType === "create" ? "Crear usuario" : "Editar usuario"  }
       </button>
-
-      <img src={userPhoto} alt="Foto del usuario" width="100" height="100"/>
     </form>
   );
 }
