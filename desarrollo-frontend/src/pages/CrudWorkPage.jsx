@@ -7,12 +7,9 @@ export function CrudWorkPage() {
   return (
     <div>
       <Navigation></Navigation>
-
       <div className="p-6">
-        <TableCrud index={2}/>
+      <TableCrud index={2} />
       </div>
-      
-      
     </div>
   );
 };

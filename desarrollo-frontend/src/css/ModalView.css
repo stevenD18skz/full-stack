@@ -5,7 +5,7 @@ margin: 0;
 box-sizing: border-box;
 }
 
-.photo {
+.photo-container {
   position: relative;
   background: #716EDF;
   background-size: cover;
@@ -16,11 +16,10 @@ box-sizing: border-box;
 .profile {
   position: absolute;
   width: 120px;
-  bottom: -60px;
-  left: 169px;
+  bottom: -40px;
+  left: 185px;
   border-radius: 40%;
   border: 2px;
-  background: white;
   padding: 5px;
 }
 
@@ -32,6 +31,7 @@ box-sizing: border-box;
 }
 
 .about {
+  margin-top: 5px;
   font-size: 15px;
   font-family: Montserrat;
   font-weight: bold;

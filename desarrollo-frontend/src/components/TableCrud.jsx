@@ -24,12 +24,13 @@ export function TableCrud({ openEdit, index, openView }) {
     ],
     2: [
       ["ID", "Nombre", "Ubicacion", "Tipo", "Descripcion", "Estado", ""],
-      "obras",
+      "works",
       ["id", "name_work", "location_work", "type_work", 'description_work'],
       "enabled_work",
       "name_work"
     ],
   };
+
   const titles = data[index][0];
   const dataName = data[index][1];
 
@@ -38,7 +39,7 @@ export function TableCrud({ openEdit, index, openView }) {
   useEffect(() => {
     async function loadUsers() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/${dataName}/`
+        `http://127.0.0.1:8000/${dataName}/`
       );
       setDataList(response.data.results);
     }
@@ -62,15 +63,16 @@ export function TableCrud({ openEdit, index, openView }) {
 
   async function disable(disableObject) {
     async function postDisable() {
-      const objectName = disableObject[data[index][4]];
-      await axios.post("http://127.0.0.1:8000/inhabilitar/", {
-        username: objectName,
+      const objectId = disableObject[data[index][2][0]];
+      await axios.put('http://127.0.0.1:8000/crud/users/change/', {
+        id: objectId,
+        action: 'inhabilitar',
       });
     }
 
     async function loadUsers() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/${dataName}/`
+        `http://127.0.0.1:8000/${dataName}/`
       );
       setDataList(response.data.results)
     }
@@ -118,15 +120,16 @@ export function TableCrud({ openEdit, index, openView }) {
 
   async function enable(enableObject) {
     async function postEnable() {
-      const objectName = enableObject[data[index][4]];
-      axios.post("http://127.0.0.1:8000/habilitar/", {
-        username: objectName,
+      const objectId = enableObject[data[index][2][0]];
+      axios.put('http://127.0.0.1:8000/crud/users/change/', {
+        id: objectId,
+        action: 'habilitar'
       });
     }
     
     async function loadUsers() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/${dataName}/`
+        `http://127.0.0.1:8000/${dataName}/`
       );
       setDataList(response.data.results)
     }
@@ -264,7 +267,7 @@ export function TableCrud({ openEdit, index, openView }) {
                  <button
                  type ="button"
                  className="icon-button p-4"
-                 onClick={openView}
+                 onClick={() => openView(currentObject)}
                   >
                   <FontAwesomeIcon 
                   icon={faEye}

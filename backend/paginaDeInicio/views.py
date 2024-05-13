@@ -31,6 +31,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         nombre = usuario.get_full_name()
         return Response(nombre)
     #http://127.0.0.1:8000/users/3/name/
+    #si solo basta con el id
     
 
     @action(detail=True, methods=['get'])
@@ -42,6 +43,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         nombre = usuario.get_full_name()
         return Response(nombre)
     #http://127.0.0.1:8000/usersAc/nombre/?email=brayanss2018@gmail.com
+    #si se busca con otro atributo
 
 
 
@@ -55,7 +57,8 @@ class serchName(APIView):
         usuario = User.objects.get(id=request.GET.get('id_bus'))
         nombre = usuario.get_full_name()
         return Response(nombre)
-    #http://127.0.0.1:8000/crud/users/name/?id_bus=1
+
+#http://127.0.0.1:8000/crud/users/name/?id_bus=1
 
 
 
@@ -179,11 +182,11 @@ class chageEstateUser(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
 
-    def post(self, request):
-        username = request.data.get('username')
+    def put(self, request):
+        identificador = request.data.get('id')
         action = request.data.get('action')  # 'inhabilitar' o 'habilitar'
 
-        usuario = get_object_or_404(User, username=username)
+        usuario = get_object_or_404(User, id=identificador)
 
         if action == 'inhabilitar':
             usuario.is_active = False
@@ -192,9 +195,10 @@ class chageEstateUser(APIView):
         else:
             raise ValueError(f"Acción inválida: {action}")
 
+
         usuario.save()
         serializer = UsuarioSerializer(User.objects.all(), many=True)#comprobar bien que debe debolver
         return Response({
-            "mensaje": f"El usuario {username} ha sido {action}do correctamente.",
+            "mensaje": f"El usuario {usuario.username} ha sido {action}do correctamente.",
             "resultados": serializer.data
         }, status=status.HTTP_200_OK)

@@ -3,6 +3,9 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from django.shortcuts import get_object_or_404
 
 
 #importacion obras
@@ -37,6 +40,36 @@ class WorkViewSet(viewsets.ModelViewSet):
 
 
 
+class chageEstateWork(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def put(self, request):
+        identificador = request.data.get('id')
+        action = request.data.get('action')  # 'inhabilitar' o 'habilitar'
+
+        work = get_object_or_404(Work, id=identificador)
+
+        if action == 'inhabilitar':
+            work.enabled_work = False
+        elif action == 'habilitar':
+            work.enabled_work = True
+        else:
+            raise ValueError(f"Acción inválida: {action}")
+
+
+        work.save()
+        serializer = WorkSerializer(Work.objects.all(), many=True)#comprobar bien que debe debolver
+        return Response({
+            "mensaje": f"la obra {work.name_work} ha sido {action}do correctamente.",
+            "resultados": serializer.data
+        }, status=status.HTTP_200_OK)
+
+
+
+
+
+
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -48,13 +81,43 @@ class TaskViewSet(viewsets.ModelViewSet):
     ]
 
 
+class chageEstateTask(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def put(self, request):
+        identificador = request.data.get('id')
+        action = request.data.get('action')  # 'inhabilitar' o 'habilitar'
+
+        task = get_object_or_404(Task, id=identificador)
+
+        if action == 'inhabilitar':
+            task.task_enabled = False
+        elif action == 'habilitar':
+            task.task_enabled = True
+        else:
+            raise ValueError(f"Acción inválida: {action}")
+
+
+        task.save()
+        serializer = TaskSerializer(Task.objects.all(), many=True)#comprobar bien que debe debolver
+        return Response({
+            "mensaje": f"la tarea {task.task_name} ha sido {action}do correctamente.",
+            "resultados": serializer.data
+        }, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+
+
+
 class TaskProgressViewSet(viewsets.ModelViewSet): 
-
-
     queryset = TaskProgress.objects.all()
     serializer_class = TaskProgressSerializer
-
-    # Permisos para la vista
     permission_classes = [
         #permissions.IsAuthenticated,
         #permissions.IsAdminOrReadOnly,

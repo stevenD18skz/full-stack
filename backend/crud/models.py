@@ -16,7 +16,7 @@ class Work(models.Model):
     type_work = models.CharField(max_length=500)
 
     # Clave foránea para el director de la obra
-    id_manager_work = models.OneToOneField(User, on_delete=models.CASCADE, related_name='obras_dirigidas')
+    id_manager_work = models.ForeignKey(User, on_delete=models.CASCADE, related_name='obras_dirigidas')
 
     # Descripción de la obra
     description_work = models.CharField(max_length=500)

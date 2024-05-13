@@ -36,7 +36,7 @@ export function CrudUsersPage() {
 
   useEffect(() => {
     async function loadUsuarios() {
-      const response = await axios.get("http://127.0.0.1:8000/api/users/");
+      const response = await axios.get("http://127.0.0.1:8000/users/");
       setUsuarios(response.data.results);
     }
     loadUsuarios();
@@ -64,26 +64,6 @@ export function CrudUsersPage() {
 
   async function openEdit(usuario) {
     setSeleccionado(usuario);
-
-    /*
-    //aqui el formData debe de llenarse con la informacion del usaurio 
-    console.log(usuario)
-    console.log(formData)
-
-
-    const response = await axios.get("http://127.0.0.1:8000/update-usuario/", {
-      "email": "laura.horta@correunivalle.edu.co"
-    })
-
-
-    console.log(response)
-    console.log(formData)*/
-
-
-    
-
-
-
     setIsOpenEdit(true);
   };
 
@@ -112,7 +92,7 @@ export function CrudUsersPage() {
     e.preventDefault();
 
     axios
-      .post("http://127.0.0.1:8000/crear-usuario/", formData)
+      .post("http://127.0.0.1:8000/crud/users/create/", formData)
       .then((response) => {
         // Actualiza el estado con los datos de la respuesta
         Toast.fire({
@@ -121,7 +101,7 @@ export function CrudUsersPage() {
         });
         async function loadUsuarios() {
           closeCreate();
-          const response = await axios.get("http://127.0.0.1:8000/api/users/");
+          const response = await axios.get("http://127.0.0.1:8000/users/");
           setUsuarios(response.data.results);
         }
         loadUsuarios();
@@ -136,7 +116,7 @@ export function CrudUsersPage() {
 
     e.preventDefault();
     axios
-      .post("http://127.0.0.1:8000/update-usuario/", formData)
+      .post("http://127.0.0.1:8000/crud/users/update/", formData)
       .then((response) => {
         Toast.fire({
           icon: "success",
@@ -144,7 +124,7 @@ export function CrudUsersPage() {
         });
         async function loadUsuarios() {
           closeCreate();
-          const response = await axios.get("http://127.0.0.1:8000/api/users/");
+          const response = await axios.get("http://127.0.0.1:8000/users/");
           setUsuarios(response.data.results);
         }
         loadUsuarios();
@@ -243,6 +223,9 @@ export function CrudUsersPage() {
         {isOpenView && (
           <ModalView
           closeView={closeView}
+          formData={formData}
+          setFormData={setFormData}
+          usuario={seleccionado}
           />
         )}
       </div>

@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { UserPhoto } from "../components/UserPhoto";
 
 
 
@@ -23,26 +20,6 @@ export function Navigation() {
     { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
     { name: 'Obras', href: '/crud-work', current: pathname === '/crud-work' },
   ]; 
-
-
-  const [userPhoto, setUserPhoto] = useState([]);
-
-  /**
-   * Función asíncrona que carga la foto de un usuario específico.
-   * 
-   * 
-   * @return {Promise<void>} Promesa que se resuelve cuando se carga la foto del usuario.
-   *   
-   * */
-  useEffect(() => {
-    async function loadUsuarios() {
-      const response = await axios.get("http://127.0.0.1:8000/api/users/1/");
-      setUserPhoto(response.data.photo_user);
-    }
-    loadUsuarios();
-
-  }, []);
-
 
   return (
     <Disclosure as="nav" className="bg-indigo-500">
@@ -111,11 +88,7 @@ export function Navigation() {
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={userPhoto}
-                        alt=""
-                      />
+                      <UserPhoto first_name="ana" last_name="sofia" x="8" y="8" z="text-sm"></UserPhoto>
                     </Menu.Button>
                   </div>
 
