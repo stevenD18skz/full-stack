@@ -64,7 +64,7 @@ export function TableCrud({ openEdit, index, openView }) {
   async function disable(disableObject) {
     async function postDisable() {
       const objectId = disableObject[data[index][2][0]];
-      await axios.put('http://127.0.0.1:8000/crud/users/change/', {
+      await axios.put(`http://127.0.0.1:8000/crud/${dataName}/change/`, {
         id: objectId,
         action: 'inhabilitar',
       });
@@ -121,7 +121,7 @@ export function TableCrud({ openEdit, index, openView }) {
   async function enable(enableObject) {
     async function postEnable() {
       const objectId = enableObject[data[index][2][0]];
-      axios.put('http://127.0.0.1:8000/crud/users/change/', {
+      axios.put(`http://127.0.0.1:8000/crud/${dataName}/change/`, {
         id: objectId,
         action: 'habilitar'
       });

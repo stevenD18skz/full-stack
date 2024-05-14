@@ -9,12 +9,23 @@ export default function ModalUsers({
   crudType,
   usuario = {},
 }) {
-  const [selectedDocument, setSelectedDocument] = useState(
-    usuario.doc_type_user
-  );
+
+  const roles = {
+    "Gerente": "1",
+    "Director de obra": "2",
+    "Capataz": "3",
+    "Peon": "4",
+    "Ayudante": "5"
+  };
+
+
+  const [selectedDocument, setSelectedDocument] = useState(usuario.doc_type_user);
   const [selectedGender, setSelectedGender] = useState(usuario.gender_user);
   const [selectedRole, setSelectedRole] = useState(usuario.role_user);
 
+  
+
+  
   const guardarTipoDocumento = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -23,12 +34,27 @@ export default function ModalUsers({
     }));
   };
 
+  formData.username = usuario.username
+  formData.first_name = usuario.first_name
+  formData.last_name = usuario.last_name
+  formData.email = usuario.email
+  formData.doc_type_user = usuario.doc_type_user
+  formData.doc_number_user = usuario.doc_number_user
+  formData.gender_user = usuario.gender_user
+  formData.address_user = usuario.address_user
+  formData.phone_user = usuario.phone_user
+  formData.role_user = usuario.role_user
+
   return (
     <form className="p-4 md:p-5" onSubmit={handleSubmit}>
       <div className="gap-4 mb-4 grid-cols-2">
+
+
         <h3 className="pb-8 text-3xl">
           {crudType === "create" ? "Crear usuario" : "Editar usuario"}{" "}
         </h3>
+
+
 
         <div className="col-span-2">
           <label htmlFor="user" className=" block mb-2 text-sm font-medium">
@@ -47,6 +73,8 @@ export default function ModalUsers({
             {...(crudType === "create" ? { required: true } : {})}
           />
         </div>
+
+
 
         <div className="m-4 grid gap-4 mb-4 grid-cols-2">
           <div className="col-span-2 sm:col-span-1">
@@ -88,6 +116,8 @@ export default function ModalUsers({
             ></input>
           </div>
         </div>
+
+
         <div className="col-span-2 sm:col-span-1">
           <label htmlFor="email" className="block mb-2 text-sm font-medium">
             Correo Electrónico
@@ -105,6 +135,8 @@ export default function ModalUsers({
             {...(crudType === "create" ? { required: true } : {})}
           ></input>
         </div>
+
+        
 
         <div className="m-4 grid gap-4 mb-4 grid-cols-2">
           <div className="col-span-2 sm:col-span-1">
@@ -165,6 +197,9 @@ export default function ModalUsers({
             ></input>
           </div>
         </div>
+
+
+
         <div className="m-4 grid gap-4 mb-4 grid-cols-2">
           <div className="col-span-2 sm:col-span-1">
             <label htmlFor="gender" className="block mb-2 text-sm font-medium">
@@ -198,6 +233,8 @@ export default function ModalUsers({
               </select>
             )}
           </div>
+
+          
           <div className="col-span-2 sm:col-span-1">
             <label htmlFor="phone" className="block mb-2 text-sm font-medium">
               Celular
@@ -216,6 +253,8 @@ export default function ModalUsers({
             ></input>
           </div>
         </div>
+
+
 
         <div className="m-4 grid gap-4 mb-4 grid-cols-2">
           <div className="col-span-2 sm:col-span-1">
@@ -275,6 +314,9 @@ export default function ModalUsers({
             )}
           </div>
         </div>
+
+
+
       </div>
 
       <button

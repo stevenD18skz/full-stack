@@ -18,8 +18,6 @@ export function CrudUsersPage() {
     first_name: "",
     last_name: "",
     email: "",
-    password: "",
-    photo_user: null,
     doc_type_user: "",
     doc_number_user: "",
     gender_user: "",
@@ -82,6 +80,8 @@ export function CrudUsersPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name)
+    console.log(value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -120,10 +120,10 @@ export function CrudUsersPage() {
       .then((response) => {
         Toast.fire({
           icon: "success",
-          title: "Usuario creado con exito",
+          title: "Usuario actualizado con exito",
         });
         async function loadUsuarios() {
-          closeCreate();
+          closeEdit();
           const response = await axios.get("http://127.0.0.1:8000/users/");
           setUsuarios(response.data.results);
         }
@@ -133,7 +133,7 @@ export function CrudUsersPage() {
 
 
       .catch((error) => {
-        console.error("Error al editar el usaurio:", error);
+        console.error("Error al editar el usuario:", error);
       });
   };
 
@@ -163,7 +163,6 @@ export function CrudUsersPage() {
 
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
           <div>
-            {/* BOTON DE CREAR USUARIO */}
             <button
               type="button"
               onClick={openCreate}

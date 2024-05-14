@@ -17,8 +17,9 @@ export function Navigation() {
   const navigation = [
     { name: 'home', href: '/home', current: pathname === '/home' },
     { name: 'Usuarios', href: '/crud-users', current: pathname === '/crud-users' },
-    { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
     { name: 'Obras', href: '/crud-work', current: pathname === '/crud-work' },
+    { name: 'tareas', href: '/crud-task', current: pathname === '/crud-task' },
+    { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
   ]; 
 
   return (

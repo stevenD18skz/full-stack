@@ -8,6 +8,7 @@ import { HomePage } from "./pages/HomePage";
 //CRUDS
 import { CrudUsersPage } from "./pages/CrudUsersPage";
 import { CrudWorkPage } from "./pages/CrudWorkPage";
+import { CrudTaskPage } from "./pages/CrudTaskPage";
 
 
 import { DashBoardPage } from "./pages/DashBoardPage";
@@ -26,6 +27,7 @@ function App() {
       {/*
         direcciones para el Gerente
       */}
+        <Route path="/crud-task" element={<CrudTaskPage/>} />
         <Route path="/crud-users" element={<CrudUsersPage/>} />
         <Route path="/crud-work"  element={<CrudWorkPage/>} />
         <Route path="/dashboard"  element={<DashBoardPage/>} />

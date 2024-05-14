@@ -158,12 +158,16 @@ class updateView(APIView):
         try:
             user = User.objects.get(email=request.data.get('email'))
             user.username = request.data.get('username')
+            user.first_name = request.data.get('first_name')
+            user.save()
+
+
             return Response({
                 "usuario": UsuarioSerializerCreate(user).data}, 
                 status=status.HTTP_202_ACCEPTED
             )
 
-        except:
+        except Exception as e:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
             )

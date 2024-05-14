@@ -15,7 +15,6 @@ export function HomePage() {
     <div>
       <Navigation></Navigation>
       <h1 className="text-center">HOMEEEEEEEEEE</h1>
-      <UserPhoto first_name="ana" last_name="sofia" x="20" y="20" z="text-4xl"></UserPhoto>
     </div>
   );
 };

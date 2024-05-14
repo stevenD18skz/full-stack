@@ -4,7 +4,7 @@ from .models import User
 
 class UsuarioSerializer(serializers.ModelSerializer):
     #nombre = serializers.CharField(source='get_full_name', read_only=True)
-    role_user = serializers.SlugRelatedField(read_only=True, slug_field='name_role')
+    #role_user = serializers.SlugRelatedField(read_only=True, slug_field='name_role')
    
     class Meta:
         model = User
