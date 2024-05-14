@@ -40,6 +40,40 @@ export function CrudUsersPage() {
     loadUsuarios();
   }, []);
 
+
+
+
+
+  const openCreate = () => {
+    setIsOpenCreate(true);
+  };
+  const closeCreate = () => {
+    setIsOpenCreate(false);
+  };
+
+
+
+  const openEdit = (usuario) => {
+    setSeleccionado(usuario);
+    setIsOpenEdit(true);
+  };
+  const closeEdit = () => {
+    setIsOpenEdit(false);
+  };
+
+
+
+  const openView = (usuario) => {
+    setSeleccionado(usuario);
+    setIsOpenView(true);
+  };
+  const closeView = () => {
+    setIsOpenView(false);
+  };
+
+
+
+  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -52,36 +86,8 @@ export function CrudUsersPage() {
     },
   });
 
-  const openCreate = () => {
-    setIsOpenCreate(true);
-  };
-
-  const closeCreate = () => {
-    setIsOpenCreate(false);
-  };
-
-  async function openEdit(usuario) {
-    setSeleccionado(usuario);
-    setIsOpenEdit(true);
-  };
-
-  const closeEdit = () => {
-    setIsOpenEdit(false);
-  };
-
-  const openView = (usuario) => {
-    setSeleccionado(usuario);
-    setIsOpenView(true);
-  };
-
-  const closeView = () => {
-    setIsOpenView(false);
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name)
-    console.log(value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -90,21 +96,16 @@ export function CrudUsersPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post("http://127.0.0.1:8000/crud/users/create/", formData)
-      .then((response) => {
-        // Actualiza el estado con los datos de la respuesta
+      .then(() => {
         Toast.fire({
           icon: "success",
           title: "Usuario creado con exito",
         });
-        async function loadUsuarios() {
-          closeCreate();
-          const response = await axios.get("http://127.0.0.1:8000/users/");
-          setUsuarios(response.data.results);
-        }
-        loadUsuarios();
+
+        setUsuarios(axios.get("http://127.0.0.1:8000/users/").data.results);
+        closeCreate();
       })
       .catch((error) => {
         console.error("Error al crear el usuario:", error);
@@ -112,8 +113,6 @@ export function CrudUsersPage() {
   };
 
   const handleSubmitEdit = (e) => {
-    console.log(formData)
-
     e.preventDefault();
     axios
       .post("http://127.0.0.1:8000/crud/users/update/", formData)
@@ -122,27 +121,17 @@ export function CrudUsersPage() {
           icon: "success",
           title: "Usuario actualizado con exito",
         });
-        async function loadUsuarios() {
-          closeEdit();
-          const response = await axios.get("http://127.0.0.1:8000/users/");
-          setUsuarios(response.data.results);
-        }
-        loadUsuarios();
+        setUsuarios(axios.get("http://127.0.0.1:8000/users/").data.results);
+        closeEdit()
       })
-
-
-
       .catch((error) => {
         console.error("Error al editar el usuario:", error);
       });
   };
 
-  const filteredUsers = usuarios.filter(
-    (user) =>
-      user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+
+
 
   return (
     <div>

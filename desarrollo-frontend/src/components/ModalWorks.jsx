@@ -1,54 +1,53 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModalUsers({
-  formData,
-  setFormData,
-  handleChange,
-  handleSubmit,
-  crudType,
-  usuario = {},
-}) {
+export default function ModalUsers({ formData, setFormData, handleChange, handleSubmit, crudType, objectModel = {},}) {
   // Assuming formData is an empty object
-  formData = { ...usuario };
+  //formData = { ...usuario };
 
-  const [usuarios, setUsuarios] = useState([]);
+  const [managers, setManagers] = useState([]);
+  const [workers,  setWorkers]  = useState([]);
 
   useEffect(() => {
     async function loadUsers() {
       const response = await axios.get(`http://127.0.0.1:8000/users/`);
-      setUsuarios(response.data.results);
+
+      const filteredUsers = response.data.results.filter(
+        (user) =>
+          user.role_user == 2
+      );
+
+      setManagers(filteredUsers);
     }
     loadUsers();
-
-    const directores = usuarios.filter((user) =>
-      user.first_name.toLowerCase().includes("")
-    );
-    console.log("ola");
-    console.log(directores);
   }, []);
 
-  /*
-  "name_work": "Renovation of Cali's Historic Center",
-  "location_work": "Cali, Colombia",
-  "type_work": "Urbana Revitalization",
-  "id_manager_work": 2,  
-  "description_work": "This project aims to restore and revitalize the historic center of Cali, preserving its cultural heritage while enhancing its livability and economic vitality.",
-  "id_user_work": [1, 2, 3], 
-  "work_status": 20.0, 
-  "enabled_work": true
-  */
+
+
+  formData.id_manager_work = objectModel.id_manager_work
+
+  console.log(formData)
+
+
+
+
+
 
   return (
     <form className="p-2 md:p-3" onSubmit={handleSubmit}>
       <div className="pb-8">
+
+
         <h3 className="pb-5 text-3xl">
           {crudType === "create" ? "Crear OBRA" : "Editar OBRA"}{" "}
         </h3>
 
+
+
+
         <div className="grid grid-cols-2 gap-4 m-4">
           <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="name" className="block mb-2 text-sm font-medium">
+            <label htmlFor="name_work" className="block mb-2 text-sm font-medium">
               Nombre de la obra
             </label>
             <input
@@ -59,7 +58,7 @@ export default function ModalUsers({
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               placeholder={
-                crudType === "create" ? "Nombre de la obra" : usuario.name_work
+                crudType === "create" ? "Nombre de la obra" : objectModel.name_work
               }
               {...(crudType === "create" ? { required: true } : {})}
             />
@@ -80,12 +79,35 @@ export default function ModalUsers({
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               placeholder={
-                crudType === "create" ? "Localizacion" : usuario.location_work
+                crudType === "create" ? "Localizacion" : objectModel.location_work
               }
               {...(crudType === "create" ? { required: true } : {})}
             ></input>
           </div>
         </div>
+
+
+        <div className="h-32 m-4">
+          <label
+            htmlFor="description_work"
+            className="block mb-2 text-sm font-medium"
+          >
+            Descripción
+          </label>
+          <input
+            type="text"
+            id="description_work"
+            name="description_work"
+            value={formData.description_work}
+            onChange={handleChange}
+            className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full h-3/4 p-2.5"
+            placeholder={
+              crudType === "create" ? "Descripción" : objectModel.description_work
+            }
+            {...(crudType === "create" ? { required: true } : {})}
+          ></input>
+        </div>
+
 
         <div className="grid grid-cols-2 gap-4 m-4">
           <div className="col-span-2 sm:col-span-1">
@@ -103,7 +125,7 @@ export default function ModalUsers({
               onChange={handleChange}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               placeholder={
-                crudType === "create" ? "Tipo de la obra" : usuario.type_work
+                crudType === "create" ? "Tipo de la obra" : objectModel.type_work
               }
               {...(crudType === "create" ? { required: true } : {})}
             />
@@ -119,69 +141,51 @@ export default function ModalUsers({
               <select
                 id="id_manager_work"
                 name="id_manager_work"
-                value={formData.id_manager_work}
                 onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
-                {usuarios.map((item) => (
-                  <option key={item.id}>{item.first_name}</option>
+                {managers.map((item) => (
+                  <option value={item.id}>{item.first_name}</option>
                 ))}
               </select>
             ) : (
               <select
-                id="gender_user"
-                name="gender_user"
-                value={selectedGender}
-                onChange={(e) => {
-                  guardarTipoDocumento(e);
-                }}
+                id="id_manager_work"
+                name="id_manager_work"
+                value={formData.id_manager_work}
+                onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
-                {usuarios.map((item) => (
-                  <option key={item.id}>{item.first_name}</option>
+                {managers.map((item) => (
+                  <option value={item.id}>{item.first_name}</option>
                 ))}
               </select>
             )}
           </div>
-
-
         </div>
 
-        <div className="flex flex-col items-center p-4 m-4 border rounded shadow-md">
-          <label htmlFor="select" className="text-gray-700 mb-2">
-            Selecciona una opción:
+
+        <div className="flex flex-col items-center p-4 m-4 rounded">
+          <label 
+            htmlFor="select" 
+            className="block mb-2 text-sm font-medium">
+            Trabajadores:
           </label>
           <select
-            id="select"
-            className="border rounded w-full px-3 py-2 text-gray-700"
+            name="id_user_work"
+            id="id_user_work"
+            onChange={handleChange}
+            className="border rounded w-full px-3 py-2 text-gray-900 text-sm bg-gray-50"
             multiple
           >
-            {usuarios.map((item) => (
-              <option key={item.id}>{item.first_name}</option>
+            {workers.map((item) => (
+              <option value={item.id}>{item.first_name}</option>
             ))}
           </select>
         </div>
 
-        <div className="h-32 m-4">
-          <label
-            htmlFor="description_work"
-            className="block mb-2 text-sm font-medium"
-          >
-            Descripción
-          </label>
-          <input
-            type="text"
-            id="description_work"
-            name="description_work"
-            value={formData.description_work}
-            onChange={handleChange}
-            className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full h-full p-2.5"
-            placeholder={
-              crudType === "create" ? "Descripción" : usuario.description_work
-            }
-            {...(crudType === "create" ? { required: true } : {})}
-          ></input>
-        </div>
+
+
       </div>
 
       <button
@@ -200,7 +204,7 @@ export default function ModalUsers({
             clipRule="evenodd"
           />
         </svg>{" "}
-        {crudType === "create" ? "Crear usuario" : "Editar usuario"}
+        {crudType === "create" ? "Crear obra" : "Editar obra"}
       </button>
     </form>
   );

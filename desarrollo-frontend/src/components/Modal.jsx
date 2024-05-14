@@ -7,13 +7,13 @@ import ModalWorks from "../components/ModalWorks";
 //adios
 export default function Modal({
   modalType,
-  closeCreate,
+  crudType,
   formData,
-  setFormData,
+  closeModal,
   handleChange,
   handleSubmit,
-  usuario,
-  crudType
+  setFormData,
+  objectModel,
 }) {
   const showInfoModal = (modalType) => {
     switch (modalType) {
@@ -24,20 +24,26 @@ export default function Modal({
             formData={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
-            usuario={usuario}
+            objectModel={objectModel}
             crudType={crudType}
             setFormData={setFormData}
           />
         );
+
+
+        
       case "works":
         return <ModalWorks 
             modalType={modalType}
+            crudType={crudType}
             formData={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
-            usuario={usuario}
-            crudType={crudType}
-            setFormData={setFormData}/>;
+            setFormData={setFormData}
+            objectModel={objectModel}/>;
+
+
+
       default:
         return null;
     }
@@ -46,7 +52,7 @@ export default function Modal({
   return (
     <div className="modal">
       <div className="modal-content">
-        <span className="close" onClick={closeCreate}>
+        <span className="close" onClick={closeModal}>
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="lg"

@@ -7,7 +7,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
-import ModalWorks from "../components/ModalWorks";
 import Modal from "../components/Modal";
 import ModalView from "../components/ModalView";
 
@@ -25,6 +24,7 @@ export function CrudWorkPage() {
 
 
   const [searchTerm, setSearchTerm]     = useState("");
+
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [isOpenEdit, setIsOpenEdit]     = useState(false);
   const [isOpenView, setIsOpenView]     = useState(false);
@@ -42,6 +42,38 @@ export function CrudWorkPage() {
     loadUsuarios();
   }, []);
 
+
+
+  const openCreate = () => {
+    setIsOpenCreate(true);
+  };
+  const closeCreate = () => {
+    setIsOpenCreate(false);
+  };
+
+
+
+  const openEdit = (usuario) => {
+    setSeleccionado(usuario);
+    setIsOpenEdit(true);
+  };
+  const closeEdit = () => {
+    setIsOpenEdit(false);
+  };
+
+
+
+  const openView = (usuario) => {
+    setSeleccionado(usuario);
+    setIsOpenView(true);
+  };
+  const closeView = () => {
+    setIsOpenView(false);
+  };
+
+
+
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -54,36 +86,8 @@ export function CrudWorkPage() {
     },
   });
 
-  const openCreate = () => {
-    setIsOpenCreate(true);
-  };
-
-  const closeCreate = () => {
-    setIsOpenCreate(false);
-  };
-
-  async function openEdit(usuario) {
-    setSeleccionado(usuario);
-    setIsOpenEdit(true);
-  };
-
-  const closeEdit = () => {
-    setIsOpenEdit(false);
-  };
-
-  const openView = (usuario) => {
-    setSeleccionado(usuario);
-    setIsOpenView(true);
-  };
-
-  const closeView = () => {
-    setIsOpenView(false);
-  };
-
   const handleChange = (e) => {
-    
     const { name, value } = e.target;
-    console.log(name)
     console.log(value)
     setFormData((prevState) => ({
       ...prevState,
@@ -93,13 +97,9 @@ export function CrudWorkPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(formData)
-
     axios
       .post("http://127.0.0.1:8000/crud/works/", formData)
       .then((response) => {
-        // Actualiza el estado con los datos de la respuesta
         Toast.fire({
           icon: "success",
           title: "Usuario creado con exito",
@@ -117,8 +117,6 @@ export function CrudWorkPage() {
   };
 
   const handleSubmitEdit = (e) => {
-    console.log(formData)
-
     e.preventDefault();
     axios
       .put("http://127.0.0.1:8000/crud/works/", formData)
@@ -134,37 +132,28 @@ export function CrudWorkPage() {
         }
         loadUsuarios();
       })
-
-
-
       .catch((error) => {
         console.error("Error al editar el usuario:", error);
       });
   };
 
-  //const filteredUsers = usuarios.filter(
-    //(user) =>
-      //user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      //user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      //user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  //);
+
 
 
 
   return (
     <div>
       <Navigation></Navigation>
-
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">   
-        {/* MODAL DE CREAR USUARIO */}
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
+        {/* MODAL DE CREAR OBRAS */}
         {isOpenCreate && (
             <Modal
               modalType="works"
-              closeCreate={closeCreate}
+              crudType="create"
               formData={formData}
+              closeModal={closeCreate}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
-              crudType="create"
             />
         )}
 
@@ -212,27 +201,18 @@ export function CrudWorkPage() {
 
         <TableCrud index={2} openEdit={openEdit} openView={openView} />
 
-        {/* MODAL DE EDITAR USUARIO */}
+        {/* MODAL DE EDITAR OBRAS */}
         {isOpenEdit && (
             <Modal
               modalType="works"
-              closeCreate={closeEdit}
-              formData={formData} 
-              setFormData={setFormData}
+              crudType="edit"
+              formData={formData}
+              closeModal={closeEdit}
               handleChange={handleChange}
               handleSubmit={handleSubmitEdit}
-              usuario={seleccionado}
-              crudType="edit"
+              setFormData={setFormData}
+              objectModel={seleccionado}
             />
-        )}
-
-        {isOpenView && (
-          <ModalView
-          closeView={closeView}
-          formData={formData}
-          setFormData={setFormData}
-          usuario={seleccionado}
-          />
         )}
       </div>
     </div>
