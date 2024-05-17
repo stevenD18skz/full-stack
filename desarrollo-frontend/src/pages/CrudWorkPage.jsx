@@ -12,7 +12,6 @@ import ModalView from "../components/ModalView";
 
 
 export function CrudWorkPage() {
-  const [usuarios, setUsuarios] = useState([]);
   const [formData, setFormData] = useState({
     name_work: "",
     location_work: "",
@@ -37,10 +36,10 @@ export function CrudWorkPage() {
   useEffect(() => {
     async function loadUsuarios() {
       const response = await axios.get("http://127.0.0.1:8000/works/");
-      setUsuarios(response.data.results);
     }
     loadUsuarios();
   }, []);
+
 
 
 
@@ -50,6 +49,7 @@ export function CrudWorkPage() {
   const closeCreate = () => {
     setIsOpenCreate(false);
   };
+
 
 
 
@@ -63,6 +63,7 @@ export function CrudWorkPage() {
 
 
 
+
   const openView = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenView(true);
@@ -70,7 +71,6 @@ export function CrudWorkPage() {
   const closeView = () => {
     setIsOpenView(false);
   };
-
 
 
 
@@ -86,17 +86,10 @@ export function CrudWorkPage() {
     },
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.log(value)
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
       .post("http://127.0.0.1:8000/crud/works/", formData)
       .then((response) => {
@@ -152,7 +145,7 @@ export function CrudWorkPage() {
               crudType="create"
               formData={formData}
               closeModal={closeCreate}
-              handleChange={handleChange}
+              setFormData={setFormData}
               handleSubmit={handleSubmit}
             />
         )}
@@ -208,9 +201,8 @@ export function CrudWorkPage() {
               crudType="edit"
               formData={formData}
               closeModal={closeEdit}
-              handleChange={handleChange}
-              handleSubmit={handleSubmitEdit}
               setFormData={setFormData}
+              handleSubmit={handleSubmitEdit}
               objectModel={seleccionado}
             />
         )}

@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModalUsers({ formData, setFormData, handleChange, handleSubmit, crudType, objectModel = {},}) {
-  // Assuming formData is an empty object
-  //formData = { ...usuario };
-
+export default function ModalUsers({ formData, setFormData, handleSubmit, crudType, objectModel = {},}) {
   const [managers, setManagers] = useState([]);
   const [workers,  setWorkers]  = useState([]);
+
+
+  const handeldChangeSelect = (e) => {
+    const { key, name, value } = e.target;
+    console.log(value);
+    //setFormData({ ...formData, [name]: value });
+    console.log(value)
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   useEffect(() => {
     async function loadUsers() {
       const response = await axios.get(`http://127.0.0.1:8000/users/`);
-
-      const filteredUsers = response.data.results.filter(
-        (user) =>
-          user.role_user == 2
-      );
-
-      setManagers(filteredUsers);
+      setManagers(response.data.results);
     }
     loadUsers();
   }, []);
 
 
 
-  formData.id_manager_work = objectModel.id_manager_work
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(value)
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-  console.log(formData)
+  
 
+  
 
 
 
@@ -141,11 +152,11 @@ export default function ModalUsers({ formData, setFormData, handleChange, handle
               <select
                 id="id_manager_work"
                 name="id_manager_work"
-                onChange={handleChange}
+                onChange={handeldChangeSelect}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 {managers.map((item) => (
-                  <option value={item.id}>{item.first_name}</option>
+                  <option key={item.id} value={item.id} >{item.first_name}</option>
                 ))}
               </select>
             ) : (
@@ -153,11 +164,11 @@ export default function ModalUsers({ formData, setFormData, handleChange, handle
                 id="id_manager_work"
                 name="id_manager_work"
                 value={formData.id_manager_work}
-                onChange={handleChange}
+                onChange={handeldChangeSelect}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 {managers.map((item) => (
-                  <option value={item.id}>{item.first_name}</option>
+                  <option key={item.id}>{item.first_name}</option>
                 ))}
               </select>
             )}

@@ -10,7 +10,6 @@ export default function Modal({
   crudType,
   formData,
   closeModal,
-  handleChange,
   handleSubmit,
   setFormData,
   objectModel,
@@ -22,9 +21,8 @@ export default function Modal({
           <ModalUsers
             modalType={modalType}
             formData={formData}
-            handleChange={handleChange}
             handleSubmit={handleSubmit}
-            objectModel={objectModel}
+            usuario={objectModel}
             crudType={crudType}
             setFormData={setFormData}
           />
@@ -37,7 +35,6 @@ export default function Modal({
             modalType={modalType}
             crudType={crudType}
             formData={formData}
-            handleChange={handleChange}
             handleSubmit={handleSubmit}
             setFormData={setFormData}
             objectModel={objectModel}/>;

@@ -7,8 +7,19 @@ export default function ModalUsers({formData, setFormData, handleChange, handleS
   const [selectedRole, setSelectedRole] = useState(usuario.role_user);
 
 
-  const guardarTipoDocumento = (e) => {
+  const handeldChangeSelect = (e) => {
     const { name, value } = e.target;
+    if (name === "doc_type_user") {
+      setSelectedDocument(value)
+    } else if (name == "gender_user") {
+      setSelectedGender(value)
+    }
+    else if (name == "role_user") {
+      setSelectedRole(value)
+    }
+
+
+    //setFormData({ ...formData, [name]: value });
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -30,7 +41,7 @@ export default function ModalUsers({formData, setFormData, handleChange, handleS
 
   return (
     <form className="p-4 md:p-5" onSubmit={handleSubmit}>
-      <div className="gap-4 mb-4 grid-cols-2">
+      <div className="gap-4 mb-4 grid-cols-3">
 
 
         <h3 className="pb-8 text-3xl">
@@ -150,7 +161,7 @@ export default function ModalUsers({formData, setFormData, handleChange, handleS
                 name="doc_type_user"
                 value={selectedDocument}
                 onChange={(e) => {
-                  guardarTipoDocumento(e);
+                  handeldChangeSelect(e);
                 }}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
@@ -207,7 +218,7 @@ export default function ModalUsers({formData, setFormData, handleChange, handleS
                 name="gender_user"
                 value={selectedGender}
                 onChange={(e) => {
-                  guardarTipoDocumento(e);
+                  handeldChangeSelect(e);
                 }}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
@@ -284,7 +295,7 @@ export default function ModalUsers({formData, setFormData, handleChange, handleS
                 name="role_user"
                 value={selectedRole}
                 onChange={(e) => {
-                  guardarTipoDocumento(e);
+                  handeldChangeSelect(e);
                 }}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >

@@ -12,7 +12,6 @@ import Modal from "../components/Modal";
 import ModalView from "../components/ModalView";
 
 export function CrudUsersPage() {
-  const [usuarios, setUsuarios] = useState([]);
   const [formData, setFormData] = useState({
     username: "",
     first_name: "",
@@ -48,6 +47,7 @@ export function CrudUsersPage() {
     setIsOpenCreate(true);
   };
   const closeCreate = () => {
+    console.log("olllllllllllllllll")
     setIsOpenCreate(false);
   };
 
@@ -86,13 +86,7 @@ export function CrudUsersPage() {
     },
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -114,6 +108,7 @@ export function CrudUsersPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
       .post("http://127.0.0.1:8000/crud/users/update/", formData)
       .then((response) => {
@@ -142,9 +137,9 @@ export function CrudUsersPage() {
         {isOpenCreate && (
             <Modal
               modalType="users"
-              closeCreate={closeCreate}
+              closeModal={closeCreate}
               formData={formData}
-              handleChange={handleChange}
+              setFormData={setFormData}
               handleSubmit={handleSubmit}
               crudType="create"
             />
@@ -198,12 +193,11 @@ export function CrudUsersPage() {
         {isOpenEdit && (
             <Modal
               modalType="users"
-              closeCreate={closeEdit}
+              closeModal={closeEdit}
               formData={formData} 
               setFormData={setFormData}
-              handleChange={handleChange}
               handleSubmit={handleSubmitEdit}
-              usuario={seleccionado}
+              objectModel={seleccionado}
               crudType="edit"
             />
         )}
