@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModalUsers({formData, setFormData, handleChange, handleSubmit, crudType, usuario = {},}) {
+export default function ModalUsers({formData, setFormData, handleSubmit, crudType, usuario = {},}) {
   const [selectedDocument, setSelectedDocument] = useState(usuario.doc_type_user);
   const [selectedGender, setSelectedGender] = useState(usuario.gender_user);
   const [selectedRole, setSelectedRole] = useState(usuario.role_user);
@@ -19,25 +19,21 @@ export default function ModalUsers({formData, setFormData, handleChange, handleS
     }
 
 
-    //setFormData({ ...formData, [name]: value });
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(value)
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-
-  //formData.username = usuario.username
-  //formData.first_name = usuario.first_name
-  //formData.last_name = usuario.last_name
-  //formData.email = usuario.email
-  //formData.doc_type_user = usuario.doc_type_user
-  //formData.doc_number_user = usuario.doc_number_user
-  //formData.gender_user = usuario.gender_user
-  //formData.address_user = usuario.address_user
-  //formData.phone_user = usuario.phone_user
-  //formData.role_user = usuario.role_user
 
   return (
     <form className="p-4 md:p-5" onSubmit={handleSubmit}>
