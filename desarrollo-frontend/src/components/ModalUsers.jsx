@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModalUsers({formData, setFormData, handleSubmit, crudType, usuario = {},}) {
+export default function ModalUsers({ formData, setFormData, handleSubmit, crudType, usuario = {}, }) {
   const [selectedDocument, setSelectedDocument] = useState(usuario.doc_type_user);
   const [selectedGender, setSelectedGender] = useState(usuario.gender_user);
   const [selectedRole, setSelectedRole] = useState(usuario.role_user);
@@ -36,18 +36,18 @@ export default function ModalUsers({formData, setFormData, handleSubmit, crudTyp
 
 
   return (
-    <form className="p-4 md:p-5" onSubmit={handleSubmit}>
-      <div className="gap-4 mb-4 grid-cols-3">
+    <form className="p-6 bg-white rounded-lg" onSubmit={handleSubmit}>
 
+      <h3 className="text-2xl font-semibold mb-6 text-blue-900">
+        {crudType === "create" ? <center>Creación de usuario</center> : <center>Editar usuario</center>}
+      </h3>
 
-        <h3 className="pb-8 text-3xl">
-          {crudType === "create" ? "Crear usuario" : "Editar usuario"}{" "}
-        </h3>
-
-
-
-        <div className="col-span-2">
-          <label htmlFor="user" className=" block mb-2 text-sm font-medium">
+      <div className="grid gap-6 mb-6 lg:grid-cols-2">
+        <div>
+          <label
+            htmlFor="user"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
             Nombre de Usuario
           </label>
           <input
@@ -56,7 +56,7 @@ export default function ModalUsers({formData, setFormData, handleSubmit, crudTyp
             id="username"
             value={formData.username}
             onChange={handleChange}
-            className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
             placeholder={
               crudType === "create" ? "Nombre de Usuario" : usuario.username
             }
@@ -65,52 +65,54 @@ export default function ModalUsers({formData, setFormData, handleSubmit, crudTyp
         </div>
 
 
-
-        <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="name" className="block mb-2 text-sm font-medium">
-              Nombres
-            </label>
-            <input
-              type="text"
-              name="first_name"
-              id="first_name"
-              value={formData.first_name}
-              onChange={handleChange}
-              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder={
-                crudType === "create" ? "Nombres" : usuario.first_name
-              }
-              {...(crudType === "create" ? { required: true } : {})}
-            />
-          </div>
-
-          <div className="col-span-2 sm:col-span-1">
-            <label
-              htmlFor="last_name"
-              className="block mb-2 text-sm font-medium"
-            >
-              Apellidos
-            </label>
-            <input
-              type="text"
-              id="last_name"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
-              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder={
-                crudType === "create" ? "Apellidos" : usuario.last_name
-              }
-              {...(crudType === "create" ? { required: true } : {})}
-            ></input>
-          </div>
+        <div>
+          <label
+            htmlFor="name"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Nombres
+          </label>
+          <input
+            type="text"
+            name="first_name"
+            id="first_name"
+            value={formData.first_name}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
+            placeholder={
+              crudType === "create" ? "Nombres" : usuario.first_name
+            }
+            {...(crudType === "create" ? { required: true } : {})}
+          />
         </div>
 
 
+        <div>
+          <label
+            htmlFor="last_name"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Apellidos
+          </label>
+          <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            value={formData.last_name}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
+            placeholder={
+              crudType === "create" ? "Apellidos" : usuario.last_name}
+            {...(crudType === "create" ? { required: true } : {})}
+          />
+        </div>
 
-        <div className="col-span-2 sm:col-span-1">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium">
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
             Correo Electrónico
           </label>
           <input
@@ -119,218 +121,222 @@ export default function ModalUsers({formData, setFormData, handleSubmit, crudTyp
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
             placeholder={
-              crudType === "create" ? "Correo electronico" : usuario.email
+              crudType === "create" ? "Correo electrónico" : usuario.email}
+            {...(crudType === "create" ? { required: true } : {})}
+          />
+        </div>
+
+
+        <div>
+          <label
+            htmlFor="identity"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Tipo de Identificación
+          </label>
+
+          {crudType === "create" ? (
+            <select
+              id="doc_type_user"
+              name="doc_type_user"
+              value={selectedDocument}
+              onChange={handleChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            >
+              <option value=""></option>
+              <option value="CC">Cédula de Ciudadanía</option>
+              <option value="CE">Cédula de Extranjería</option>
+              <option value="PA">Pasaporte</option>
+            </select>
+          ) : (
+            <select
+              id="doc_type_user"
+              name="doc_type_user"
+              value={selectedDocument}
+              onChange={(e) => {
+                handeldChangeSelect(e);
+              }}
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            >
+              <option value=""></option>
+              <option value="CC">Cédula de Ciudadania</option>
+              <option value="CE">Cédula de Extranjeria</option>
+              <option value="PA">Pasaporte</option>
+            </select>
+          )}
+        </div>
+
+
+        <div>
+          <label
+            htmlFor="user_id"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            N° Identificación
+          </label>
+          <input
+            type="text"
+            id="doc_number_user"
+            name="doc_number_user"
+            value={formData.doc_number_user}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
+            placeholder={
+              crudType === "create"
+                ? "N° identificación"
+                : usuario.doc_number_user
             }
             {...(crudType === "create" ? { required: true } : {})}
-          ></input>
+          />
         </div>
 
-        
 
-        <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-          <div className="col-span-2 sm:col-span-1">
-            <label
-              htmlFor="identity"
-              className="block mb-2 text-sm font-medium"
+        <div>
+          <label
+            htmlFor="gender"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Género
+          </label>
+          {crudType === "create" ? (
+            <select
+              id="gender_user"
+              name="gender_user"
+              value={formData.gender_user}
+              onChange={handleChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
             >
-              Tipo de Identificación
-            </label>
-
-            {crudType === "create" ? (
-              <select
-                id="doc_type_user"
-                name="doc_type_user"
-                value={formData.doc_type_user}
-                onChange={handleChange}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="CC">Cédula de Ciudadania</option>
-                <option value="CE">Cédula de Extranjeria</option>
-                <option value="PA">Pasaporte</option>
-              </select>
-            ) : (
-              <select
-                id="doc_type_user"
-                name="doc_type_user"
-                value={selectedDocument}
-                onChange={(e) => {
-                  handeldChangeSelect(e);
-                }}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="CC">Cédula de Ciudadania</option>
-                <option value="CE">Cédula de Extranjeria</option>
-                <option value="PA">Pasaporte</option>
-              </select>
-            )}
-          </div>
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="user_id" className="block mb-2 text-sm font-medium">
-              N° Identificación
-            </label>
-            <input
-              type="text"
-              id="doc_number_user"
-              name="doc_number_user"
-              value={formData.doc_number_user}
-              onChange={handleChange}
-              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder={
-                crudType === "create"
-                  ? "N° identificacion"
-                  : usuario.doc_number_user
-              }
-              {...(crudType === "create" ? { required: true } : {})}
-            ></input>
-          </div>
+              <option value=""></option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+            </select>
+          ) : (
+            <select
+              id="gender_user"
+              name="gender_user"
+              value={selectedGender}
+              onChange={(e) => {
+                handeldChangeSelect(e);
+              }}
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            >
+              <option value=""></option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+            </select>
+          )}
         </div>
 
 
+        <div>
+          <label
+            htmlFor="phone"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Celular
+          </label>
+          <input
+            type="phone"
+            id="phone_user"
+            name="phone_user"
+            value={formData.phone_user}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
+            placeholder={
+              crudType === "create" ? "Celular" : usuario.phone_user}
+            {...(crudType === "create" ? { required: true } : {})}
+          />
+        </div>
 
-        <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="gender" className="block mb-2 text-sm font-medium">
-              Género
-            </label>
-            {crudType === "create" ? (
-              <select
-                id="gender_user"
-                name="gender_user"
-                value={formData.gender_user}
-                onChange={handleChange}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="F">Femenino</option>
-                <option value="M">Masculino</option>
-              </select>
-            ) : (
-              <select
-                id="gender_user"
-                name="gender_user"
-                value={selectedGender}
-                onChange={(e) => {
-                  handeldChangeSelect(e);
-                }}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="F">Femenino</option>
-                <option value="M">Masculino</option>
-              </select>
-            )}
-          </div>
 
+        <div>
+          <label
+            htmlFor="adress"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Dirección
+          </label>
+          <input
+            type="address_user"
+            id="address_user"
+            name="address_user"
+            value={formData.address_user}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
+            placeholder={
+              crudType === "create" ? "Dirección" : usuario.address_user}
+            {...(crudType === "create" ? { required: true } : {})}
+          />
+        </div>
+
+
+        <div>
+          <label
+            htmlFor="rol"
+            className="block mb-1text-sm font-semibold text-gray-700"
+          >
+            Rol
+          </label>
+
+          {crudType === "create" ? (
+            <select
+              id="role_user"
+              name="role_user"
+              value={formData.role_user}
+              onChange={handleChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            >
+              <option value=""></option>
+              <option value="1">Gerente</option>
+              <option value="2">Director de obra</option>
+              <option value="3">Capataz</option>
+              <option value="4">Peón</option>
+              <option value="5">Ayudante</option>
+            </select>
+          ) : (
+            <select
+              id="role_user"
+              name="role_user"
+              value={selectedRole}
+              onChange={(e) => {
+                handeldChangeSelect(e);
+              }}
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            >
+              <option value=""></option>
+              <option value="1">Gerente</option>
+              <option value="2">Director de obra</option>
+              <option value="3">Capataz</option>
+              <option value="4">Peon</option>
+              <option value="5">Ayudante</option>
+            </select>
+          )}
+        </div>
+      </div>
+      <div className="flex justify-center w-100">
+        <button
+          type="submit"
+          className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
+        >
+           {crudType === "create" ? "Crear usuario" : "Editar usuario"}
           
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="phone" className="block mb-2 text-sm font-medium">
-              Celular
-            </label>
-            <input
-              type="phone"
-              id="phone_user"
-              name="phone_user"
-              value={formData.phone_user}
-              onChange={handleChange}
-              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder={
-                crudType === "create" ? "Celular" : usuario.phone_user
-              }
-              {...(crudType === "create" ? { required: true } : {})}
-            ></input>
-          </div>
-        </div>
-
-
-
-        <div className="m-4 grid gap-4 mb-4 grid-cols-2">
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="adress" className="block mb-2 text-sm font-medium">
-              Dirección
-            </label>
-            <input
-              type="address_user"
-              id="address_user"
-              name="address_user"
-              value={formData.address_user}
-              onChange={handleChange}
-              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-11/12 p-2.5"
-              placeholder={
-                crudType === "create" ? "Direccion" : usuario.address_user
-              }
-              {...(crudType === "create" ? { required: true } : {})}
-            ></input>
-          </div>
-
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="rol" className="block mb-2 text-sm font-medium">
-              Rol
-            </label>
-            {crudType === "create" ? (
-              <select
-                id="role_user"
-                name="role_user"
-                value={formData.role_user}
-                onChange={handleChange}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="1">Gerente</option>
-                <option value="2">Director de obra</option>
-                <option value="3">Capataz</option>
-                <option value="4">Peon</option>
-                <option value="5">Ayudante</option>
-              </select>
-            ) : (
-              <select
-                id="role_user"
-                name="role_user"
-                value={selectedRole}
-                onChange={(e) => {
-                  handeldChangeSelect(e);
-                }}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value="1">Gerente</option>
-                <option value="2">Director de obra</option>
-                <option value="3">Capataz</option>
-                <option value="4">Peon</option>
-                <option value="5">Ayudante</option>
-              </select>
-            )}
-          </div>
-        </div>
-
-
-
+          <svg
+            className="ml-1 me-1 -ms-1 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
       </div>
 
-
-
-
-      <button
-        type="submit"
-        className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
-      >
-        <svg
-          className="me-1 -ms-1 w-5 h-5"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-            clipRule="evenodd"
-          />
-        </svg>{" "}
-        {crudType === "create" ? "Crear usuario" : "Editar usuario"}
-      </button>
     </form>
   );
 }

@@ -7,7 +7,7 @@ box-sizing: border-box;
 
 .photo-container {
   position: relative;
-  background: #716EDF;
+  background: #1C3B8D;
   background-size: cover;
   height: 180px;
   border-radius: 5px 5px 0 0;
@@ -15,12 +15,16 @@ box-sizing: border-box;
 
 .profile {
   position: absolute;
-  width: 120px;
-  bottom: -40px;
-  left: 185px;
-  border-radius: 40%;
-  border: 2px;
-  padding: 5px;
+  color: #21355E;
+  min-width: 106px;
+  min-height: 92px;
+  bottom: -39px;
+  left: 178px;
+  border-radius: 50%;
+  border: 3px solid white;
+  padding: 46px;
+  background-color: #DCE7FE;
+  box-shadow: 0 3px 26px rgba(0, 0, 0, 0.7);
 }
 
 .profile-name {
@@ -61,7 +65,7 @@ box-sizing: border-box;
   background: #716EDF;
   color: white;
 }
-css modalview
+
 .modal {
   position: fixed;
   top: 0;
