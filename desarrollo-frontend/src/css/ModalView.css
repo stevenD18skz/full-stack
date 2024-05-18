@@ -39,31 +39,25 @@ box-sizing: border-box;
   font-size: 15px;
   font-family: Montserrat;
   font-weight: bold;
-  color: #6e4398;
+  color: #3f3d3d;
 }
 
 .btn {
   margin: 30px 15px;
-  background: #716EDF;
+  background: #1C3B8D;
   padding: 10px 25px;
   border-radius: 10px;
-  border: 1px solid #716EDF;
+  border: 1px solid #2e2a97;
   font-weight: bold;
   font-family: Montserrat;
   cursor: pointer;
-  color: #222;
+  color: white;
   transition: 0.2s;
 }
 
-.btn:last-of-type {
-  background: transparent;
-  border-color: #716EDF;
-  color: #716EDF;
-}
-
 .btn:hover {
-  background: #716EDF;
-  color: white;
+  background: #bbd1ff;
+  color: #050a1c;
 }
 
 .modal {
@@ -80,7 +74,7 @@ box-sizing: border-box;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7);
 }
 
-.modal-content {
+.modal-content-view {
   background-color: white;
   padding: 13px;
   border-radius: 8px;
