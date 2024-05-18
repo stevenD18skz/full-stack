@@ -23,7 +23,6 @@ export function CrudWorkPage() {
 
 
   const [searchTerm, setSearchTerm]     = useState("");
-
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [isOpenEdit, setIsOpenEdit]     = useState(false);
   const [isOpenView, setIsOpenView]     = useState(false);
@@ -192,7 +191,7 @@ export function CrudWorkPage() {
           </div>
         </div>
 
-        <TableCrud index={2} openEdit={openEdit} openView={openView} />
+        <TableCrud index={2} openEdit={openEdit} openView={openView} searchTerm={searchTerm} />
 
         {/* MODAL DE EDITAR OBRAS */}
         {isOpenEdit && (

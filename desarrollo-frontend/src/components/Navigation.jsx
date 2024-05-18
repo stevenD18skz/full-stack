@@ -15,10 +15,10 @@ function classNames(...classes) {
 export function Navigation() {
   const { pathname } = useLocation();
   const navigation = [
-    { name: 'home', href: '/home', current: pathname === '/home' },
+    { name: 'Inicio', href: '/home', current: pathname === '/home' },
     { name: 'Usuarios', href: '/crud-users', current: pathname === '/crud-users' },
     { name: 'Obras', href: '/crud-work', current: pathname === '/crud-work' },
-    { name: 'tareas', href: '/crud-task', current: pathname === '/crud-task' },
+    { name: 'Tareas', href: '/crud-task', current: pathname === '/crud-task' },
     { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
   ]; 
 

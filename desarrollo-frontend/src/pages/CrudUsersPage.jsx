@@ -28,8 +28,9 @@ export function CrudUsersPage() {
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [isOpenEdit, setIsOpenEdit]     = useState(false);
   const [isOpenView, setIsOpenView]     = useState(false);
-
+  const [usuarios, setUsuarios]         = useState("");
   const [seleccionado, setSeleccionado] = useState();
+
 
   useEffect(() => {
     async function loadUsuarios() {
@@ -38,8 +39,6 @@ export function CrudUsersPage() {
     }
     loadUsuarios();
   }, []);
-
-
 
 
 
@@ -106,26 +105,42 @@ export function CrudUsersPage() {
       });
   };
 
-  const handleSubmitEdit = (e) => {
+  // const handleSubmitEdit = (e) => {
+  //   e.preventDefault();
+  //   console.log(formData)
+  //   axios
+  //     .post("http://127.0.0.1:8000/crud/users/update/", formData)
+  //     .then((response) => {
+  //       Toast.fire({
+  //         icon: "success",
+  //         title: "Usuario actualizado con exito",
+  //       });
+  //       setUsuarios(axios.get("http://127.0.0.1:8000/users/").data.results);
+  //       closeEdit()
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al editar el usuario:", error);
+  //     });
+  // };
+
+  const handleSubmitEdit = async (e) => {
     e.preventDefault();
-    console.log(formData)
-    axios
-      .post("http://127.0.0.1:8000/crud/users/update/", formData)
-      .then((response) => {
-        Toast.fire({
-          icon: "success",
-          title: "Usuario actualizado con exito",
-        });
-        setUsuarios(axios.get("http://127.0.0.1:8000/users/").data.results);
-        closeEdit()
-      })
-      .catch((error) => {
-        console.error("Error al editar el usuario:", error);
+    try {
+      console.log(formData);
+      const response = await axios.post("http://127.0.0.1:8000/crud/users/update/", formData);
+      Toast.fire({
+        icon: "success",
+        title: "Usuario actualizado con éxito",
       });
+  
+      const usersResponse = await axios.get("http://127.0.0.1:8000/users/");
+      setUsuarios(usersResponse.data.results);
+      console.log(usersResponse);
+      closeEdit();
+    } catch (error) {
+      console.error("Error al editar el usuario:", error);
+    }
   };
-
-
-
 
 
   return (
@@ -187,7 +202,7 @@ export function CrudUsersPage() {
           </div>
         </div>
 
-        <TableCrud index={1} openEdit={openEdit} openView={openView} />
+        <TableCrud index={1} openEdit={openEdit} openView={openView} searchTerm={searchTerm}/>
 
         {/* MODAL DE EDITAR USUARIO */}
         {isOpenEdit && (

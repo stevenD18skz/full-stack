@@ -2,6 +2,7 @@ import { faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalUsers from "./ModalUsers";
 import ModalWorks from "../components/ModalWorks";
+import ModalTask from "./ModalTask";
 //ola ana
 //buenas noches nita
 //adios
@@ -38,6 +39,15 @@ export default function Modal({
             handleSubmit={handleSubmit}
             setFormData={setFormData}
             objectModel={objectModel}/>;
+
+      case "tasks":
+        return <ModalTask 
+              modalType={modalType}
+              crudType={crudType}
+              formData={formData}
+              handleSubmit={handleSubmit}
+              setFormData={setFormData}
+              objectModel={objectModel}/>;      
 
 
 

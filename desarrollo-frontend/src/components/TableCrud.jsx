@@ -12,8 +12,10 @@ import Swal from "sweetalert2";
 
 
 
-export function TableCrud({ openEdit, index, openView }) {
+export function TableCrud({ openEdit, index, openView, searchTerm}) {
   const [dataList, setDataList] = useState([]);
+  const [filteredDataList, setFilteredDataList] = useState([]);
+
   const data = {
     1: [
       ["ID", "Nombre", "Apellido", "Email", "Rol", "Estado", ""], //titulo para las columnas de la tabla
@@ -29,6 +31,13 @@ export function TableCrud({ openEdit, index, openView }) {
       "enabled_work",
       "name_work"
     ],
+      3: [
+      ["ID", "Nombre", "Descripcion", "Tipo", "Etapa", "Estado", ""],
+      "tasks",
+      ["id", "task_name", "task_description", "task_type", 'task_status'],
+      "task_enabled",
+      "task_name"
+    ]
   };
 
   const titles = data[index][0];
@@ -45,6 +54,16 @@ export function TableCrud({ openEdit, index, openView }) {
     }
     loadUsers();
   }, []);
+
+  useEffect(() => {
+    const filteredData = dataList.filter((item) =>
+      Object.values(item)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+    setFilteredDataList(filteredData);
+  }, [searchTerm, dataList]);
 
 
 
@@ -173,7 +192,7 @@ export function TableCrud({ openEdit, index, openView }) {
 
   return (
     <table className="w-full text-sm text-left rtl:text-right ">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 text-white">
+      <thead className="text-xs bg-gray-50 dark:bg-gray-700 text-white">
         <tr>
           {titles.map((title) => (
             <th scope="col" className="px-6 py-3" key={title}>
@@ -184,7 +203,7 @@ export function TableCrud({ openEdit, index, openView }) {
         
       </thead>
       <tbody>
-        {dataList.map((currentObject) => (
+        {filteredDataList.map((currentObject) => (
           <tr
             key={currentObject.id}
             className="border-b border-gray-200 hover:bg-slate-200"

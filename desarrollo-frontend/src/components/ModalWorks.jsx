@@ -180,7 +180,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
           <label 
             htmlFor="select" 
             className="block mb-2 text-sm font-medium">
-            Trabajadores:
+            Trabajadores
           </label>
           <select
             name="id_user_work"

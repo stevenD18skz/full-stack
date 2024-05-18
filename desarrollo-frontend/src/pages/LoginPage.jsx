@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import RecaptchaForm from '../components/RecaptchaForm';
 import { FaUser, FaGoogle } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { useState, useEffect } from 'react';
@@ -80,6 +81,10 @@ export function LoginPage() {
                                     <RiLockPasswordFill className="text-indigo-400 h-4 w-4" />
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div className='mt-4 flex items-center justify-center'>
+                            <RecaptchaForm/>
                         </div>
 
                         {error ?
