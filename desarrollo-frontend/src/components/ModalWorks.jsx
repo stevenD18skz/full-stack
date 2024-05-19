@@ -6,34 +6,33 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   const [workers,  setWorkers]  = useState([]);
 
 
+
   useEffect(() => {
     async function loadUsers() {
-      const response = await axios.get(`http://127.0.0.1:8000/users/`);
-      setManagers(response.data.results);
-      setWorkers(response.data.results)
+      const peticionManagers = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Director de obra`);
+      const peticionWorkers  = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
+      setManagers(peticionManagers.data);
+      setWorkers(peticionWorkers.data)
     }
     loadUsers();
   }, []);
 
 
-
-
-
-
-  const handeldChangeSelect = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   
-
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(value)
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handeldChangeSelect = (e) => {
+    const { name, value } = e.target;
+    console.log(value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -42,21 +41,17 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
 
   
 
+
   
 
-
-
-
-
+  
   return (
     <form className="p-2 md:p-3" onSubmit={handleSubmit}>
       <div className="pb-8">
 
-
         <h3 className="pb-5 text-3xl">
           {crudType === "create" ? "Crear OBRA" : "Editar OBRA"}{" "}
         </h3>
-
 
 
 
@@ -194,7 +189,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
             multiple
           >
             {workers.map((item) => (
-              <option value={item.id}>{item.first_name}</option>
+              <option key={item.id} value={item.id}>{item.first_name}</option>
             ))}
           </select>
         </div>

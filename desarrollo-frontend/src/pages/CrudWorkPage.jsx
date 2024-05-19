@@ -23,20 +23,17 @@ export function CrudWorkPage() {
 
 
   const [searchTerm, setSearchTerm]     = useState("");
+  const [seleccionado, setSeleccionado] = useState();
+
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [isOpenEdit, setIsOpenEdit]     = useState(false);
   const [isOpenView, setIsOpenView]     = useState(false);
-  const [seleccionado, setSeleccionado] = useState();
 
 
 
 
 
   useEffect(() => {
-    async function loadUsuarios() {
-      const response = await axios.get("http://127.0.0.1:8000/works/");
-    }
-    loadUsuarios();
   }, []);
 
 
@@ -52,6 +49,7 @@ export function CrudWorkPage() {
 
 
 
+
   const openEdit = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenEdit(true);
@@ -63,6 +61,7 @@ export function CrudWorkPage() {
 
 
 
+
   const openView = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenView(true);
@@ -70,6 +69,8 @@ export function CrudWorkPage() {
   const closeView = () => {
     setIsOpenView(false);
   };
+
+
 
 
 
@@ -88,7 +89,6 @@ export function CrudWorkPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
     axios
       .post("http://127.0.0.1:8000/crud/works/", formData)
       .then((response) => {

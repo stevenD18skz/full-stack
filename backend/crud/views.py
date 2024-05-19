@@ -92,7 +92,7 @@ class filtroTareasProObra(APIView):
         director_usuarios = Task.objects.filter(id_work=id_de_obra)
 
         serializer = TaskSerializer(director_usuarios, many=True)  # Serialize for multiple users
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(data={"contador": len(serializer.data), "results": serializer.data}, status=status.HTTP_200_OK)
 
 
 

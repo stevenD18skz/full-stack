@@ -30,6 +30,8 @@ export function CrudTaskPage() {
   const [seleccionado, setSeleccionado] = useState();
 
   const [works, setWorks] = useState([]);
+  const [obraSeleccionada, setObraSeleccionada] = useState(1);
+
 
 
 
@@ -37,10 +39,11 @@ export function CrudTaskPage() {
     async function loadUsuarios() {
       const response = await axios.get("http://127.0.0.1:8000/works/");
       setWorks(response.data.results);
-      console.log(works)
     }
     loadUsuarios();
   }, []);
+
+
 
 
 
@@ -51,6 +54,10 @@ export function CrudTaskPage() {
     setIsOpenCreate(false);
   };
 
+
+
+
+
   const openEdit = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenEdit(true);
@@ -58,6 +65,10 @@ export function CrudTaskPage() {
   const closeEdit = () => {
     setIsOpenEdit(false);
   };
+
+
+
+
 
   const openView = (usuario) => {
     setSeleccionado(usuario);
@@ -67,16 +78,18 @@ export function CrudTaskPage() {
     setIsOpenView(false);
   };
 
-  const handeldChangeSelect = (e) => {
-    const { key, name, value } = e.target;
-    console.log(value);
-    //setFormData({ ...formData, [name]: value });
-    console.log(value);
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+
+
+
+
+  const seleccionDeObra = (e) => {
+    const {name, value } = e.target;
+    console.log(value)
+    setObraSeleccionada(value)
   };
+
+
+
 
 
   const Toast = Swal.mixin({
@@ -111,7 +124,6 @@ export function CrudTaskPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
-    console.log(formData);
     axios
       .post("http://127.0.0.1:8000/crud/task/", formData)
       .then((response) => {
@@ -126,6 +138,11 @@ export function CrudTaskPage() {
         console.error("Error al editar la tarea:", error);
       });
   };
+
+
+
+
+
 
   return (
     <div>
@@ -144,21 +161,25 @@ export function CrudTaskPage() {
           />
         )}
 
+
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+
+
+
+
           <select
             id="task_status"
             name="task_status"
-            onChange={handeldChangeSelect}
+            onChange={seleccionDeObra}
             className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
           >
-            {
-              works.map((item) => (
-              <option key={item.id}>{item.name_work}</option>
+            {works.map((item) => (
+              <option key={item.id} value={item.id}>{item.name_work}</option>
             ))}
-            
-
-
           </select>
+
+
+
 
           <div>
             <button
@@ -173,7 +194,6 @@ export function CrudTaskPage() {
               Crear tarea
             </button>
           </div>
-
           <div className="relative">
             <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
               <svg
@@ -201,11 +221,13 @@ export function CrudTaskPage() {
           </div>
         </div>
 
+
         <TableCrud
           index={3}
           openEdit={openEdit}
           openView={openView}
           searchTerm={searchTerm}
+          filtredTerm={obraSeleccionada}
         />
 
         {/* MODAL DE EDITAR USUARIO */}

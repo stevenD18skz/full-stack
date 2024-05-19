@@ -12,28 +12,28 @@ import Swal from "sweetalert2";
 
 
 
-export function TableCrud({ openEdit, index, openView, searchTerm}) {
+export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm}) {
   const [dataList, setDataList] = useState([]);
   const [filteredDataList, setFilteredDataList] = useState([]);
 
   const data = {
     1: [
       ["ID", "Nombre", "Apellido", "Email", "Rol", "Estado", ""], //titulo para las columnas de la tabla
-      "users", //
+      "http://127.0.0.1:8000/users/", //la url de la peticoin total
       ["id", "first_name", "last_name", "email", "role_user"], //nombre de los atributos que se mostraran en la tabla
       "is_active",
       "username",//atributo que usar el desabilitar para buscar el objeto
     ],
     2: [
       ["ID", "Nombre", "Ubicacion", "Tipo", "Descripcion", "Estado", ""],
-      "works",
+      "http://127.0.0.1:8000/works/",
       ["id", "name_work", "location_work", "type_work", 'description_work'],
       "enabled_work",
       "name_work"
     ],
       3: [
       ["ID", "Nombre", "Descripcion", "Tipo", "Etapa", "Estado", ""],
-      "tasks",
+      `http://127.0.0.1:8000/crud/task/filtroObra/?obra=${filtredTerm}`,
       ["id", "task_name", "task_description", "task_type", 'task_status'],
       "task_enabled",
       "task_name"
@@ -45,16 +45,26 @@ export function TableCrud({ openEdit, index, openView, searchTerm}) {
 
 
 
+
+
+
   useEffect(() => {
     async function loadUsers() {
+      console.log(filtredTerm)
       const response = await axios.get(
-        `http://127.0.0.1:8000/${dataName}/`
+        dataName
       );
+      console.log(response)
       setDataList(response.data.results);
     }
     loadUsers();
-  }, []);
+  }, [filtredTerm]);
 
+
+
+
+
+  
   useEffect(() => {
     const filteredData = dataList.filter((item) =>
       Object.values(item)
@@ -67,6 +77,9 @@ export function TableCrud({ openEdit, index, openView, searchTerm}) {
 
 
 
+
+
+  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -106,7 +119,6 @@ export function TableCrud({ openEdit, index, openView, searchTerm}) {
 
   };
 
-
   const toastDisable = (disableObject) => {
     Swal.fire({
       title: `¿Estás seguro que quieres desactivar a ${disableObject[data[index][4]]}?`,
@@ -137,6 +149,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm}) {
 
 
 
+  
   async function enable(enableObject) {
     async function postEnable() {
       const objectId = enableObject[data[index][2][0]];

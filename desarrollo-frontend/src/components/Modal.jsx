@@ -3,31 +3,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalUsers from "./ModalUsers";
 import ModalWorks from "../components/ModalWorks";
 import ModalTask from "./ModalTask";
-//ola ana
-//buenas noches nita
-//adios
+
+
+
 export default function Modal({
   modalType,
   crudType,
   formData,
   closeModal,
-  handleSubmit,
   setFormData,
+  handleSubmit,
   objectModel,
 }) {
+
+
   const showInfoModal = (modalType) => {
     switch (modalType) {
       case "users":
-        return (
-          <ModalUsers
+        return <ModalUsers
             modalType={modalType}
+            crudType={crudType}
             formData={formData}
+            setFormData={setFormData}
             handleSubmit={handleSubmit}
             usuario={objectModel}
-            crudType={crudType}
-            setFormData={setFormData}
           />
-        );
 
 
         
@@ -36,18 +36,21 @@ export default function Modal({
             modalType={modalType}
             crudType={crudType}
             formData={formData}
-            handleSubmit={handleSubmit}
             setFormData={setFormData}
+            handleSubmit={handleSubmit}
             objectModel={objectModel}/>;
+
+
 
       case "tasks":
         return <ModalTask 
-              modalType={modalType}
-              crudType={crudType}
-              formData={formData}
-              handleSubmit={handleSubmit}
-              setFormData={setFormData}
-              objectModel={objectModel}/>;      
+            modalType={modalType}
+            crudType={crudType}
+            formData={formData}
+            setFormData={setFormData}
+            handleSubmit={handleSubmit}
+            objectModel={objectModel}
+          />;      
 
 
 
