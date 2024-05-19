@@ -206,3 +206,19 @@ class chageEstateUser(APIView):
             "mensaje": f"El usuario {usuario.username} ha sido {action}do correctamente.",
             "resultados": serializer.data
         }, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+class directorDeObra(APIView):
+    def get(self, request, *args, **kwargs):
+        querysets = User.objects.filter(id_rol=2)
+
+
+        return Response({
+            "usuario": UsuarioSerializerCreate(querysets).data},
+            status=status.HTTP_201_CREATED
+        )

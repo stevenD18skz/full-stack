@@ -6,30 +6,34 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   const [workers,  setWorkers]  = useState([]);
 
 
-  const handeldChangeSelect = (e) => {
-    const { key, name, value } = e.target;
-    console.log(value);
-    //setFormData({ ...formData, [name]: value });
-    console.log(value)
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   useEffect(() => {
     async function loadUsers() {
       const response = await axios.get(`http://127.0.0.1:8000/users/`);
       setManagers(response.data.results);
+      setWorkers(response.data.results)
     }
     loadUsers();
   }, []);
 
 
 
+
+
+
+  const handeldChangeSelect = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  
+
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -185,7 +189,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
           <select
             name="id_user_work"
             id="id_user_work"
-            onChange={handleChange}
+            onChange={handeldChangeSelect}
             className="border rounded w-full px-3 py-2 text-gray-900 text-sm bg-gray-50"
             multiple
           >

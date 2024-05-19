@@ -11,6 +11,7 @@ from paginaDeInicio.views import UsuarioViewSet
 from paginaDeInicio.views import serchName
 from paginaDeInicio.views import LoginView
 from paginaDeInicio.views import buscar_usuarios
+from paginaDeInicio.views import directorDeObra
 from paginaDeInicio.views import createUserView
 from paginaDeInicio.views import updateView
 from paginaDeInicio.views import chageEstateUser
@@ -56,6 +57,7 @@ urlpatterns = [
   path('crud/users/create/', createUserView.as_view()),
   #read
   path('crud/users/serch/',  buscar_usuarios.as_view()),
+  path('crud/users/directorDeObra/',  directorDeObra.as_view()),
   #update
   path('crud/users/update/', updateView.as_view()),
   #delete
