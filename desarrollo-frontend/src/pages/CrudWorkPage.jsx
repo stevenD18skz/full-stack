@@ -17,7 +17,7 @@ export function CrudWorkPage() {
     type_work: "",
     id_manager_work: "",
     description_work: "",
-    id_user_work: "",
+    id_user_work: [1,2,3,4,5,6],
   });
 
 

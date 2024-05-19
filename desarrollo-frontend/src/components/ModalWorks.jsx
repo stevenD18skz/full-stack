@@ -32,11 +32,19 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
 
   const handeldChangeSelect = (e) => {
     const { name, value } = e.target;
+    console.log("========")
     console.log(value)
+
+
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      id_user_work: value,
     }));
+
+    
+
+    
+
   };
 
   
@@ -151,7 +159,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
               <select
                 id="id_manager_work"
                 name="id_manager_work"
-                onChange={handeldChangeSelect}
+                onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 {managers.map((item) => (
@@ -163,7 +171,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
                 id="id_manager_work"
                 name="id_manager_work"
                 value={formData.id_manager_work}
-                onChange={handeldChangeSelect}
+                onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 {managers.map((item) => (
@@ -219,3 +227,5 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
     </form>
   );
 }
+
+

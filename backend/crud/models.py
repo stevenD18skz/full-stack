@@ -33,6 +33,7 @@ class Work(models.Model):
 
     def str(self):
         return self.name_work
+    
 
 
 
