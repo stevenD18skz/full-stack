@@ -104,8 +104,10 @@ export function CrudWorkPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
+    console.log(formData)
+    console.log(seleccionado.id)
     axios
-      .put("http://127.0.0.1:8000/works/", formData)
+      .put(`http://127.0.0.1:8000/works/${seleccionado.id}/`, formData)
       .then((response) => {
         Toast.fire({
           icon: "success",

@@ -15,6 +15,16 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
       setWorkers(peticionWorkers.data)
     }
     loadUsers();
+
+    console.log(objectModel)
+    if(crudType == "edit"){
+      formData["description_work"] = objectModel.description_work
+      formData["id_manager_work"] = objectModel.id_manager_work
+      formData["id_user_work"] = objectModel.id_user_work
+      formData["location_work"] = objectModel.location_work
+      formData["type_work"] = objectModel.type_work
+      formData["name_work"] = objectModel.name_work
+    }
   }, []);
 
 
@@ -34,17 +44,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
     const { name, value } = e.target;
     console.log("========")
     console.log(value)
-
-
     setFormData((prevState) => ({
       ...prevState,
       id_user_work: value,
     }));
-
-    
-
-    
-
   };
 
   
