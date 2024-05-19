@@ -25,7 +25,7 @@ class Work(models.Model):
     id_user_work = models.ManyToManyField(User, related_name='obras_asignadas')
 
     # Estado de avance de la obra (de 0 a 100%)
-    work_status = models.FloatField()
+    work_status = models.FloatField(default=0)
 
     # Indica si la obra está habilitada
     enabled_work = models.BooleanField(default=True)

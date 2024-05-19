@@ -16,6 +16,13 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
       const response = await axios.get("http://127.0.0.1:8000/works/");
       setWorks(response.data.results);
       console.log(works)
+
+
+      const peticionManagers = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
+
+      const peticionWorkers  = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=trabajadores`);
+      setManagers(peticionManagers.data);
+      setWorkers(peticionWorkers.data)
     }
     loadUsuarios();
   }, []);

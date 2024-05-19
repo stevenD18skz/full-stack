@@ -1,39 +1,36 @@
 import { Navigation } from "../components/Navigation";
 import "../css/CrudUsersStyles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { TableCrud } from "../components/TableCrud";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
-import ModalTask from "../components/ModalTask";
 import Modal from "../components/Modal";
-import ModalView from "../components/ModalView";
+
 
 export function CrudTaskPage() {
   const [formData, setFormData] = useState({
     task_name: "",
     task_description: "",
     id_work: "1",
-    id_workers: "",
+    id_workers: [1],
     id_foreman: "",
     task_type: "",
     task_status: "",
   });
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isOpenCreate, setIsOpenCreate] = useState(false);
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [isOpenView, setIsOpenView] = useState(false);
-
+  const [searchTerm, setSearchTerm]     = useState("");
   const [seleccionado, setSeleccionado] = useState();
 
+  const [isOpenCreate, setIsOpenCreate] = useState(false);
+  const [isOpenEdit, setIsOpenEdit]     = useState(false);
+  const [isOpenView, setIsOpenView]     = useState(false);
+
+  
   const [works, setWorks] = useState([]);
   const [obraSeleccionada, setObraSeleccionada] = useState(1);
-
-
-
 
   useEffect(() => {
     async function loadUsuarios() {
@@ -106,25 +103,18 @@ export function CrudTaskPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
     console.log(formData)
-
-
-
     axios
-      .post("http://127.0.0.1:8000/crud/task/", formData)
+      .post("http://127.0.0.1:8000/tasks/", formData)
       .then(() => {
         Toast.fire({
           icon: "success",
-          title: "Tarea creada con éxito",
+          title: "Objeto Creado con Exito",
         });
-
-        setUsuarios(axios.get("http://127.0.0.1:8000/tasks/").data.results);
         closeCreate();
       })
       .catch((error) => {
-        console.error("Error al crear la tarea:", error);
+        console.error("Error al crear:", error);
       });
   };
 
@@ -135,13 +125,12 @@ export function CrudTaskPage() {
       .then((response) => {
         Toast.fire({
           icon: "success",
-          title: "Tarea actualizada con éxito",
+          title: "Objeto actualizado con exito",
         });
-        setUsuarios(axios.get("http://127.0.0.1:8000/tasks/").data.results);
         closeEdit();
       })
       .catch((error) => {
-        console.error("Error al editar la tarea:", error);
+        console.error("Error al editar:", error);
       });
   };
 
@@ -153,9 +142,8 @@ export function CrudTaskPage() {
   return (
     <div>
       <Navigation></Navigation>
-
       <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
-        {/* MODAL DE CREAR TAREA */}
+        {/* MODAL DE CREAR*/}
         {isOpenCreate && (
           <Modal
             modalType="tasks"
@@ -201,7 +189,7 @@ export function CrudTaskPage() {
                 icon={faPlus}
                 className="text-indigo-400 h-4 w-4"
               />{" "}
-              Crear tarea
+              Crear
             </button>
           </div>
 
@@ -237,26 +225,16 @@ export function CrudTaskPage() {
 
         <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={obraSeleccionada} />
 
-        {/* MODAL DE EDITAR USUARIO */}
+        {/* MODAL DE EDITAR*/}
         {isOpenEdit && (
           <Modal
             modalType="tasks"
+            crudType="edit"
             closeModal={closeEdit}
             formData={formData}
             setFormData={setFormData}
             handleSubmit={handleSubmitEdit}
             objectModel={seleccionado}
-            crudType="edit"
-          />
-        )}
-
-
-        {isOpenView && (
-          <ModalView
-            closeView={closeView}
-            formData={formData}
-            setFormData={setFormData}
-            usuario={seleccionado}
           />
         )}
       </div>

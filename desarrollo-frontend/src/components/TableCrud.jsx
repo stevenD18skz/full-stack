@@ -19,24 +19,27 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm})
   const data = {
     1: [
       ["ID", "Nombre", "Apellido", "Email", "Rol", "Estado", ""], //titulo para las columnas de la tabla
-      "http://127.0.0.1:8000/users/", //la url de la peticoin total
+      "users", //nombre del modelo
       ["id", "first_name", "last_name", "email", "role_user"], //nombre de los atributos que se mostraran en la tabla
       "is_active",
       "username",//atributo que usar el desabilitar para buscar el objeto
+      "http://127.0.0.1:8000/users/", //la url de la peticoin total
     ],
     2: [
       ["ID", "Nombre", "Ubicacion", "Tipo", "Descripcion", "Estado", ""],
-      "http://127.0.0.1:8000/works/",
+      "works",
       ["id", "name_work", "location_work", "type_work", 'description_work'],
       "enabled_work",
-      "name_work"
+      "name_work",
+      "http://127.0.0.1:8000/works/",
     ],
       3: [
       ["ID", "Nombre", "Descripcion", "Tipo", "Etapa", "Estado", ""],
-      `http://127.0.0.1:8000/crud/task/filtroObra/?obra=${filtredTerm}`,
+      `tasks`,
       ["id", "task_name", "task_description", "task_type", 'task_status'],
       "task_enabled",
-      "task_name"
+      "task_name",
+      `http://127.0.0.1:8000/crud/task/filtroObra/?obra=${filtredTerm}`,
     ]
   };
 
@@ -51,7 +54,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm})
   useEffect(() => {
     async function loadUsers() {
       const response = await axios.get(
-        dataName
+        data[index][5]
       );
       setDataList(response.data.results);
     }

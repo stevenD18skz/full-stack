@@ -1,14 +1,13 @@
 import { Navigation } from "../components/Navigation";
 import "../css/CrudUsersStyles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { TableCrud } from "../components/TableCrud";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 import Modal from "../components/Modal";
-import ModalView from "../components/ModalView";
 
 
 export function CrudWorkPage() {
@@ -86,49 +85,40 @@ export function CrudWorkPage() {
     },
   });
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
-      .post("http://127.0.0.1:8000/crud/works/", formData)
-      .then((response) => {
+      .post("http://127.0.0.1:8000/works/", formData)
+      .then(() => {
         Toast.fire({
           icon: "success",
-          title: "Usuario creado con exito",
+          title: "Objeto Creado con Exito",
         });
-        async function loadUsuarios() {
           closeCreate();
-          const response = await axios.get("http://127.0.0.1:8000/works/");
-          setUsuarios(response.data.results);
-        }
-        loadUsuarios();
       })
       .catch((error) => {
-        console.error("Error al crear el usuario:", error);
+        console.error("Error al crear:", error);
       });
   };
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
     axios
-      .put("http://127.0.0.1:8000/crud/works/", formData)
+      .put("http://127.0.0.1:8000/works/", formData)
       .then((response) => {
         Toast.fire({
           icon: "success",
-          title: "Usuario actualizado con exito",
+          title: "Objeto actualizado con exito",
         });
-        async function loadUsuarios() {
           closeEdit();
-          const response = await axios.get("http://127.0.0.1:8000/works/");
-          setUsuarios(response.data.results);
-        }
-        loadUsuarios();
       })
       .catch((error) => {
-        console.error("Error al editar el usuario:", error);
+        console.error("Error al editar:", error);
       });
   };
 
+  
 
 
 
@@ -137,7 +127,7 @@ export function CrudWorkPage() {
     <div>
       <Navigation></Navigation>
       <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
-        {/* MODAL DE CREAR OBRAS */}
+        {/* MODAL DE CREAR*/}
         {isOpenCreate && (
             <Modal
               modalType="works"
@@ -148,6 +138,7 @@ export function CrudWorkPage() {
               handleSubmit={handleSubmit}
             />
         )}
+
 
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
           <div>
@@ -160,9 +151,10 @@ export function CrudWorkPage() {
                 icon={faPlus}
                 className="text-indigo-400 h-4 w-4"
               />{" "}
-              Crear Usuario
+              Crear
             </button>
           </div>
+
 
           <div className="relative">
             <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
@@ -189,17 +181,19 @@ export function CrudWorkPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+
         </div>
 
-        <TableCrud index={2} openEdit={openEdit} openView={openView} searchTerm={searchTerm} />
 
-        {/* MODAL DE EDITAR OBRAS */}
+        <TableCrud index={2} openEdit={openEdit} openView={openView} searchTerm={searchTerm}/>
+
+        {/* MODAL DE EDITAR*/}
         {isOpenEdit && (
             <Modal
               modalType="works"
               crudType="edit"
-              formData={formData}
               closeModal={closeEdit}
+              formData={formData}
               setFormData={setFormData}
               handleSubmit={handleSubmitEdit}
               objectModel={seleccionado}

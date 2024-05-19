@@ -17,9 +17,11 @@ from paginaDeInicio.views import updateView
 from paginaDeInicio.views import chageEstateUser
 
 
+
 #vistas de las obras
 from crud.views import WorkViewSet
 from crud.views import chageEstateWork
+
 
 
 #vistas de las tareas

@@ -225,6 +225,15 @@ class filtroProRol(APIView):
         elif rol_name == "Capataz":
             director_usuarios = User.objects.filter(role_user=3)
 
+        elif rol_name == "Peon":
+            director_usuarios = User.objects.filter(role_user=4)
+
+        elif rol_name == "Ayudante de albañil":
+            director_usuarios = User.objects.filter(role_user=5)
+
+        elif rol_name == "trabajadores":
+            director_usuarios = User.objects.filter(role_user__in=[4, 5])
+
         else:
            return Response( status=status.HTTP_403_FORBIDDEN)
 
