@@ -67,7 +67,7 @@ class Task(models.Model):
     task_status = models.IntegerField(choices=((0, "Pendiente"), (1, "En progreso"), (2, "Completada")))
 
     # Clave foránea para id de Capataz
-    id_foreman = models.OneToOneField(User, on_delete=models.CASCADE, related_name="tareas_como_capataz")
+    id_foreman = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tareas_como_capataz")
 
     # Indica si la tarea está habilitada
     task_enabled = models.BooleanField(default=True)

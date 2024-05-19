@@ -81,6 +81,22 @@ class TaskViewSet(viewsets.ModelViewSet):
     ]
 
 
+
+
+class filtroTareasProObra(APIView):
+    def get(self, request, *args, **kwargs):
+
+        id_de_obra = request.GET.get('obra')
+
+
+        director_usuarios = Task.objects.filter(id_work=id_de_obra)
+
+        serializer = TaskSerializer(director_usuarios, many=True)  # Serialize for multiple users
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
 class chageEstateTask(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []

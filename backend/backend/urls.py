@@ -11,7 +11,7 @@ from paginaDeInicio.views import UsuarioViewSet
 from paginaDeInicio.views import serchName
 from paginaDeInicio.views import LoginView
 from paginaDeInicio.views import buscar_usuarios
-from paginaDeInicio.views import directorDeObra
+from paginaDeInicio.views import filtroProRol
 from paginaDeInicio.views import createUserView
 from paginaDeInicio.views import updateView
 from paginaDeInicio.views import chageEstateUser
@@ -22,9 +22,11 @@ from crud.views import WorkViewSet
 from crud.views import chageEstateWork
 
 
-#vistas de las obras
+#vistas de las tareas
 from crud.views import TaskViewSet
+from crud.views import filtroTareasProObra
 from crud.views import chageEstateTask
+
 
 
 
@@ -57,7 +59,7 @@ urlpatterns = [
   path('crud/users/create/', createUserView.as_view()),
   #read
   path('crud/users/serch/',  buscar_usuarios.as_view()),
-  path('crud/users/directorDeObra/',  directorDeObra.as_view()),
+  path('crud/users/filtroPorRol/',  filtroProRol.as_view()),
   #update
   path('crud/users/update/', updateView.as_view()),
   #delete
@@ -83,6 +85,7 @@ urlpatterns = [
   #path('crud/users/create/', createUserView.as_view()),
   #read
   #path('crud/users/serch/',  buscar_usuarios.as_view()),
+  path('crud/task/filtroObra/',  filtroTareasProObra.as_view()),
   #update
   #path('crud/users/update/', updateView.as_view()),
   #delete

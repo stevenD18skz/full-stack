@@ -29,18 +29,20 @@ export function CrudTaskPage() {
 
   const [seleccionado, setSeleccionado] = useState();
 
-  const [obras, setObras] = useState();
+  const [works, setWorks] = useState([]);
+
+
 
   useEffect(() => {
-    async function loadWorks() {
+    async function loadUsuarios() {
       const response = await axios.get("http://127.0.0.1:8000/works/");
-      setObras(response.data.results)
-      console.log(obras)
+      setWorks(response.data.results);
+      console.log(works)
     }
-    loadWorks();
+    loadUsuarios();
   }, []);
 
-  
+
 
   const openCreate = () => {
     setIsOpenCreate(true);
@@ -149,10 +151,13 @@ export function CrudTaskPage() {
             onChange={handeldChangeSelect}
             className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
           >
-            <option value=""></option>
-            <option value={0}>Pendiente</option>
-            <option value={1}>En progreso</option>
-            <option value={2}>Completada</option>
+            {
+              works.map((item) => (
+              <option key={item.id}>{item.name_work}</option>
+            ))}
+            
+
+
           </select>
 
           <div>

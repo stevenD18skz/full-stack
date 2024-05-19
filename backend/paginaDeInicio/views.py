@@ -213,7 +213,7 @@ class chageEstateUser(APIView):
 
 
 
-class directorDeObra(APIView):
+class filtroProRol(APIView):
     def get(self, request, *args, **kwargs):
 
         rol_name = request.GET.get('roleBusqueda')
