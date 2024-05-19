@@ -22,23 +22,25 @@ export function CrudTaskPage() {
     task_status: "",
   });
 
-  const [searchTerm, setSearchTerm]     = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [isOpenCreate, setIsOpenCreate] = useState(false);
-  const [isOpenEdit, setIsOpenEdit]     = useState(false);
-  const [isOpenView, setIsOpenView]     = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenView, setIsOpenView] = useState(false);
 
   const [seleccionado, setSeleccionado] = useState();
 
+  const [obras, setObras] = useState();
+
   useEffect(() => {
-    async function loadUsuarios() {
-      const response = await axios.get("http://127.0.0.1:8000/tasks/");
+    async function loadWorks() {
+      const response = await axios.get("http://127.0.0.1:8000/works/");
+      setObras(response.data.results)
+      console.log(obras)
     }
-    loadUsuarios();
+    loadWorks();
   }, []);
 
-
-
-
+  
 
   const openCreate = () => {
     setIsOpenCreate(true);
@@ -46,8 +48,6 @@ export function CrudTaskPage() {
   const closeCreate = () => {
     setIsOpenCreate(false);
   };
-
-
 
   const openEdit = (usuario) => {
     setSeleccionado(usuario);
@@ -57,8 +57,6 @@ export function CrudTaskPage() {
     setIsOpenEdit(false);
   };
 
-
-
   const openView = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenView(true);
@@ -67,9 +65,18 @@ export function CrudTaskPage() {
     setIsOpenView(false);
   };
 
+  const handeldChangeSelect = (e) => {
+    const { key, name, value } = e.target;
+    console.log(value);
+    //setFormData({ ...formData, [name]: value });
+    console.log(value);
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
 
-  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -81,8 +88,6 @@ export function CrudTaskPage() {
       toast.onmouseleave = Swal.resumeTimer;
     },
   });
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -104,7 +109,7 @@ export function CrudTaskPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData);
     axios
       .post("http://127.0.0.1:8000/crud/task/", formData)
       .then((response) => {
@@ -113,35 +118,43 @@ export function CrudTaskPage() {
           title: "Tarea actualizada con éxito",
         });
         setUsuarios(axios.get("http://127.0.0.1:8000/tasks/").data.results);
-        closeEdit()
+        closeEdit();
       })
       .catch((error) => {
         console.error("Error al editar la tarea:", error);
       });
   };
 
-
-
-
-
   return (
     <div>
       <Navigation></Navigation>
 
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">   
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
         {/* MODAL DE CREAR TAREA */}
         {isOpenCreate && (
-            <Modal
-              modalType="tasks"
-              closeModal={closeCreate}
-              formData={formData}
-              setFormData={setFormData}
-              handleSubmit={handleSubmit}
-              crudType="create"
-            />
+          <Modal
+            modalType="tasks"
+            closeModal={closeCreate}
+            formData={formData}
+            setFormData={setFormData}
+            handleSubmit={handleSubmit}
+            crudType="create"
+          />
         )}
 
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+          <select
+            id="task_status"
+            name="task_status"
+            onChange={handeldChangeSelect}
+            className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          >
+            <option value=""></option>
+            <option value={0}>Pendiente</option>
+            <option value={1}>En progreso</option>
+            <option value={2}>Completada</option>
+          </select>
+
           <div>
             <button
               type="button"
@@ -183,27 +196,32 @@ export function CrudTaskPage() {
           </div>
         </div>
 
-        <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} />
+        <TableCrud
+          index={3}
+          openEdit={openEdit}
+          openView={openView}
+          searchTerm={searchTerm}
+        />
 
         {/* MODAL DE EDITAR USUARIO */}
         {isOpenEdit && (
-            <Modal
-              modalType="tasks"
-              closeModal={closeEdit}
-              formData={formData} 
-              setFormData={setFormData}
-              handleSubmit={handleSubmitEdit}
-              objectModel={seleccionado}
-              crudType="edit"
-            />
+          <Modal
+            modalType="tasks"
+            closeModal={closeEdit}
+            formData={formData}
+            setFormData={setFormData}
+            handleSubmit={handleSubmitEdit}
+            objectModel={seleccionado}
+            crudType="edit"
+          />
         )}
 
         {isOpenView && (
           <ModalView
-          closeView={closeView}
-          formData={formData}
-          setFormData={setFormData}
-          usuario={seleccionado}
+            closeView={closeView}
+            formData={formData}
+            setFormData={setFormData}
+            usuario={seleccionado}
           />
         )}
       </div>

@@ -215,10 +215,18 @@ class chageEstateUser(APIView):
 
 class directorDeObra(APIView):
     def get(self, request, *args, **kwargs):
-        querysets = User.objects.filter(id_rol=2)
+
+        rol_name = request.GET.get('roleBusqueda')
 
 
-        return Response({
-            "usuario": UsuarioSerializerCreate(querysets).data},
-            status=status.HTTP_201_CREATED
-        )
+        if rol_name == "Director de obra":
+            director_usuarios = User.objects.filter(role_user=2)
+
+        elif rol_name == "Capataz":
+            director_usuarios = User.objects.filter(role_user=3)
+
+        else:
+           return Response( status=status.HTTP_403_FORBIDDEN)
+
+        serializer = UsuarioSerializerCreate(director_usuarios, many=True)  # Serialize for multiple users
+        return Response(serializer.data, status=status.HTTP_200_OK)
