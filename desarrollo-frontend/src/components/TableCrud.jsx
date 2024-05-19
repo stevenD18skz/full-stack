@@ -50,11 +50,9 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm})
 
   useEffect(() => {
     async function loadUsers() {
-      console.log(filtredTerm)
       const response = await axios.get(
         dataName
       );
-      console.log(response)
       setDataList(response.data.results);
     }
     loadUsers();

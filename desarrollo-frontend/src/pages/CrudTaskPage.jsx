@@ -15,7 +15,7 @@ export function CrudTaskPage() {
   const [formData, setFormData] = useState({
     task_name: "",
     task_description: "",
-    id_work: "",
+    id_work: "1",
     id_workers: "",
     id_foreman: "",
     task_type: "",
@@ -84,8 +84,8 @@ export function CrudTaskPage() {
 
   const seleccionDeObra = (e) => {
     const {name, value } = e.target;
-    console.log(value)
     setObraSeleccionada(value)
+    formData["id_work"] = value 
   };
 
 
@@ -106,6 +106,12 @@ export function CrudTaskPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+
+    console.log(formData)
+
+
+
     axios
       .post("http://127.0.0.1:8000/crud/task/", formData)
       .then(() => {
@@ -153,34 +159,38 @@ export function CrudTaskPage() {
         {isOpenCreate && (
           <Modal
             modalType="tasks"
-            closeModal={closeCreate}
+            crudType="create"
             formData={formData}
+            closeModal={closeCreate}
             setFormData={setFormData}
             handleSubmit={handleSubmit}
-            crudType="create"
           />
         )}
 
 
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
 
+          <div>
+            <label
+                htmlFor="task_status"
+                className="block mb-2 text-sm font-medium"
+              >
+                Selecciona la obra
+              </label>
 
+            <select
+              id="task_status"
+              name="task_status"
+              onChange={seleccionDeObra}
+              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+            >
+              {works.map((item) => (
+                <option key={item.id} value={item.id}>{item.name_work}</option>
+              ))}
+            </select>
+          </div>
 
-
-          <select
-            id="task_status"
-            name="task_status"
-            onChange={seleccionDeObra}
-            className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-          >
-            {works.map((item) => (
-              <option key={item.id} value={item.id}>{item.name_work}</option>
-            ))}
-          </select>
-
-
-
-
+        
           <div>
             <button
               type="button"
@@ -194,6 +204,8 @@ export function CrudTaskPage() {
               Crear tarea
             </button>
           </div>
+
+
           <div className="relative">
             <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
               <svg
@@ -219,16 +231,11 @@ export function CrudTaskPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+
         </div>
 
 
-        <TableCrud
-          index={3}
-          openEdit={openEdit}
-          openView={openView}
-          searchTerm={searchTerm}
-          filtredTerm={obraSeleccionada}
-        />
+        <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={obraSeleccionada} />
 
         {/* MODAL DE EDITAR USUARIO */}
         {isOpenEdit && (
@@ -242,6 +249,7 @@ export function CrudTaskPage() {
             crudType="edit"
           />
         )}
+
 
         {isOpenView && (
           <ModalView

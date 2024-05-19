@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModalTask({
-  formData,
-  setFormData,
-  handleSubmit,
-  crudType,
-  objectModel = {},
-}) {
+export default function ModalTask({formData, setFormData, handleSubmit, crudType, objectModel = {},}) {
   const [works, setWorks] = useState([]);
   const [workers, setWorkers] = useState([]);
   const [foreman, setForeman] = useState([]);
 
-  const handeldChangeSelect = (e) => {
-    const { key, name, value } = e.target;
-    console.log(value);
-    //setFormData({ ...formData, [name]: value });
-    console.log(value);
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+
+
+
+
 
   useEffect(() => {
     async function loadUsuarios() {
@@ -32,6 +20,9 @@ export default function ModalTask({
     loadUsuarios();
   }, []);
 
+
+
+
   useEffect(() => {
     async function loadUsers() {
       const response = await axios.get(`http://127.0.0.1:8000/users/`);
@@ -39,7 +30,23 @@ export default function ModalTask({
     }
     loadUsers();
   }, []);
+
+
   
+
+  const handeldChangeSelect = (e) => {
+    const { name, value } = e.target;
+    console.log(value);
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  
+
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,12 +57,24 @@ export default function ModalTask({
     }));
   };
 
+
+
+  
+
+
+
+
   return (
     <form className="p-2 md:p-3" onSubmit={handleSubmit}>
       <div className="pb-8">
+
+
         <h3 className="pb-5 text-3xl">
           {crudType === "create" ? "Crear tarea" : "Editar tarea"}{" "}
         </h3>
+
+
+
 
         <div className="grid grid-cols-2 gap-4 m-4">
           <div className="col-span-2 sm:col-span-1">
@@ -103,6 +122,10 @@ export default function ModalTask({
           </div>
         </div>
 
+
+
+
+
         <div className="h-32 m-4">
           <label
             htmlFor="task_description"
@@ -125,6 +148,11 @@ export default function ModalTask({
             {...(crudType === "create" ? { required: true } : {})}
           ></input>
         </div>
+
+
+
+
+
 
         <div className="grid grid-cols-2 gap-4 m-4">
           <div className="col-span-2 sm:col-span-1">
@@ -174,6 +202,11 @@ export default function ModalTask({
           </div>
         </div>
 
+
+
+
+
+
         <div className="grid grid-cols-2 gap-4 m-4">
           <div className="col-span-2 sm:col-span-1">
             <label
@@ -210,40 +243,8 @@ export default function ModalTask({
             )}
           </div>
 
-          <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="id_work" className="block mb-2 text-sm font-medium">
-              Obra
-            </label>
-            {crudType === "create" ? (
-              <select
-                id="id_work"
-                name="id_work"
-                onChange={handeldChangeSelect}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                {works.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.first_name}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <select
-                id="id_work"
-                name="id_work"
-                value={formData.id_work}
-                onChange={handeldChangeSelect}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                {works.map((item) => (
-                  <option key={item.id}>{item.first_name}</option>
-                ))}
-              </select>
-            )}
-          </div>
-        </div>
 
-        <div className="grid grid-cols-2 gap-4 m-4">
+
           <div className="col-span-2 sm:col-span-1">
             <label htmlFor="id_foreman" className="block mb-2 text-sm font-medium">
               Capataz
@@ -277,7 +278,9 @@ export default function ModalTask({
           </div>
         </div>
 
-        
+
+
+
 
         <div className="flex flex-col items-center p-4 m-4 rounded">
           <label 
@@ -297,6 +300,10 @@ export default function ModalTask({
             ))}
           </select>
         </div>
+
+
+
+
 
       </div>
 
