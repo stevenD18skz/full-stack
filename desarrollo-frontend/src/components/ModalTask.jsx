@@ -43,20 +43,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
   
 
-
-  
-
-  const handeldChangeSelect = (e) => {
-    const { name, value } = e.target;
-    console.log(value);
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(value);
@@ -224,24 +210,13 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
             >
               Etapa
             </label>
-            {crudType === "create" ? (
-              <select
-                id="task_status"
-                name="task_status"
-                onChange={handeldChangeSelect}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                <option value=""></option>
-                <option value={0}>Pendiente</option>
-                <option value={1}>En progreso</option>
-                <option value={2}>Completada</option>
-              </select>
-            ) : (
+
+
               <select
                 id="task_status"
                 name="task_status"
                 value={formData.task_status}
-                onChange={handeldChangeSelect}
+                onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 <option value=""></option>
@@ -249,7 +224,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                 <option value={1}>En progreso</option>
                 <option value={2}>Completada</option>
               </select>
-            )}
           </div>
 
 
@@ -258,32 +232,17 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
             <label htmlFor="id_foreman" className="block mb-2 text-sm font-medium">
               Capataz
             </label>
-            {crudType === "create" ? (
-              <select
-                id="id_foreman"
-                name="id_foreman"
-                onChange={handeldChangeSelect}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                {foreman.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.first_name}
-                  </option>
-                ))}
-              </select>
-            ) : (
               <select
                 id="id_foreman"
                 name="id_foreman"
                 value={formData.id_foreman}
-                onChange={handeldChangeSelect}
+                onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 {foreman.map((item) => (
                   <option key={item.id} value={item.id}>{item.first_name}</option>
                 ))}
               </select>
-            )}
           </div>
         </div>
 

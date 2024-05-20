@@ -173,15 +173,15 @@ export function CrudTaskPage() {
 
           <div>
             <label
-                htmlFor="task_status"
+                htmlFor="work_select"
                 className="block mb-2 text-sm font-medium"
               >
                 Selecciona la obra
               </label>
 
             <select
-              id="task_status"
-              name="task_status"
+              id="work_select"
+              name="work_select"
               onChange={seleccionDeObra}
               className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
             >

@@ -89,7 +89,7 @@ export function Navigation() {
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <UserPhoto first_name="ana" last_name="sofia" x="8" y="8" z="text-sm"></UserPhoto>
+                      <UserPhoto first_name="ana" last_name="sofia" x="12" y="12" z="text-sm"></UserPhoto>
                     </Menu.Button>
                   </div>
 

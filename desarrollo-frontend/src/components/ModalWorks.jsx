@@ -6,6 +6,9 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   const [workers,  setWorkers]  = useState([]);
 
 
+  //empezar con el select multi
+
+
 
   useEffect(() => {
     async function loadUsers() {
@@ -159,18 +162,6 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
             <label htmlFor="id_manager_work" className="block mb-2 text-sm font-medium">
               Director de obra
             </label>
-            {crudType === "create" ? (
-              <select
-                id="id_manager_work"
-                name="id_manager_work"
-                onChange={handleChange}
-                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              >
-                {managers.map((item) => (
-                  <option key={item.id} value={item.id} >{item.first_name}</option>
-                ))}
-              </select>
-            ) : (
               <select
                 id="id_manager_work"
                 name="id_manager_work"
@@ -182,7 +173,6 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
                   <option key={item.id} value={item.id}>{item.first_name}</option>
                 ))}
               </select>
-            )}
           </div>
         </div>
 
