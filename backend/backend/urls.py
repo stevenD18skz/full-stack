@@ -16,6 +16,8 @@ from paginaDeInicio.views import createUserView
 from paginaDeInicio.views import updateView
 from paginaDeInicio.views import chageEstateUser
 
+from paginaDeInicio.views import RoleViewSet
+
 
 
 #vistas de las obras
@@ -35,6 +37,7 @@ from crud.views import chageEstateTask
 
 
 router = routers.DefaultRouter()
+router.register('roles', RoleViewSet)
 router.register('users', UsuarioViewSet)
 router.register('works', WorkViewSet)
 router.register('tasks', TaskViewSet)

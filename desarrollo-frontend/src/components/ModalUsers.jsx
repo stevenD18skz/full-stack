@@ -2,32 +2,36 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function ModalUsers({ formData, setFormData, handleSubmit, crudType, usuario = {}, }) {
-  const [selectedDocument, setSelectedDocument] = useState(usuario.doc_type_user);
-  const [selectedGender, setSelectedGender] = useState(usuario.gender_user);
-  const [selectedRole, setSelectedRole] = useState(usuario.role_user);
+  const [roles, setRoles] = useState([]);
 
 
-  const handeldChangeSelect = (e) => {
-    const { name, value } = e.target;
-    if (name === "doc_type_user") {
-      setSelectedDocument(value)
-    } else if (name == "gender_user") {
-      setSelectedGender(value)
-    }
-    else if (name == "role_user") {
-      setSelectedRole(value)
-    }
 
+  useEffect(() => {
+    async function loadUsers() {
+      const peticionRoles = await axios.get(`http://127.0.0.1:8000/roles/`);
+      setRoles(peticionRoles.data.results);
+      if(crudType == "edit"){
+        formData["username"] = usuario.username
+        formData["first_name"] = usuario.first_name
+        formData["last_name"] = usuario.last_name
+        formData["email"] = usuario.email
+        formData["doc_type_user"] = usuario.doc_type_user
+        formData["doc_number_user"] = usuario.doc_number_user
+        formData["gender_user"] = usuario.gender_user
+        formData["address_user"] = usuario.address_user
+        formData["phone_user"] = usuario.phone_user
+      } else{
+        formData["doc_type_user"] = "CC"
+        formData["gender_user"] = "M"
+        formData["role_user"] = "1"
+      }
+  }
+    loadUsers();
+  }, []);
 
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -38,11 +42,17 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   return (
     <form className="p-6 bg-white rounded-lg" onSubmit={handleSubmit}>
 
+
+
       <h3 className="text-2xl font-semibold mb-6 text-blue-900">
         {crudType === "create" ? <center>Creación de usuario</center> : <center>Editar usuario</center>}
       </h3>
 
+
+
       <div className="grid gap-6 mb-6 lg:grid-cols-2">
+
+
         <div>
           <label
             htmlFor="user"
@@ -137,35 +147,17 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
             Tipo de Identificación
           </label>
 
-          {crudType === "create" ? (
-            <select
-              id="doc_type_user"
-              name="doc_type_user"
-              value={selectedDocument}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
-            >
-              <option value=""></option>
-              <option value="CC">Cédula de Ciudadanía</option>
-              <option value="CE">Cédula de Extranjería</option>
-              <option value="PA">Pasaporte</option>
-            </select>
-          ) : (
-            <select
-              id="doc_type_user"
-              name="doc_type_user"
-              value={selectedDocument}
-              onChange={(e) => {
-                handeldChangeSelect(e);
-              }}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
-            >
-              <option value=""></option>
-              <option value="CC">Cédula de Ciudadania</option>
-              <option value="CE">Cédula de Extranjeria</option>
-              <option value="PA">Pasaporte</option>
-            </select>
-          )}
+          <select
+            id="doc_type_user"
+           name="doc_type_user"
+            value={usuario.doc_type_user}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+          >
+            <option value="CC">Cédula de Ciudadanía</option>
+            <option value="CE">Cédula de Extranjería</option>
+            <option value="PA">Pasaporte</option>
+          </select>
         </div>
 
 
@@ -200,33 +192,17 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
           >
             Género
           </label>
-          {crudType === "create" ? (
-            <select
-              id="gender_user"
-              name="gender_user"
-              value={formData.gender_user}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
-            >
-              <option value=""></option>
-              <option value="F">Femenino</option>
-              <option value="M">Masculino</option>
-            </select>
-          ) : (
-            <select
-              id="gender_user"
-              name="gender_user"
-              value={selectedGender}
-              onChange={(e) => {
-                handeldChangeSelect(e);
-              }}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
-            >
-              <option value=""></option>
-              <option value="F">Femenino</option>
-              <option value="M">Masculino</option>
-            </select>
-          )}
+
+          <select
+            id="gender_user"
+            name="gender_user"
+            value={formData.gender_user}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+          >
+            <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+          </select>
         </div>
 
 
@@ -251,7 +227,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div {...(crudType === "edit" ? { className : "col-span-2" } : {})}>
           <label
             htmlFor="adress"
             className="block mb-1text-sm font-semibold text-gray-700"
@@ -272,15 +248,14 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
-          <label
-            htmlFor="rol"
-            className="block mb-1text-sm font-semibold text-gray-700"
-          >
-            Rol
-          </label>
 
           {crudType === "create" ? (
+            <div>
+              <label 
+              htmlFor="rol" 
+              className="block mb-1text-sm font-semibold text-gray-700" >
+                ROL
+              </label>
             <select
               id="role_user"
               name="role_user"
@@ -288,33 +263,26 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
               onChange={handleChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
             >
-              <option value=""></option>
-              <option value="1">Gerente</option>
-              <option value="2">Director de obra</option>
-              <option value="3">Capataz</option>
-              <option value="4">Peón</option>
-              <option value="5">Ayudante</option>
+              {roles.map((item) => (
+                  <option key={item.id} value={item.id} >{item.name_role}</option>
+                ))}
+
+
             </select>
+            </div>
+
           ) : (
-            <select
-              id="role_user"
-              name="role_user"
-              value={selectedRole}
-              onChange={(e) => {
-                handeldChangeSelect(e);
-              }}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
-            >
-              <option value=""></option>
-              <option value="1">Gerente</option>
-              <option value="2">Director de obra</option>
-              <option value="3">Capataz</option>
-              <option value="4">Peon</option>
-              <option value="5">Ayudante</option>
-            </select>
+            <p></p>
           )}
-        </div>
+
+
+
+
+
       </div>
+
+
+
       <div className="flex justify-center w-100">
         <button
           type="submit"

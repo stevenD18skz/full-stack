@@ -43,6 +43,12 @@ export function CrudWorkPage() {
   };
   const closeCreate = () => {
     setIsOpenCreate(false);
+    formData["description_work"] = ""
+    formData["id_manager_work"] = ""
+    formData["id_user_work"] = [1,2,3,4,5,6]
+    formData["location_work"] = ""
+    formData["type_work"] = ""
+    formData["name_work"] = ""
   };
 
 
@@ -55,6 +61,12 @@ export function CrudWorkPage() {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
+    formData["description_work"] = ""
+    formData["id_manager_work"] = ""
+    formData["id_user_work"] = [1,2,3,4,5,6]
+    formData["location_work"] = ""
+    formData["type_work"] = ""
+    formData["name_work"] = ""
   };
 
 

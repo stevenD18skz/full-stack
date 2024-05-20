@@ -177,7 +177,6 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
                 value={formData.id_manager_work}
                 onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                defaultValue
               >
                 {managers.map((item) => (
                   <option key={item.id} value={item.id}>{item.first_name}</option>

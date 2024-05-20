@@ -11,8 +11,18 @@ from rest_framework.exceptions import AuthenticationFailed
 
 
 from .models import User
+from .models import Role
 from .serializers import UsuarioSerializer, UsuarioSerializerCreate
+from .serializers import RoleSerializer
 from rest_framework import status
+
+
+
+class RoleViewSet(viewsets.ModelViewSet):
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+    permission_classes = []
+   
 
 
 
@@ -154,22 +164,31 @@ class updateView(APIView):
         )
 
 
-    def post(self, request):
+    def put(self, request):
         try:
-            user = User.objects.get(email=request.data.get('email'))
+            print(request.data)
+            user = User.objects.get(username=request.data.get('username'))
             user.username = request.data.get('username')
             user.first_name = request.data.get('first_name')
+            user.last_name = request.data.get('last_name')
+            user.email = request.data.get('email')
+            user.doc_type_user = request.data.get('doc_type_user')
+            user.doc_number_user = request.data.get('doc_number_user')
+            user.gender_user = request.data.get('gender_user')
+            user.address_user = request.data.get('address_user')
+            user.phone_user = request.data.get('phone_user')
+            #user.role_user = int(int(request.data.get('role_user')))
             user.save()
 
 
-            return Response({
-                "usuario": UsuarioSerializerCreate(user).data}, 
+            return Response(
                 status=status.HTTP_202_ACCEPTED
             )
 
         except Exception as e:
+            print(e)
             return Response(
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_303_SEE_OTHER
             )
 
 

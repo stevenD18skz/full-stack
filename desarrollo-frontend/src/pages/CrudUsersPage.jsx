@@ -22,7 +22,7 @@ export function CrudUsersPage() {
     gender_user: "",
     address_user: "",
     phone_user: "",
-    role_user: 0,
+    role_user: "",
   });
 
 
@@ -37,17 +37,21 @@ export function CrudUsersPage() {
 
 
 
-  useEffect(() => {
-  }, []);
-
-
-
-
   const openCreate = () => {
     setIsOpenCreate(true);
   };
   const closeCreate = () => {
     setIsOpenCreate(false);
+    formData["username"] = ""
+    formData["first_name"] = ""
+    formData["last_name"] = ""
+    formData["email"] = ""
+    formData["doc_type_user"] = ""
+    formData["doc_number_user"] = ""
+    formData["gender_user"] = ""
+    formData["address_user"] = ""
+    formData["phone_user"] = ""
+    formData["role_user"] = ""
   };
 
 
@@ -60,6 +64,16 @@ export function CrudUsersPage() {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
+    formData["username"] = ""
+    formData["first_name"] = ""
+    formData["last_name"] = ""
+    formData["email"] = ""
+    formData["doc_type_user"] = ""
+    formData["doc_number_user"] = ""
+    formData["gender_user"] = ""
+    formData["address_user"] = ""
+    formData["phone_user"] = ""
+    formData["role_user"] = ""
   };
 
 
@@ -90,6 +104,7 @@ export function CrudUsersPage() {
     },
   });
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData)
@@ -110,14 +125,15 @@ export function CrudUsersPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
       .put("http://127.0.0.1:8000/crud/users/update/", formData)
-      .then((response) => {
+      .then(() => {
         Toast.fire({
           icon: "success",
           title: "Objeto actualizado con exito",
         });
-          closeEdit();
+        closeEdit();
       })
       .catch((error) => {
         console.error("Error al editar:", error);
@@ -135,15 +151,16 @@ export function CrudUsersPage() {
       <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">   
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (
-            <Modal
-              modalType="users"
-              crudType="create"
-              formData={formData}
-              closeModal={closeCreate}
-              setFormData={setFormData}
-              handleSubmit={handleSubmit}
+          <Modal
+            modalType="users"
+            crudType="create"
+            formData={formData}
+            closeModal={closeCreate}
+            setFormData={setFormData}
+            handleSubmit={handleSubmit}
             />
         )}
+
 
 
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -190,27 +207,34 @@ export function CrudUsersPage() {
 
         </div>
 
+
+
         <TableCrud index={1} openEdit={openEdit} openView={openView} searchTerm={searchTerm}  closeEdit={isOpenEdit} closeCreate={closeCreate}/>
+
+
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (
-            <Modal
-              modalType="users"
-              crudType="edit"
-              closeModal={closeEdit}
-              formData={formData} 
-              setFormData={setFormData}
-              handleSubmit={handleSubmitEdit}
-              objectModel={seleccionado}
-            />
+          <Modal
+            modalType="users"
+            crudType="edit"
+            closeModal={closeEdit}
+            formData={formData} 
+            setFormData={setFormData}
+            handleSubmit={handleSubmitEdit}
+            objectModel={seleccionado}
+          />
         )}
 
+
+
+        {/* MODAL DE VISTA*/}
         {isOpenView && (
           <ModalView
-          closeView={closeView}
-          formData={formData}
-          setFormData={setFormData}
-          usuario={seleccionado}
+            closeView={closeView}
+            formData={formData}
+            setFormData={setFormData}
+            usuario={seleccionado}
           />
         )}
       </div>

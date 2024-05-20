@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from .models import Role
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -16,3 +17,10 @@ class UsuarioSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password', 'doc_type_user', 'doc_number_user', 'gender_user', 'address_user', 'phone_user', 'role_user')
+
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = '__all__'

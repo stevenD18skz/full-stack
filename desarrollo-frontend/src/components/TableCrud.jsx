@@ -52,7 +52,6 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
 
 
   useEffect(() => {
-    console.log("ACTUALIZO LA TABLAAAA")
     async function loadUsers() {
       const response = await axios.get(
         data[index][5]

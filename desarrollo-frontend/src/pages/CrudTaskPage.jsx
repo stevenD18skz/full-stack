@@ -48,7 +48,14 @@ export function CrudTaskPage() {
     setIsOpenCreate(true);
   };
   const closeCreate = () => {
-    setIsOpenCreate(false);
+    setIsOpenCreate(false);    
+    formData["task_name"] = ""
+    formData["task_description"] = ""
+    formData["id_work"] = [1]
+    formData["id_workers"] = ""
+    formData["id_foreman"] = ""
+    formData["task_type"] = ""
+    formData["task_status"] = ""
   };
 
 
@@ -61,9 +68,14 @@ export function CrudTaskPage() {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
+    formData["task_name"] = ""
+    formData["task_description"] = ""
+    formData["id_work"] = [1]
+    formData["id_workers"] = ""
+    formData["id_foreman"] = ""
+    formData["task_type"] = ""
+    formData["task_status"] = ""
   };
-
-
 
 
 
@@ -220,6 +232,7 @@ export function CrudTaskPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+          
 
         </div>
 
