@@ -23,6 +23,7 @@ from paginaDeInicio.views import RoleViewSet
 #vistas de las obras
 from crud.views import WorkViewSet
 from crud.views import chageEstateWork
+from crud.views import filtredWorkUserRol
 
 
 
@@ -30,6 +31,10 @@ from crud.views import chageEstateWork
 from crud.views import TaskViewSet
 from crud.views import filtroTareasProObra
 from crud.views import chageEstateTask
+
+
+#avance
+from crud.views import TaskProgressViewSet
 
 
 
@@ -41,6 +46,7 @@ router.register('roles', RoleViewSet)
 router.register('users', UsuarioViewSet)
 router.register('works', WorkViewSet)
 router.register('tasks', TaskViewSet)
+router.register('progress', TaskProgressViewSet)
 
 
 urlpatterns = [
@@ -78,6 +84,7 @@ urlpatterns = [
   #path('crud/users/create/', createUserView.as_view()),
   #read
   #path('crud/users/serch/',  buscar_usuarios.as_view()),
+  path('crud/works/filtredWorkUserRol/',  filtredWorkUserRol.as_view()),
   #update
   #path('crud/users/update/', updateView.as_view()),
   #delete
@@ -90,11 +97,11 @@ urlpatterns = [
   #path('crud/users/create/', createUserView.as_view()),
   #read
   #path('crud/users/serch/',  buscar_usuarios.as_view()),
-  path('crud/task/filtroObra/',  filtroTareasProObra.as_view()),
+  path('crud/tasks/filtroObra/',  filtroTareasProObra.as_view()),
   #update
   #path('crud/users/update/', updateView.as_view()),
   #delete
-  path('crud/task/change/', chageEstateTask.as_view()),
+  path('crud/tasks/change/', chageEstateTask.as_view()),
 
   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

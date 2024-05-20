@@ -21,6 +21,7 @@ export function CrudTaskPage() {
     task_status: "",
   });
 
+
   const [searchTerm, setSearchTerm]     = useState("");
   const [seleccionado, setSeleccionado] = useState();
 
@@ -79,6 +80,8 @@ export function CrudTaskPage() {
 
 
 
+
+
   const openView = (usuario) => {
     setSeleccionado(usuario);
     setIsOpenView(true);
@@ -113,9 +116,9 @@ export function CrudTaskPage() {
     },
   });
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
     axios
       .post("http://127.0.0.1:8000/tasks/", formData)
       .then(() => {
@@ -130,12 +133,12 @@ export function CrudTaskPage() {
       });
   };
 
+
   const handleSubmitEdit = (e) => {
     e.preventDefault();
-    console.log(formData)
     axios
       .put(`http://127.0.0.1:8000/tasks/${seleccionado.id}/`, formData)
-      .then((response) => {
+      .then(() => {
         Toast.fire({
           icon: "success",
           title: "Objeto actualizado con exito",
@@ -237,7 +240,9 @@ export function CrudTaskPage() {
         </div>
 
 
+
         <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={obraSeleccionada} closeEdit={isOpenEdit} closeCreate={closeCreate}/>
+        
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (

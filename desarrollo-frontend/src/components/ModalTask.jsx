@@ -6,9 +6,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
   const [workers, setWorkers] = useState([]);
 
 
-
-
-
+  
 
 
   useEffect(() => {
@@ -22,6 +20,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
 
       if(crudType == "edit"){
+        console.log(objectModel)
         formData["task_name"] = objectModel.task_name
         formData["task_description"]  = objectModel.task_description
         formData["task_type"]     = objectModel.task_type
@@ -41,11 +40,22 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
   }, []);
 
 
+
+
+
+  const selectMultiple = (event) => {
+    const newSelectedValues = Array.from(event.target.options) // Convert to array
+      .filter((option) => option.selected) // Filter selected options
+      .map((option) => option.value); // Extract values
+    formData["id_user_work"] = newSelectedValues
+  };
   
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -55,7 +65,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
 
   
-
 
 
 
@@ -259,7 +268,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
           <select
             name="id_workers"
             id="id_workers"
-            onChange={handleChange}
+            onChange={selectMultiple}
             className="border rounded w-full px-3 py-2 text-gray-900 text-sm bg-gray-50"
             multiple
           >

@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
 
 #importacion obras
@@ -17,6 +18,10 @@ from .serializers import TaskSerializer
 from .serializers import TaskProgressSerializer
 
 
+class MiPaginador(PageNumberPagination):
+    page_size = 25
+
+
 
 class WorkViewSet(viewsets.ModelViewSet):
     queryset = Work.objects.all()
@@ -25,6 +30,7 @@ class WorkViewSet(viewsets.ModelViewSet):
         #permissions.IsAuthenticated,
         #permissions.IsAdminOrReadOnly,
     ]
+    pagination_class = MiPaginador
 
     # Acción personalizada para filtrar por director
     @action(detail=True, methods=['get'])
@@ -67,6 +73,30 @@ class chageEstateWork(APIView):
 
 
 
+class filtredWorkUserRol(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        print(request.GET)
+        identificador = request.GET.get('id_obra')
+        role = request.GET.get('role')  # 'inhabilitar' o 'habilitar'
+
+        work = get_object_or_404(Work, id=identificador)
+
+
+        serializer = WorkSerializer(work)#comprobar bien que debe debolver
+        return Response({
+            "mensaje": f"la obra {work.name_work} ha sido ====== correctamente.",
+            "resultados": serializer.data
+        }, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
 
 
 
@@ -79,6 +109,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         #permissions.IsAuthenticated,
         #permissions.IsAdminOrReadOnly,
     ]
+    pagination_class = MiPaginador
 
 
 
@@ -138,6 +169,7 @@ class TaskProgressViewSet(viewsets.ModelViewSet):
         #permissions.IsAuthenticated,
         #permissions.IsAdminOrReadOnly,
     ]
+    pagination_class = MiPaginador
     
 
 """

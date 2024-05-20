@@ -39,6 +39,9 @@ class Work(models.Model):
 
 
 
+
+
+
 class Task(models.Model):
     # Clave primaria
     id = models.AutoField(primary_key=True)
@@ -77,12 +80,21 @@ class Task(models.Model):
 
 
 
+
+
+
+
+
+
 class TaskProgress(models.Model):
     # Clave primaria
     id = models.AutoField(primary_key=True)
 
     # Descripción del del avance realizado
     task_progress_description = models.CharField(max_length=700)
+
+    # Necesidades para continuar con la tarea
+    task_progress_id_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="avances_con_tareas")
 
     # Porcentaje de avance de la tarea 
     task_progress = models.FloatField()

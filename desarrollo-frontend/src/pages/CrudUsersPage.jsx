@@ -107,7 +107,6 @@ export function CrudUsersPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
     axios
       .post("http://127.0.0.1:8000/crud/users/create/", formData)
       .then(() => {
@@ -125,7 +124,6 @@ export function CrudUsersPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
-    console.log(formData)
     axios
       .put("http://127.0.0.1:8000/crud/users/update/", formData)
       .then(() => {

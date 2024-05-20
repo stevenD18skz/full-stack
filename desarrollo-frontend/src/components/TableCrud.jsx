@@ -4,6 +4,8 @@ import {
   faUserMinus,
   faUserCheck,
   faEye,
+  faToggleOn,
+  faToggleOff,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -26,20 +28,30 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
       "http://127.0.0.1:8000/users/", //la url de la peticoin total
     ],
     2: [
-      ["ID", "Nombre", "Ubicacion", "Tipo", "Descripcion", "Estado", ""],
+      ["ID", "Nombre", "Ubicacion", "Tipo", "Porcentaje", "Estado", ""],
       "works",
-      ["id", "name_work", "location_work", "type_work", 'description_work'],
+      ["id", "name_work", "location_work", "type_work", 'work_status'],
       "enabled_work",
       "name_work",
       "http://127.0.0.1:8000/works/",
     ],
-      3: [
-      ["ID", "Nombre", "Descripcion", "Tipo", "Etapa", "Estado", ""],
+
+    3: [
+      ["ID", "Nombre", "Capataz", "Tipo", "Etapa", "Estado", ""],
       `tasks`,
-      ["id", "task_name", "task_description", "task_type", 'task_status'],
+      ["id", "task_name", "id_foreman", "task_type", 'task_status'],
       "task_enabled",
       "task_name",
-      `http://127.0.0.1:8000/crud/task/filtroObra/?obra=${filtredTerm}`,
+      `http://127.0.0.1:8000/crud/tasks/filtroObra/?obra=${filtredTerm}`,
+    ],
+
+    4: [
+      ["ID", "Descripcion", "%Progreso", "Necesidades", "Revison", "Estado", ""],
+      `progress`,
+      ["id", "task_progress_description", "task_progress", "task_progress_needs", 'inspection'],
+      "inspection",
+      "task_progress_description",
+      `http://127.0.0.1:8000/progress`,
     ]
   };
 
@@ -57,6 +69,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
         data[index][5]
       );
       setDataList(response.data.results);
+      console.log(response.data.results)
     }
     loadUsers();
   }, [filtredTerm, closeEdit, closeCreate]);
@@ -105,7 +118,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
 
     async function loadUsers() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/${dataName}/`
+        data[index][5]
       );
       setDataList(response.data.results)
     }
@@ -162,7 +175,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
     
     async function loadUsers() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/${dataName}/`
+        data[index][5]
       );
       setDataList(response.data.results)
     }
@@ -277,7 +290,8 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
                     onClick={() => toastDisable(currentObject)}
                   >
                     <FontAwesomeIcon
-                      icon={faUserMinus}
+                      {...(dataName === "users" ? { icon: faUserMinus } : { icon: faToggleOn})}
+
                       size="lg"
                       style={{ color: "#F22828" }}
                     />
@@ -289,7 +303,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
                     onClick={() => toastEnable(currentObject)}
                   >
                     <FontAwesomeIcon
-                      icon={faUserCheck}
+                      {...(dataName === "users" ? { icon: faUserCheck } : { icon: faToggleOff})}
                       size="lg"
                       style={{ color: "#74C0FC" }}
                     />

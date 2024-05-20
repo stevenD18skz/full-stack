@@ -6,18 +6,18 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   const [workers,  setWorkers]  = useState([]);
 
 
-  //empezar con el select multi
 
 
 
   useEffect(() => {
     async function loadUsers() {
       const peticionManagers = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Director de obra`);
-      const peticionWorkers  = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
+      const peticionWorkers  = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=trabajadores`);
       setManagers(peticionManagers.data);
       setWorkers(peticionWorkers.data)
 
       if(crudType == "edit"){
+        console.log(objectModel)
         formData["description_work"] = objectModel.description_work
         formData["id_manager_work"] = objectModel.id_manager_work
         formData["id_user_work"] = objectModel.id_user_work
@@ -32,27 +32,28 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   }, []);
 
 
+
+
+
+  const selectMultiple = (event) => {
+    const newSelectedValues = Array.from(event.target.options) // Convert to array
+      .filter((option) => option.selected) // Filter selected options
+      .map((option) => option.value); // Extract values
+    formData["id_user_work"] = newSelectedValues
+  };
+
   
+
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const handeldChangeSelect = (e) => {
-    const { name, value } = e.target;
-    console.log("========")
-    console.log(value)
-    setFormData((prevState) => ({
-      ...prevState,
-      id_user_work: value,
-    }));
-  };
 
   
 
@@ -186,7 +187,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
           <select
             name="id_user_work"
             id="id_user_work"
-            onChange={handeldChangeSelect}
+            onChange={selectMultiple}
             className="border rounded w-full px-3 py-2 text-gray-900 text-sm bg-gray-50"
             multiple
           >

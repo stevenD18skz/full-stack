@@ -9,6 +9,7 @@ import { HomePage } from "./pages/HomePage";
 import { CrudUsersPage } from "./pages/CrudUsersPage";
 import { CrudWorkPage } from "./pages/CrudWorkPage";
 import { CrudTaskPage } from "./pages/CrudTaskPage";
+import { CrudProgressTaks } from "./pages/CrudProgessTaks";
 
 
 import { DashBoardPage } from "./pages/DashBoardPage";
@@ -27,10 +28,11 @@ function App() {
       {/*
         direcciones para el Gerente
       */}
-        <Route path="/crud-task" element={<CrudTaskPage/>} />
-        <Route path="/crud-users" element={<CrudUsersPage/>} />
-        <Route path="/crud-work"  element={<CrudWorkPage/>} />
-        <Route path="/dashboard"  element={<DashBoardPage/>} />
+        <Route path="/crud-task"          element={<CrudTaskPage/>} />
+        <Route path="/crud-users"         element={<CrudUsersPage/>} />
+        <Route path="/crud-work"          element={<CrudWorkPage/>} />
+        <Route path="/crud-task-progess"  element={<CrudProgressTaks/>} />
+        <Route path="/dashboard"          element={<DashBoardPage/>} />
 
       {/*
         direcciones para el Director de obra

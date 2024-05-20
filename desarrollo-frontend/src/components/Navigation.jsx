@@ -19,6 +19,7 @@ export function Navigation() {
     { name: 'Usuarios', href: '/crud-users', current: pathname === '/crud-users' },
     { name: 'Obras', href: '/crud-work', current: pathname === '/crud-work' },
     { name: 'Tareas', href: '/crud-task', current: pathname === '/crud-task' },
+    { name: 'Avances', href: '/crud-task-progess', current: pathname === '/crud-task-progess' },
     { name: 'DashBoard', href: '/dashboard', current: pathname === '/dashboard' },
   ]; 
 

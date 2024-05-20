@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import login, authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.pagination import PageNumberPagination
 
 
 from .models import User
@@ -29,11 +30,17 @@ class RoleViewSet(viewsets.ModelViewSet):
 """
 VISTA GENERAL PARA EL EL MODELO "USUARIO"
 """
+
+class MiPaginador(PageNumberPagination):
+    page_size = 25
+
+
+
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = []
-   
+    pagination_class = MiPaginador
    
     @action(detail=True, methods=['get'])
     def get_name(self, request, pk=None):
@@ -127,6 +134,7 @@ VISTA PARA EL CREAR USUARIO
 """
 class createUserView(APIView):
     def post(self, request, *args, **kwargs):
+        print(request.data["role_user"])
         passWord = "password123"
         request.data["password"] = passWord
 

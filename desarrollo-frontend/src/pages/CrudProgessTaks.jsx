@@ -10,14 +10,14 @@ import Swal from "sweetalert2";
 import Modal from "../components/Modal";
 
 
-export function CrudWorkPage() {
+export function CrudProgressTaks() {
   const [formData, setFormData] = useState({
-    name_work: "",
-    location_work: "",
-    type_work: "",
-    id_manager_work: "",
-    description_work: "",
-    id_user_work: [],
+    task_progress_description: "",
+    task_progress: "",
+    progress_photos: "",
+    task_progress_needs: "",
+    inspection: "",
+    task_progress_id_task: "",
   });
 
 
@@ -31,20 +31,18 @@ export function CrudWorkPage() {
 
 
 
-
   const openCreate = () => {
     setIsOpenCreate(true);
   };
   const closeCreate = () => {
     setIsOpenCreate(false);
-    formData["description_work"] = ""
-    formData["id_manager_work"] = ""
-    formData["id_user_work"] = []
-    formData["location_work"] = ""
-    formData["type_work"] = ""
-    formData["name_work"] = ""
+    formData["task_progress_description"] = ""
+    formData["task_progress"] = ""
+    formData["progress_photos"] = ""
+    formData["task_progress_needs"] = ""
+    formData["inspection"] = ""
+    formData["task_progress_id_task"] = ""
   };
-
 
 
 
@@ -55,12 +53,12 @@ export function CrudWorkPage() {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
-    formData["description_work"] = ""
-    formData["id_manager_work"] = ""
-    formData["id_user_work"] = []
-    formData["location_work"] = ""
-    formData["type_work"] = ""
-    formData["name_work"] = ""
+    formData["task_progress_description"] = ""
+    formData["task_progress"] = ""
+    formData["progress_photos"] = ""
+    formData["task_progress_needs"] = ""
+    formData["inspection"] = ""
+    formData["task_progress_id_task"] = ""
   };
 
 
@@ -91,11 +89,11 @@ export function CrudWorkPage() {
     },
   });
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
-      .post("http://127.0.0.1:8000/works/", formData)
+      .post("http://127.0.0.1:8000/progress/", formData)
       .then(() => {
         Toast.fire({
           icon: "success",
@@ -108,12 +106,13 @@ export function CrudWorkPage() {
       });
   };
 
-
   const handleSubmitEdit = (e) => {
     e.preventDefault();
+    console.log(formData)
+    console.log(seleccionado.id)
     axios
-      .put(`http://127.0.0.1:8000/works/${seleccionado.id}/`, formData)
-      .then(() => {
+      .put(`http://127.0.0.1:8000/progress/${seleccionado.id}/`, formData)
+      .then((response) => {
         Toast.fire({
           icon: "success",
           title: "Objeto actualizado con exito",
@@ -137,7 +136,7 @@ export function CrudWorkPage() {
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (
             <Modal
-              modalType="works"
+              modalType="progress"
               crudType="create"
               formData={formData}
               closeModal={closeCreate}
@@ -145,7 +144,6 @@ export function CrudWorkPage() {
               handleSubmit={handleSubmit}
             />
         )}
-
 
 
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -189,20 +187,16 @@ export function CrudWorkPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
 
         </div>
 
 
-
-        <TableCrud index={2} openEdit={openEdit} openView={openView} searchTerm={searchTerm}  closeEdit={isOpenEdit} closeCreate={closeCreate}/>
-
-
+        <TableCrud index={4} openEdit={openEdit} openView={openView} searchTerm={searchTerm} closeEdit={isOpenEdit} closeCreate={closeCreate}/>
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (
             <Modal
-              modalType="works"
+              modalType="progress"
               crudType="edit"
               closeModal={closeEdit}
               formData={formData}
