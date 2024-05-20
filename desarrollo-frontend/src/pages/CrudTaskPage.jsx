@@ -224,7 +224,7 @@ export function CrudTaskPage() {
         </div>
 
 
-        <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={obraSeleccionada} />
+        <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={obraSeleccionada} closeEdit={isOpenEdit} closeCreate={closeCreate}/>
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (

@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 
 
-export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm}) {
+export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, closeEdit, closeCreate}) {
   const [dataList, setDataList] = useState([]);
   const [filteredDataList, setFilteredDataList] = useState([]);
 
@@ -52,6 +52,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm})
 
 
   useEffect(() => {
+    console.log("ACTUALIZO LA TABLAAAA")
     async function loadUsers() {
       const response = await axios.get(
         data[index][5]
@@ -59,7 +60,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm})
       setDataList(response.data.results);
     }
     loadUsers();
-  }, [filtredTerm]);
+  }, [filtredTerm, closeEdit, closeCreate]);
 
 
 

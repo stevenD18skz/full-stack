@@ -190,7 +190,7 @@ export function CrudUsersPage() {
 
         </div>
 
-        <TableCrud index={1} openEdit={openEdit} openView={openView} searchTerm={searchTerm}/>
+        <TableCrud index={1} openEdit={openEdit} openView={openView} searchTerm={searchTerm}  closeEdit={isOpenEdit} closeCreate={closeCreate}/>
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (

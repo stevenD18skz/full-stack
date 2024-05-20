@@ -187,7 +187,7 @@ export function CrudWorkPage() {
         </div>
 
 
-        <TableCrud index={2} openEdit={openEdit} openView={openView} searchTerm={searchTerm}/>
+        <TableCrud index={2} openEdit={openEdit} openView={openView} searchTerm={searchTerm} closeEdit={isOpenEdit} closeCreate={closeCreate}/>
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (
