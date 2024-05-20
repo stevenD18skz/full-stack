@@ -31,6 +31,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         formData["id_foreman"]        = objectModel.id_foreman
         formData["id_workers"]        = objectModel.id_workers
       } else{
+        formData["task_status"]        = 0
         formData["id_foreman"] = peticionForemans.data[0].id
       }
 
@@ -228,7 +229,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                 onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
-                <option value=""></option>
                 <option value={0}>Pendiente</option>
                 <option value={1}>En progreso</option>
                 <option value={2}>Completada</option>
