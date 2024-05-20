@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function ModalTask({formData, setFormData, handleSubmit, crudType, objectModel = {},}) {
-  const [works, setWorks] = useState([]);
-  const [workers, setWorkers] = useState([]);
   const [foreman, setForeman] = useState([]);
+  const [workers, setWorkers] = useState([]);
+
 
 
 
@@ -13,30 +13,35 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
   useEffect(() => {
     async function loadUsuarios() {
-      const response = await axios.get("http://127.0.0.1:8000/works/");
-      setWorks(response.data.results);
-      console.log(works)
-
-
-      const peticionManagers = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
+      const peticionForemans = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
+      setForeman(peticionForemans.data);
 
       const peticionWorkers  = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=trabajadores`);
-      setManagers(peticionManagers.data);
       setWorkers(peticionWorkers.data)
+
+
+
+      if(crudType == "edit"){
+        formData["task_name"] = objectModel.task_name
+        formData["task_description"]  = objectModel.task_description
+        formData["task_type"]     = objectModel.task_type
+        formData["task_assignment_date"]    = objectModel.task_assignment_date
+        formData["task_finish_date"]        = objectModel.task_finish_date
+        formData["task_status"]        = objectModel.task_status
+        formData["id_work"]        = objectModel.id_work
+        formData["id_foreman"]        = objectModel.id_foreman
+        formData["id_workers"]        = objectModel.id_workers
+      } else{
+        formData["id_foreman"] = peticionForemans.data[0].id
+      }
+
+
     }
     loadUsuarios();
   }, []);
 
 
-
-
-  useEffect(() => {
-    async function loadUsers() {
-      const response = await axios.get(`http://127.0.0.1:8000/users/`);
-      setForeman(response.data.results);
-    }
-    loadUsers();
-  }, []);
+  
 
 
   
@@ -50,9 +55,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
     }));
   };
   
-
-
-
 
 
   const handleChange = (e) => {
@@ -278,7 +280,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
                 {foreman.map((item) => (
-                  <option key={item.id}>{item.first_name}</option>
+                  <option key={item.id} value={item.id}>{item.first_name}</option>
                 ))}
               </select>
             )}
@@ -303,7 +305,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
             multiple
           >
             {workers.map((item) => (
-              <option value={item.id}>{item.first_name}</option>
+              <option key={item.id} value={item.id}>{item.first_name}</option>
             ))}
           </select>
         </div>

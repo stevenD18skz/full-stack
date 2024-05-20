@@ -13,18 +13,19 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
       const peticionWorkers  = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
       setManagers(peticionManagers.data);
       setWorkers(peticionWorkers.data)
+
+      if(crudType == "edit"){
+        formData["description_work"] = objectModel.description_work
+        formData["id_manager_work"] = objectModel.id_manager_work
+        formData["id_user_work"] = objectModel.id_user_work
+        formData["location_work"] = objectModel.location_work
+        formData["type_work"] = objectModel.type_work
+        formData["name_work"] = objectModel.name_work
+      } else{
+        formData["id_manager_work"] = peticionManagers.data[0].id
+      }
     }
     loadUsers();
-
-    console.log(objectModel)
-    if(crudType == "edit"){
-      formData["description_work"] = objectModel.description_work
-      formData["id_manager_work"] = objectModel.id_manager_work
-      formData["id_user_work"] = objectModel.id_user_work
-      formData["location_work"] = objectModel.location_work
-      formData["type_work"] = objectModel.type_work
-      formData["name_work"] = objectModel.name_work
-    }
   }, []);
 
 

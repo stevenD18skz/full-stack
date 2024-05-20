@@ -120,8 +120,9 @@ export function CrudTaskPage() {
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
-      .post("http://127.0.0.1:8000/crud/task/", formData)
+      .put(`http://127.0.0.1:8000/tasks/${seleccionado.id}/`, formData)
       .then((response) => {
         Toast.fire({
           icon: "success",
