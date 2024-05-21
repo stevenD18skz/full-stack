@@ -1,41 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import RecaptchaForm from '../components/RecaptchaForm';
 import { FaUser, FaGoogle } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
-
+import Swal from 'sweetalert2';
 
 export function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [captchaValue, setCaptchaValue] = useState(null);
+    const [errorCaptcha, setErrorCaptcha] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     const verificate = async () => {
         try {
-            if (username.length == 0 | password.length == 0 | username.length > 30) {
-                setError(true)
+            if (!captchaValue) {
+                setErrorCaptcha(true)
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Captcha requerido',
+                    text: 'Por favor, completa el reCAPTCHA.',
+                });
+                return;
             }
-            else {
+            if (username.length === 0 || password.length === 0 || username.length > 30) {
+                setError(true);
+            } else {
                 const response = await axios.post("http://localhost:8000/login/", {
                     username,
-                    password
+                    password,
+                    captcha: captchaValue // Envía el valor del captcha al servidor
                 });
-                setError(false)
+                setError(false);
                 navigate("/home");
             }
         } catch (error) {
+            setError(true)
             console.log("NO PUDE HACER EL POST");
             console.error(error.message);
         }
-    }
+    };
 
     return (
         <div className='flex w-full h-screen'>
-
             <div className='hidden relative lg:flex h-full w-4/5 items-center justify-center overflow-hidden'>
                 <img src='./images/background-login.jpg' />
                 <div className='absolute inset-0 bg-gradient-to-t from-black opacity-50'></div>
@@ -44,16 +53,11 @@ export function LoginPage() {
                     <p className='text-lg text-white italic font-normal'>Diseñamos tu visión, construimos tu realidad</p>
                 </div>
             </div>
-
             <div className='w-full flex items-center justify-center lg:w-1/2 '>
                 <div className='w-full flex flex-col items-center justify-center h-screen bg-white px-10 py-20 rounded-3xl'>
-
                     <h1 className='text-5xl font-semibold'>¡Bienvenido!</h1>
                     <p className='font-medium text-lg text-gray-600 mt-4'>Ingresa tus datos para continuar</p>
-
                     <div className='mt-8'>
-
-
                         <div className="relative">
                             <label className="font-extralight text-gray-600 ">Usuario</label>
                             <div className="relative mb-4">
@@ -67,8 +71,6 @@ export function LoginPage() {
                                 </div>
                             </div>
                         </div>
-
-
                         <div className="relative">
                             <label className="my-4 font-extralight text-gray-600">Contraseña</label>
                             <div className="relative">
@@ -82,27 +84,17 @@ export function LoginPage() {
                                 </div>
                             </div>
                         </div>
-                        
                         <div className='mt-4 flex items-center justify-center'>
-                            <RecaptchaForm/>
+                            <RecaptchaForm onCaptchaChange={setCaptchaValue} />
                         </div>
-
-                        {error ?
+                        {error &&
                             <div className='mt-4 flex items-center justify-center'>
-                                <p className='font-medium text-base text-red-600'>El usuario o la contraseña no es válido</p>
-                            </div>
-                            :
-                            <div className='mt-1 flex items-center justify-center'>
-                                <p className='font-medium text-base text-red-600'></p>
+                                <p className='font-medium text-base text-red-600'>El usuario o la contraseña no son válidos</p>
                             </div>
                         }
-
-
                         <div className='mt-4 flex items-center justify-center'>
                             <button className='font-medium text-base text-indigo-800'>¿Olvidaste tu contraseña?</button>
                         </div>
-
-
                         <div className='mt-4 flex flex-col gap-y-4'>
                             <button className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out bg-indigo-500 py-3 rounded-xl text-white text-lg font-semibold flex justify-center"
                                 onClick={verificate}>
@@ -117,14 +109,9 @@ export function LoginPage() {
                                 </button>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-    )
+    );
 }
