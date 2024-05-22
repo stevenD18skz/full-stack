@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 //IMPORTACION DE PAGINAS
 import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
+import { ViewWork } from "./pages/ViewWork";
 
 //CRUDS
 import { CrudUsersPage } from "./pages/CrudUsersPage";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/crud-work"          element={<CrudWorkPage/>} />
         <Route path="/crud-task-progess"  element={<CrudProgressTaks/>} />
         <Route path="/dashboard"          element={<DashBoardPage/>} />
+        <Route path="/obraVista/:obra" element={<ViewWork />} />
 
       {/*
         direcciones para el Director de obra

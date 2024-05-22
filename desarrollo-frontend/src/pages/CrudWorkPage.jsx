@@ -201,15 +201,27 @@ export function CrudWorkPage() {
 
         {/* MODAL DE EDITAR*/}
         {isOpenEdit && (
-            <Modal
-              modalType="works"
-              crudType="edit"
-              closeModal={closeEdit}
-              formData={formData}
-              setFormData={setFormData}
-              handleSubmit={handleSubmitEdit}
-              objectModel={seleccionado}
+          <Modal
+            modalType="works"
+            crudType="edit"
+            closeModal={closeEdit}
+            formData={formData}
+            setFormData={setFormData}
+            handleSubmit={handleSubmitEdit}
+            objectModel={seleccionado}
             />
+        )}
+
+
+
+        {/* MODAL DE VISTA*/}
+        {isOpenView && (
+          <ModalView
+            closeView={closeView}
+            formData={formData}
+            setFormData={setFormData}
+            usuario={seleccionado}
+          />
         )}
       </div>
     </div>
