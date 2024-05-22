@@ -156,7 +156,7 @@ export function CrudTaskPage() {
 
 
   return (
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg bg-slate-800">
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg bg-green-300">
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (
           <Modal

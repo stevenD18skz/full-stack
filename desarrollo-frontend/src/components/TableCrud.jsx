@@ -218,7 +218,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
 
 
   return (
-    <table className="w-full text-sm text-left rtl:text-right ">
+    <table className="w-full text-sm text-left rtl:text-right bg-red-600">
       <thead className="text-xs bg-gray-50 dark:bg-gray-700 text-white">
         <tr>
           {titles.map((title) => (

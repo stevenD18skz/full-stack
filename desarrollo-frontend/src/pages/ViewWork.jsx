@@ -27,7 +27,7 @@ export function ViewWork({id_obra}) {
     <div>
       <Navigation></Navigation>
       
-      <h1 className="text-center">{seleccionado.name_work}</h1>
+      <h1 className="text-center">8</h1>
       <CrudTaskPage></CrudTaskPage>
     </div>
   );
