@@ -10,12 +10,12 @@ import Swal from "sweetalert2";
 import Modal from "../components/Modal";
 
 
-export function CrudTaskPage() {
+export function CrudTaskPage({id_obra}) {
   const [formData, setFormData] = useState({
     task_name: "",
     task_description: "",
-    id_work: "1",
-    id_workers: [1],
+    id_work: id_obra,
+    id_workers: "",
     id_foreman: "",
     task_type: "",
     task_status: "",
@@ -28,18 +28,6 @@ export function CrudTaskPage() {
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [isOpenEdit, setIsOpenEdit]     = useState(false);
   const [isOpenView, setIsOpenView]     = useState(false);
-
-  
-  const [works, setWorks] = useState([]);
-  const [obraSeleccionada, setObraSeleccionada] = useState(1);
-
-  useEffect(() => {
-    async function loadUsuarios() {
-      const response = await axios.get(`http://127.0.0.1:8000/works/`);
-      setWorks(response.data.results);
-    }
-    loadUsuarios();
-  }, []);
 
 
 
@@ -90,15 +78,6 @@ export function CrudTaskPage() {
     setIsOpenView(false);
   };
 
-
-
-
-
-  const seleccionDeObra = (e) => {
-    const {name, value } = e.target;
-    setObraSeleccionada(value)
-    formData["id_work"] = value 
-  };
 
 
 
@@ -171,7 +150,7 @@ export function CrudTaskPage() {
 
 
 
-        <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={obraSeleccionada} closeEdit={isOpenEdit} closeCreate={closeCreate}/>
+        <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={id_obra} closeEdit={isOpenEdit} closeCreate={closeCreate}/>
         
 
         {/* MODAL DE EDITAR*/}

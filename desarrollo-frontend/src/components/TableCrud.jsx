@@ -39,7 +39,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
     3: [
       ["ID", "Nombre", "Capataz", "Tipo", "Etapa", "Estado", ""],
       `tasks`,
-      ["id", "task_name", "id_foreman", "task_type", 'task_status'],
+      ["id", "task_name", "name_capataz", "task_type", 'name_status'],
       "task_enabled",
       "task_name",
       `http://127.0.0.1:8000/crud/tasks/filtroObra/?obra=${filtredTerm}`,
@@ -69,7 +69,6 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
         data[index][5]
       );
       setDataList(response.data.results);
-      console.log(response.data.results)
     }
     loadUsers();
   }, [filtredTerm, closeEdit, closeCreate]);
