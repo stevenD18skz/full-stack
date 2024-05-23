@@ -10,11 +10,28 @@ npm i
 # Inicia el servidor de desarrollo React
 npm run dev
 
+
+
+
+
+# Navega al directorio del frontend
+cd desarrollo-frontend
+
+# Inicia el servidor de desarrollo React
+npm run dev
+
+
+
+
 # Navega al directorio del backend
 cd backend
 
 # Inicia el servidor Django
 python manage.py runserver
+
+
+
+
 
 
 #MIGRACIONES BACKEND
