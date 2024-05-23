@@ -5,7 +5,6 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   const [roles, setRoles] = useState([]);
 
 
-
   useEffect(() => {
     async function loadUsers() {
       const peticionRoles = await axios.get(`http://127.0.0.1:8000/roles/`);
@@ -20,9 +19,17 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         formData["gender_user"] = usuario.gender_user
         formData["address_user"] = usuario.address_user
         formData["phone_user"] = usuario.phone_user
+
       } else{
+        formData["username"] = ""
+        formData["first_name"] = ""
+        formData["last_name"] = ""
+        formData["email"] = ""
         formData["doc_type_user"] = "CC"
+        formData["doc_number_user"] = ""
         formData["gender_user"] = "M"
+        formData["address_user"] = ""
+        formData["phone_user"] = ""
         formData["role_user"] = "1"
       }
   }

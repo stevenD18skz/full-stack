@@ -8,9 +8,13 @@ import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 import Modal from "../components/Modal";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 export function CrudWorkPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name_work: "",
     location_work: "",
@@ -37,12 +41,6 @@ export function CrudWorkPage() {
   };
   const closeCreate = () => {
     setIsOpenCreate(false);
-    formData["description_work"] = ""
-    formData["id_manager_work"] = ""
-    formData["id_user_work"] = []
-    formData["location_work"] = ""
-    formData["type_work"] = ""
-    formData["name_work"] = ""
   };
 
 
@@ -55,12 +53,6 @@ export function CrudWorkPage() {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
-    formData["description_work"] = ""
-    formData["id_manager_work"] = ""
-    formData["id_user_work"] = []
-    formData["location_work"] = ""
-    formData["type_work"] = ""
-    formData["name_work"] = ""
   };
 
 
@@ -130,10 +122,12 @@ export function CrudWorkPage() {
 
 
 
+
+
   return (
-    <div>
+    <div className="bg-slate-200">
       <Navigation></Navigation>
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-xl sm:rounded-lg bg-white">
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (
             <Modal
@@ -189,7 +183,6 @@ export function CrudWorkPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
 
         </div>
 
@@ -215,14 +208,9 @@ export function CrudWorkPage() {
 
 
         {/* MODAL DE VISTA*/}
-        {isOpenView && (
-          <ModalView
-            closeView={closeView}
-            formData={formData}
-            setFormData={setFormData}
-            usuario={seleccionado}
-          />
-        )}
+        {isOpenView && 
+          navigate(`/obraVista/${seleccionado.id}`)
+        }
       </div>
     </div>
   );

@@ -25,7 +25,12 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         formData["type_work"] = objectModel.type_work
         formData["name_work"] = objectModel.name_work
       } else{
+        formData["description_work"] = ""
         formData["id_manager_work"] = peticionManagers.data[0].id
+        formData["id_user_work"] = []
+        formData["location_work"] = ""
+        formData["type_work"] = ""
+        formData["name_work"] = ""
       }
     }
     loadUsers();

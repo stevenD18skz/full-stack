@@ -42,16 +42,6 @@ export function CrudUsersPage() {
   };
   const closeCreate = () => {
     setIsOpenCreate(false);
-    formData["username"] = ""
-    formData["first_name"] = ""
-    formData["last_name"] = ""
-    formData["email"] = ""
-    formData["doc_type_user"] = ""
-    formData["doc_number_user"] = ""
-    formData["gender_user"] = ""
-    formData["address_user"] = ""
-    formData["phone_user"] = ""
-    formData["role_user"] = ""
   };
 
 
@@ -64,16 +54,6 @@ export function CrudUsersPage() {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
-    formData["username"] = ""
-    formData["first_name"] = ""
-    formData["last_name"] = ""
-    formData["email"] = ""
-    formData["doc_type_user"] = ""
-    formData["doc_number_user"] = ""
-    formData["gender_user"] = ""
-    formData["address_user"] = ""
-    formData["phone_user"] = ""
-    formData["role_user"] = ""
   };
 
 
@@ -91,7 +71,7 @@ export function CrudUsersPage() {
 
 
 
-  
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -143,10 +123,12 @@ export function CrudUsersPage() {
 
 
 
+
+  
   return (
-    <div>
+    <div className="bg-slate-200">
       <Navigation></Navigation>
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">   
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-xl sm:rounded-lg bg-white">   
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (
           <Modal

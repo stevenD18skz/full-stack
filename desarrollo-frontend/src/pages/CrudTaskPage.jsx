@@ -37,14 +37,7 @@ export function CrudTaskPage({id_obra}) {
     setIsOpenCreate(true);
   };
   const closeCreate = () => {
-    setIsOpenCreate(false);    
-    formData["task_name"] = ""
-    formData["task_description"] = ""
-    formData["id_work"] = [1]
-    formData["id_workers"] = ""
-    formData["id_foreman"] = ""
-    formData["task_type"] = ""
-    formData["task_status"] = ""
+    setIsOpenCreate(false);
   };
 
 
@@ -57,13 +50,6 @@ export function CrudTaskPage({id_obra}) {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
-    formData["task_name"] = ""
-    formData["task_description"] = ""
-    formData["id_work"] = [1]
-    formData["id_workers"] = ""
-    formData["id_foreman"] = ""
-    formData["task_type"] = ""
-    formData["task_status"] = ""
   };
 
 
@@ -77,7 +63,6 @@ export function CrudTaskPage({id_obra}) {
   const closeView = () => {
     setIsOpenView(false);
   };
-
 
 
 
@@ -135,7 +120,7 @@ export function CrudTaskPage({id_obra}) {
 
 
   return (
-      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg bg-green-300">
+      <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-xl sm:rounded-lg bg-white">
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (
           <Modal
@@ -148,6 +133,50 @@ export function CrudTaskPage({id_obra}) {
           />
         )}
 
+        
+        <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+          <div>
+            <button
+              type="button"
+              onClick={openCreate}
+              className="text-gray-900 hover:text-white border hover:bg-gray-700 font-semibold rounded-full text-sm px-3 py-2 text-center me-2 mb-2 dark:border-gray-600  dark:text-white dark:bg-gray-600"
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="text-indigo-400 h-4 w-4"
+              />{" "}
+              Crear
+            </button>
+          </div>
+
+
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="table-search"
+              className="button-action block p-2 ps-10 text-sm rounded-lg w-80 dark:bg-gray-200"
+              placeholder="Search for items"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+        </div>
 
 
         <TableCrud index={3} openEdit={openEdit} openView={openView} searchTerm={searchTerm} filtredTerm={id_obra} closeEdit={isOpenEdit} closeCreate={closeCreate}/>

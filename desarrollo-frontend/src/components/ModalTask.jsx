@@ -26,16 +26,21 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         formData["task_type"]     = objectModel.task_type
         formData["task_assignment_date"]    = objectModel.task_assignment_date
         formData["task_finish_date"]        = objectModel.task_finish_date
-        formData["task_status"]        = objectModel.task_status
         formData["id_work"]        = objectModel.id_work
-        formData["id_foreman"]        = objectModel.id_foreman
+        formData["task_status"]        = objectModel.task_status
         formData["id_workers"]        = objectModel.id_workers
+        formData["id_foreman"]        = objectModel.id_foreman
       } else{
-        formData["task_status"]        = 0
+        formData["task_name"] = ""
+        formData["task_description"] = ""
+        formData["task_type"] = ""
+        formData["task_assignment_date"]    = ""
+        formData["task_finish_date"]        = ""
+        formData["id_work"] = [1]
+        formData["task_status"] = 0
+        formData["id_workers"] = ""
         formData["id_foreman"] = peticionForemans.data[0].id
       }
-
-
     }
     loadUsuarios();
   }, []);
