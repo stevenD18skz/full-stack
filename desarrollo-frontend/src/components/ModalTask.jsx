@@ -70,8 +70,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
 
 
-  
-
 
 
   return (

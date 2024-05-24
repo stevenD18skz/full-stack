@@ -57,7 +57,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
 
 
 
-      <div className="grid gap-6 mb-6 lg:grid-cols-2">
+      <div className="">
 
 
         <div>

@@ -32,15 +32,15 @@ export function ViewWork() {
 
 
 
-      <div class="relative w-full">
-        <h1 class="absolute top-2 left-2 border-2 border-green-500 p-1 text-3xl">
+      <div className="relative w-full">
+        <h1 className="absolute top-2 left-2 text-4xl font-semibold m-4 text-blue-900">
           {seleccionado.name_work}
         </h1>
-        <h3 class="absolute top-2 right-2 border-2 border-red-500 p-1 text-1xl">
-          {seleccionado.location_work}
+        <h3 className="absolute top-2 right-2 m-4 p-1 text-1xl">
+          {seleccionado.location_work + ", Valle del Cauca"}
         </h3>
-        <div class="absolute top-14 left-2 right-2 border-2 border-blue-300 p-2 bg-slate-300 rounded-xl">
-          <p class="m-3">{seleccionado.description_work}</p>
+        <div className="absolute left-2 right-2 p-2 bg-slate-200 rounded-xl mt-20">
+          <p className="m-3">{seleccionado.description_work}</p>
         </div>
       </div>
 
@@ -48,27 +48,32 @@ export function ViewWork() {
 
 
 
-      <div class="flex">
+      <div className="flex ">
         <div
           name="Modal_info"
-          class="bg-orange-300 w-1/3 h-auto border-2 border-red-500 m-4 rounded-3xl p-4"
+          className=" mx-8 rounded-3xl p-3 mt-11 border-2 border-slate-700 min-w-80 min-h-12"
         >
-          <p>Tipo de obra: {seleccionado.type_work}</p>
+          <p><b>Tipo de obra: </b> {seleccionado.type_work}</p>
           {/*aqui solo esta el id <p>Directo de obra: {seleccionado.id_manager_work}</p>*/}
-          <p>Directo de obra: {seleccionado.name_director}</p>
-          <p>Fecha de creacion: --------------</p>
-          <p>Creado por: --------------</p>
-          <p>Trabajadores:</p>
-          <div class="bg-blue-200 rounded-xl p-3">
-            {seleccionado.user_names.map((item) => (
-              <p key={item}>{item}</p>
-            ))}
+          <p><b>Directo de obra: </b> {seleccionado.name_director}</p>
+          <p><b>Fecha de creacion: </b> --------------</p>
+          <p><b>Creado por: </b> --------------</p>
+
+          <hr className="h-10" />
+
+          <div>
+            <p><b>Trabajadores: </b></p>
+            <div className="bg-blue-200 rounded-xl p-3">
+              {seleccionado.user_names.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </div>
           </div>
         </div>
 
         <div
           name="tabla"
-          class="w-2/3 h-auto border-2 border-blue-500 m-4 rounded-3xl p-4"
+          className="min-w-8 m-4 rounded-3xl p-4"
         >
           <CrudTaskPage id_obra={seleccionado.id}></CrudTaskPage>
         </div>

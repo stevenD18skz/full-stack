@@ -22,13 +22,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function ModalTask({formData, setFormData, handleSubmit, crudType, objectModel = {}, id_padre}) {
-  const [foreman, setForeman] = useState([]);
 
   useEffect(() => {
     async function loadUsuarios() {
-
-      const peticionForemans = await axios.get(`http://127.0.0.1:8000/`);
-      setForeman(peticionForemans.data);
+      const peticionForemans = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
+      //setForeman(peticionForemans.data);
 
 
       if(crudType == "edit"){
@@ -36,18 +34,19 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         formData["task_progress_id_task"] = objectModel.task_progress_id_task
         formData["task_progress_description"] = objectModel.task_progress_description
         formData["task_progress_needs"] = objectModel.task_progress_needs
-        formData["task_progress"] = objectModel.task_progress
+        formData["progress_photos"] = objectModel.progress_photos
+        formData["task_progres"] = objectModel.task_progres
         formData["inspection"] = objectModel.inspection
-        formData["progress_photos"] = null
       } else{
         //atributos
         formData["task_progress_id_task"] = id_padre
         formData["task_progress_description"] = ""
         formData["task_progress_description"] = ""
         formData["task_progress_needs"] = ""
-        formData["progress_photos"] = null//falta bine
-        formData["task_progress"] = ""
-        formData["inspection"] = false
+        formData["progress_photos"] = ""
+        formData["task_progres"] = ""
+        formData["inspection"] = 0
+        
       }
     }
     loadUsuarios();
@@ -79,7 +78,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         <div className="h-32 m-4">
           <label
             htmlFor="task_progress_description"
-            className="block mb-2 text-sm font-medium"
+            className="block mb-1text-sm font-semibold text-gray-700"
           >
             Descripción
           </label>
@@ -99,13 +98,10 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
           ></textarea>
         </div>
 
-
-
-
         <div className="h-32 m-4">
           <label
             htmlFor="task_progress_needs"
-            className="block mb-2 text-sm font-medium"
+            className="block mb-1text-sm font-semibold text-gray-700"
           >
            Requerimientos para continuar la tarea
 
@@ -135,7 +131,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
           <div>
             <label
               htmlFor="task_progress"
-              className="block mb-2 text-sm font-medium"
+              className="block mb-1text-sm font-semibold text-gray-700"
             >
               Progreso
             </label>
@@ -153,14 +149,10 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
             ></input>
           </div>
 
-
-
-
-
           <div>
             <label
               htmlFor="inspection"
-              className="block mb-2 text-sm font-medium"
+              className="block mb-1text-sm font-semibold text-gray-700"
             >
               Propuesto para revisión
             </label>
@@ -171,8 +163,8 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                 onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-3"
               >
-                <option value={false}>NO</option>
-                <option value={true}>SI</option>
+                <option value={0}>Si</option>
+                <option value={1}>No</option>
               </select>
           </div>
 
@@ -185,7 +177,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
           <div>
             <label
               htmlFor="progress_photos"
-              className="block mb-2 text-sm font-medium"
+              className="block mb-1text-sm font-semibold text-gray-700"
             >
               Evidencias
             </label>
@@ -201,6 +193,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                   ? "Recursos"
                   : objectModel.progress_photos
               }
+              {...(crudType === "create" ? { required: true } : {})}
             />
           </div>
         </div>
@@ -210,24 +203,26 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
 
 
-      <button
-        type="submit"
-        className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
-      >
-        <svg
-          className="me-1 -ms-1 w-5 h-5"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
+      <div className="flex justify-center w-100">
+        <button
+          type="submit"
+          className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
         >
-          <path
-            fillRule="evenodd"
-            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-            clipRule="evenodd"
-          />
-        </svg>{" "}
-        {crudType === "create" ? "Crear avance" : "Editar avance"}
-      </button>
+          <svg
+            className="me-1 -ms-1 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clipRule="evenodd"
+            />
+          </svg>{" "}
+          {crudType === "create" ? "Crear avance" : "Editar avance"}
+        </button>
+      </div>
     </form>
     
   );
