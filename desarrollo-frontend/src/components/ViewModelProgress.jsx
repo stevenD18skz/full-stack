@@ -7,6 +7,16 @@ export default function ViewModalProgress({closeView, formData, setFormData, usu
 
   console.log(usuario)
 
+  /**
+"id": 1,
+"task_progress_description": "se restringio el area", 
+"task_progress_needs": "se necesita material",
+"progress_photos": null,
+"task_progress": 10.0,
+"inspection": false,
+"task_progress_id_task": 1
+*/
+
 
 
   return (
@@ -20,13 +30,10 @@ export default function ViewModalProgress({closeView, formData, setFormData, usu
           />
         </span> */}
 
-          <center><h2 className="profile-name">Descripcion: {usuario.task_progress_description}</h2></center>
-          <center><h2 className="profile-name">{usuario.task_progress_description}</h2></center>
-          <center><h2 className="profile-name">{usuario.task_progress_description}</h2></center>
-          <center><h2 className="profile-name">{usuario.task_progress_description}</h2></center>
-          <center><h2 className="profile-name">{usuario.task_progress_description}</h2></center>
-          <center><h2 className="profile-name">{usuario.task_progress_description}</h2></center>
-
+          <center><p className="about">Descripcion: {usuario.task_progress_description}</p></center>
+          <center><p className="about">Requerimientos: {usuario.task_progress_needs}</p></center>
+          <center><p className="about">Progreso: {usuario.task_progress}%</p></center>
+          {/*<center><p className="about">Propuesto para revisión: {usuario.inspection}</p></center>*/}
           
           <center><button className="btn" onClick={closeView}>Cerrar</button></center>
           

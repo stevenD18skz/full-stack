@@ -38,10 +38,10 @@ export function ViewTasks() {
 
 
       <div className="relative w-full">
-        <h1 className="absolute top-2 left-2 border-2 border-green-500 p-1">
+        <h1 className="absolute top-2 left-2 text-4xl font-semibold m-4 text-blue-900">
           {seleccionado.task_name}
         </h1>
-        <div className="absolute top-14 left-2 right-2 border-2 border-blue-300 p-2 bg-slate-300 rounded-xl">
+        <div className="absolute left-2 right-2 p-2 bg-slate-200 rounded-xl mt-20">
           <p className="m-3">{seleccionado.task_description}</p>
         </div>
       </div>
@@ -53,15 +53,16 @@ export function ViewTasks() {
       <div className="flex">
         <div
           name="Modal_info"
-          className="bg-orange-300 w-1/3 h-auto border-2 border-red-500 m-4 rounded-3xl p-4"
+          className="mx-8 rounded-3xl p-3 mt-11 border-2 border-slate-700 min-w-80 min-h-12"
         >
-          <p>Tipo de tarea: {seleccionado.task_type}</p>
+          <p><b>Tipo de tarea: </b> {seleccionado.task_type}</p>
           {/*aqui solo esta el id <p>Directo de obra: {seleccionado.id_manager_work}</p>*/}
-          <p>Capataz a cargo: {seleccionado.name_capataz}</p>
-          <p>Fecha de creacion: {seleccionado.task_assignment_date}</p>
-          <p>Fecha de finalizacion: {seleccionado.task_finish_date}</p>
-          <p>Estado: {seleccionado.name_status}</p>
-          <p>Trabajadores:</p>
+          <p><b>Capataz a cargo: </b>  {seleccionado.name_capataz}</p>
+          <p><b>Fecha de creacion: </b> {seleccionado.task_assignment_date}</p>
+          <p><b>Fecha de finalizacion: </b> {seleccionado.task_finish_date}</p>
+          <p><b>Estado: </b> {seleccionado.name_status}</p>
+          <hr className="h-10" />
+          <p><b>Trabajadores: </b></p>
           <div className="bg-blue-200 rounded-xl p-3">
             {seleccionado.user_names.map((item) => (
               <p key={item}>{item}</p>
@@ -71,7 +72,7 @@ export function ViewTasks() {
 
         <div
           name="tabla"
-          className="w-2/3 h-auto border-2 border-blue-500 m-4 rounded-3xl p-4"
+          className="min-w-8 m-4 rounded-3xl p-4"
         >
           <CrudProgresTasks id_tarea={tarea}></CrudProgresTasks>
         </div>
