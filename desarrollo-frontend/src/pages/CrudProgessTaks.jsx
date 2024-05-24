@@ -8,10 +8,11 @@ import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 import Modal from "../components/Modal";
+import ViewModalProgress from "../components/ViewModelProgress";
 
 
 export function CrudProgresTasks({id_tarea}) {
-  console.log("olaaaaa")
+  console.log(id_tarea)
   const [formData, setFormData] = useState({
     task_progress_description: "",
     task_progress: "",
@@ -194,6 +195,20 @@ export function CrudProgresTasks({id_tarea}) {
               objectModel={seleccionado}
             />
         )}
+
+
+        {isOpenView && 
+          <ViewModalProgress
+          closeView={closeView}
+          formData={formData}
+          setFormData={setFormData}
+          usuario={seleccionado}
+          >
+          </ViewModalProgress>
+
+
+        }
+
       </div>
     </div>
   );

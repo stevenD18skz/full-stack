@@ -22,11 +22,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function ModalTask({formData, setFormData, handleSubmit, crudType, objectModel = {}, id_padre}) {
+  const [foreman, setForeman] = useState([]);
 
   useEffect(() => {
     async function loadUsuarios() {
-      const peticionForemans = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Capataz`);
-      //setForeman(peticionForemans.data);
+
+      const peticionForemans = await axios.get(`http://127.0.0.1:8000/`);
+      setForeman(peticionForemans.data);
 
 
       if(crudType == "edit"){
@@ -34,19 +36,18 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         formData["task_progress_id_task"] = objectModel.task_progress_id_task
         formData["task_progress_description"] = objectModel.task_progress_description
         formData["task_progress_needs"] = objectModel.task_progress_needs
-        formData["progress_photos"] = objectModel.progress_photos
-        formData["task_progres"] = objectModel.task_progres
+        formData["task_progress"] = objectModel.task_progress
         formData["inspection"] = objectModel.inspection
+        formData["progress_photos"] = null
       } else{
         //atributos
         formData["task_progress_id_task"] = id_padre
         formData["task_progress_description"] = ""
         formData["task_progress_description"] = ""
         formData["task_progress_needs"] = ""
-        formData["progress_photos"] = ""
-        formData["task_progres"] = ""
-        formData["inspection"] = 0
-        
+        formData["progress_photos"] = null//falta bine
+        formData["task_progress"] = ""
+        formData["inspection"] = false
       }
     }
     loadUsuarios();
@@ -97,6 +98,9 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
             {...(crudType === "create" ? { required: true } : {})}
           ></textarea>
         </div>
+
+
+
 
         <div className="h-32 m-4">
           <label
@@ -149,6 +153,10 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
             ></input>
           </div>
 
+
+
+
+
           <div>
             <label
               htmlFor="inspection"
@@ -163,8 +171,8 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                 onChange={handleChange}
                 className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-3"
               >
-                <option value={0}>Si</option>
-                <option value={1}>No</option>
+                <option value={false}>NO</option>
+                <option value={true}>SI</option>
               </select>
           </div>
 
@@ -193,7 +201,6 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
                   ? "Recursos"
                   : objectModel.progress_photos
               }
-              {...(crudType === "create" ? { required: true } : {})}
             />
           </div>
         </div>

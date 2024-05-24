@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 
 export function ViewTasks() {
   const { tarea } = useParams(); // Obtiene el ID de obra del parámetro 'obra'
+  console.log(tarea)
   const [seleccionado, setSeleccionado] = useState();
 
   useEffect(() => {
@@ -36,12 +37,12 @@ export function ViewTasks() {
 
 
 
-      <div class="relative w-full">
-        <h1 class="absolute top-2 left-2 border-2 border-green-500 p-1">
+      <div className="relative w-full">
+        <h1 className="absolute top-2 left-2 border-2 border-green-500 p-1">
           {seleccionado.task_name}
         </h1>
-        <div class="absolute top-14 left-2 right-2 border-2 border-blue-300 p-2 bg-slate-300 rounded-xl">
-          <p class="m-3">{seleccionado.task_description}</p>
+        <div className="absolute top-14 left-2 right-2 border-2 border-blue-300 p-2 bg-slate-300 rounded-xl">
+          <p className="m-3">{seleccionado.task_description}</p>
         </div>
       </div>
 
@@ -49,10 +50,10 @@ export function ViewTasks() {
 
 
 
-      <div class="flex">
+      <div className="flex">
         <div
           name="Modal_info"
-          class="bg-orange-300 w-1/3 h-auto border-2 border-red-500 m-4 rounded-3xl p-4"
+          className="bg-orange-300 w-1/3 h-auto border-2 border-red-500 m-4 rounded-3xl p-4"
         >
           <p>Tipo de tarea: {seleccionado.task_type}</p>
           {/*aqui solo esta el id <p>Directo de obra: {seleccionado.id_manager_work}</p>*/}
@@ -61,7 +62,7 @@ export function ViewTasks() {
           <p>Fecha de finalizacion: {seleccionado.task_finish_date}</p>
           <p>Estado: {seleccionado.name_status}</p>
           <p>Trabajadores:</p>
-          <div class="bg-blue-200 rounded-xl p-3">
+          <div className="bg-blue-200 rounded-xl p-3">
             {seleccionado.user_names.map((item) => (
               <p key={item}>{item}</p>
             ))}
@@ -70,9 +71,9 @@ export function ViewTasks() {
 
         <div
           name="tabla"
-          class="w-2/3 h-auto border-2 border-blue-500 m-4 rounded-3xl p-4"
+          className="w-2/3 h-auto border-2 border-blue-500 m-4 rounded-3xl p-4"
         >
-          <CrudProgresTasks></CrudProgresTasks>
+          <CrudProgresTasks id_tarea={tarea}></CrudProgresTasks>
         </div>
       </div>
 

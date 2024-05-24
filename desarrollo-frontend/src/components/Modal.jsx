@@ -51,7 +51,7 @@ export default function Modal({
             setFormData={setFormData}
             handleSubmit={handleSubmit}
             objectModel={objectModel}
-            id_padre={id_obra}
+            id_padre={id_padre}
           />;      
 
           
