@@ -8,7 +8,7 @@ import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 import Modal from "../components/Modal";
-import ModalView from "../components/ModalView";
+import ModalViewUsers from "../components/ModalViewUsers";
 
 
 export function CrudUsersPage() {
@@ -210,7 +210,7 @@ export function CrudUsersPage() {
 
         {/* MODAL DE VISTA*/}
         {isOpenView && (
-          <ModalView
+          <ModalViewUsers
             closeView={closeView}
             formData={formData}
             setFormData={setFormData}

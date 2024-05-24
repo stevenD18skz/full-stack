@@ -8,9 +8,12 @@ import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
 import Modal from "../components/Modal";
+import { useNavigate } from "react-router-dom";
+
 
 
 export function CrudTaskPage({id_obra}) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     task_name: "",
     task_description: "",
@@ -194,6 +197,11 @@ export function CrudTaskPage({id_obra}) {
             objectModel={seleccionado}
           />
         )}
+
+
+        {isOpenView && 
+          navigate(`/tareaVista/${seleccionado.id}`)
+        }
       </div>
   );
 }

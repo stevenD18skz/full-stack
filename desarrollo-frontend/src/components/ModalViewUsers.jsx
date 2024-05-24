@@ -1,8 +1,8 @@
 import React from "react";
 import "../css/ModalView.css";
-import { UserPhoto } from "../components/UserPhoto";
+import { UserPhoto } from "./UserPhoto";
 
-export default function ModalView({closeView, formData, setFormData, usuario}) {
+export default function ModalViewUsers({closeView, formData, setFormData, usuario}) {
 
 
   console.log(usuario)

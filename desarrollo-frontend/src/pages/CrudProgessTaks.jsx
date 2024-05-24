@@ -7,10 +7,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
-import Modal from "../components/Modal";
+import Modal from "../components/Modal"; 
 
 
-export function CrudProgressTaks() {
+export function CrudProgresTasks({is_tarea}) {
+  console.log("olaaaaa")
   const [formData, setFormData] = useState({
     task_progress_description: "",
     task_progress: "",
@@ -131,7 +132,6 @@ export function CrudProgressTaks() {
 
   return (
     <div>
-      <Navigation></Navigation>
       <div className=" m-6 px-8 py-6 relative overflow-x-auto shadow-md sm:rounded-lg">
         {/* MODAL DE CREAR*/}
         {isOpenCreate && (

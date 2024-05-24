@@ -25,6 +25,7 @@ class WorkSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     name_capataz = serializers.SerializerMethodField()
     name_status = serializers.SerializerMethodField()
+    user_names = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
@@ -36,6 +37,10 @@ class TaskSerializer(serializers.ModelSerializer):
 
     def get_name_status(self, obj):
         return obj.get_task_status_display()
+    
+    def get_user_names(self, obj):
+        # Obtenemos los nombres de los usuarios asociados a este trabajo (Work)
+        return [user.first_name for user in obj.id_workers.all()]
 
 
 

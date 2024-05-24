@@ -5,12 +5,13 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 import { ViewWork } from "./pages/ViewWork";
+import { ViewTasks } from "./pages/ViewTasks";
 
 //CRUDS
 import { CrudUsersPage } from "./pages/CrudUsersPage";
 import { CrudWorkPage } from "./pages/CrudWorkPage";
 import { CrudTaskPage } from "./pages/CrudTaskPage";
-import { CrudProgressTaks } from "./pages/CrudProgessTaks";
+import { CrudProgresTasks } from "./pages/CrudProgessTaks";
 
 
 import { DashBoardPage } from "./pages/DashBoardPage";
@@ -32,9 +33,10 @@ function App() {
         <Route path="/crud-task"          element={<CrudTaskPage/>} />
         <Route path="/crud-users"         element={<CrudUsersPage/>} />
         <Route path="/crud-work"          element={<CrudWorkPage/>} />
-        <Route path="/crud-task-progess"  element={<CrudProgressTaks/>} />
+        <Route path="/crud-task-progess"  element={<CrudProgresTasks/>} />
         <Route path="/dashboard"          element={<DashBoardPage/>} />
-        <Route path="/obraVista/:obra" element={<ViewWork />} />
+        <Route path="/obraVista/:obra"    element={<ViewWork />} />
+        <Route path="/tareaVista/:tarea"    element={<ViewTasks />} />
 
       {/*
         direcciones para el Director de obra

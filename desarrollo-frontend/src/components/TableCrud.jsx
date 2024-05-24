@@ -46,7 +46,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
     ],
 
     4: [
-      ["ID", "Descripcion", "%Progreso", "Necesidades", "Revison", "Estado", ""],
+      ["ID", "Descripcion", "%Progreso", "Necesidades", "Revison", "CRUD"],
       `progress`,
       ["id", "task_progress_description", "task_progress", "task_progress_needs", 'inspection'],
       "inspection",
@@ -242,7 +242,10 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
               </td>
             ))}
 
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+
+
+            {data[index][1] != "progress" ? (
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               {currentObject[data[index][3]] ? (
                 <div className="flex items-center">
                   <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>{" "}
@@ -255,11 +258,15 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
                 </div>
               )}
             </td>
+            ) : (
+              null
+            )}
+            
 
 
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <div>
-                {currentObject[data[index][3]] ? (
+                {currentObject[data[index][3]] || data[index][1] === "progress"  ? (
                   <button
                     type="button"
                     className="icon-button p-4"
@@ -280,6 +287,10 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
                     />
                   </button>
                 )}
+
+
+
+
 
                 {currentObject[data[index][3]] ? (
                   <button
@@ -308,7 +319,11 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
                   </button>
                 )}
 
-                {currentObject[data[index][3]] ? (
+
+
+
+
+                {currentObject[data[index][3]] || data[index][1] === "progress" ?  (
                  <button
                  type ="button"
                  className="icon-button p-4"
