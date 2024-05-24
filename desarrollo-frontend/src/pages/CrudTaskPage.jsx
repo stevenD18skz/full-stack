@@ -86,6 +86,7 @@ export function CrudTaskPage({id_obra}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData)
     axios
       .post("http://127.0.0.1:8000/tasks/", formData)
       .then(() => {

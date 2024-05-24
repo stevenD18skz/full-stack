@@ -24,7 +24,7 @@ class WorkSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     name_capataz = serializers.SerializerMethodField()
-    name_status = serializers.SerializerMethodField()
+    name_status  = serializers.SerializerMethodField()
     user_names = serializers.SerializerMethodField()
 
     class Meta:

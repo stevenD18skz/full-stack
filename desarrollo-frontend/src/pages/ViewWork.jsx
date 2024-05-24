@@ -33,10 +33,10 @@ export function ViewWork() {
 
 
       <div class="relative w-full">
-        <h1 class="absolute top-2 left-2 border-2 border-green-500 p-1">
+        <h1 class="absolute top-2 left-2 border-2 border-green-500 p-1 text-3xl">
           {seleccionado.name_work}
         </h1>
-        <h3 class="absolute top-2 right-2 border-2 border-red-500 p-1">
+        <h3 class="absolute top-2 right-2 border-2 border-red-500 p-1 text-1xl">
           {seleccionado.location_work}
         </h3>
         <div class="absolute top-14 left-2 right-2 border-2 border-blue-300 p-2 bg-slate-300 rounded-xl">
