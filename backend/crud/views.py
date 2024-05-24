@@ -170,6 +170,48 @@ class TaskProgressViewSet(viewsets.ModelViewSet):
         #permissions.IsAdminOrReadOnly,
     ]
     pagination_class = MiPaginador
+
+
+
+
+class filtroProgressPorTasks(APIView):
+    def get(self, request, *args, **kwargs):
+
+        id_de_obra = request.GET.get('tarea')
+
+
+        director_usuarios = TaskProgress.objects.filter(id_work=id_de_obra)
+
+        serializer = TaskProgressSerializer(director_usuarios, many=True)  # Serialize for multiple users
+        return Response(data={"contador": len(serializer.data), "results": serializer.data}, status=status.HTTP_200_OK)
+
+
+
+
+class chageEstateProgress(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def put(self, request):
+        identificador = request.data.get('id')
+        action = request.data.get('action')  # 'inhabilitar' o 'habilitar'
+
+        pro = get_object_or_404(TaskProgress, id=identificador)
+
+        if action == 'inhabilitar':
+            pro.task_enabled = False
+        elif action == 'habilitar':
+            pro.task_enabled = True
+        else:
+            raise ValueError(f"Acción inválida: {action}")
+
+
+        pro.save()
+        serializer = TaskProgressSerializer(TaskProgress.objects.all(), many=True)#comprobar bien que debe debolver
+        return Response({
+            "mensaje": f"la tarea {pro.task_name} ha sido {action}do correctamente.",
+            "resultados": serializer.data
+        }, status=status.HTTP_200_OK)
     
 
 """

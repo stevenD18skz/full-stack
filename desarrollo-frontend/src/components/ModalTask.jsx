@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModalTask({formData, setFormData, handleSubmit, crudType, objectModel = {},}) {
+export default function ModalTask({formData, setFormData, handleSubmit, crudType, objectModel = {}, id_padre}) {
   const [foreman, setForeman] = useState([]);
   const [workers, setWorkers] = useState([]);
 
@@ -26,8 +26,8 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         formData["task_type"]     = objectModel.task_type
         formData["task_assignment_date"]    = objectModel.task_assignment_date
         formData["task_finish_date"]        = objectModel.task_finish_date
-        formData["id_work"]        = objectModel.id_work
         formData["task_status"]        = objectModel.task_status
+        formData["id_work"]        = objectModel.id_work
         formData["id_workers"]        = objectModel.id_workers
         formData["id_foreman"]        = objectModel.id_foreman
       } else{
@@ -36,8 +36,8 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
         formData["task_type"] = ""
         formData["task_assignment_date"]    = ""
         formData["task_finish_date"]        = ""
-        formData["id_work"] = [1]
         formData["task_status"] = 0
+        formData["id_work"] = id_padre
         formData["id_workers"] = ""
         formData["id_foreman"] = peticionForemans.data[0].id
       }
@@ -53,7 +53,7 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
     const newSelectedValues = Array.from(event.target.options) // Convert to array
       .filter((option) => option.selected) // Filter selected options
       .map((option) => option.value); // Extract values
-    formData["id_user_work"] = newSelectedValues
+    formData["id_workers"] = newSelectedValues
   };
   
 

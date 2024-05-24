@@ -46,9 +46,9 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
     ],
 
     4: [
-      ["ID", "Descripcion", "%Progreso", "Necesidades", "Revison", "CRUD"],
+      ["ID", "Descripcion", "%Progreso", "Necesidades", "Estado", ""],
       `progress`,
-      ["id", "task_progress_description", "task_progress", "task_progress_needs", 'inspection'],
+      ["id", "task_progress_description", "task_progress", "task_progress_needs"],
       "inspection",
       "task_progress_description",
       `http://127.0.0.1:8000/progress`,
@@ -216,7 +216,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
 
 // HOLA SOY CAMILO Y YA LES ROBE EL PROYECTO
   return (
-    <table className="w-full text-sm text-left rtl:text-right bg-lime-500">
+    <table className="w-full text-sm text-left rtl:text-right bg-gray-50">
       <thead className="text-xs bg-gray-50 dark:bg-gray-700 text-white">
         <tr>
           {titles.map((title) => (
@@ -244,8 +244,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
 
 
 
-            {data[index][1] != "progress" ? (
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               {currentObject[data[index][3]] ? (
                 <div className="flex items-center">
                   <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>{" "}
@@ -258,10 +257,6 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
                 </div>
               )}
             </td>
-            ) : (
-              null
-            )}
-            
 
 
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -323,7 +318,7 @@ export function TableCrud({ openEdit, index, openView, searchTerm, filtredTerm, 
 
 
 
-                {currentObject[data[index][3]] || data[index][1] === "progress" ?  (
+                {currentObject[data[index][3]]?  (
                  <button
                  type ="button"
                  className="icon-button p-4"

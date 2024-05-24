@@ -35,6 +35,8 @@ from crud.views import chageEstateTask
 
 #avance
 from crud.views import TaskProgressViewSet
+from crud.views import filtroProgressPorTasks
+from crud.views import chageEstateProgress
 
 
 
@@ -102,6 +104,20 @@ urlpatterns = [
   #path('crud/users/update/', updateView.as_view()),
   #delete
   path('crud/tasks/change/', chageEstateTask.as_view()),
+
+
+
+  ###### Urls de las tareas #############################
+  #URLS DEL CRUD
+  #create
+  #path('crud/users/create/', createUserView.as_view()),
+  #read
+  #path('crud/users/serch/',  buscar_usuarios.as_view()),
+  path('crud/progress/filtroTarea',  filtroProgressPorTasks.as_view()),
+  #update
+  #path('crud/users/update/', updateView.as_view()),
+  #delete
+  path('crud/progress/change/', chageEstateProgress.as_view()),
 
   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

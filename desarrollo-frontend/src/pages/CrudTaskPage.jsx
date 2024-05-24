@@ -134,6 +134,7 @@ export function CrudTaskPage({id_obra}) {
             closeModal={closeCreate}
             setFormData={setFormData}
             handleSubmit={handleSubmit}
+            id_padre={id_obra}
           />
         )}
 

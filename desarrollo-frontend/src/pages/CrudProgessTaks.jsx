@@ -7,10 +7,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Modal.css";
 import Swal from "sweetalert2";
-import Modal from "../components/Modal"; 
+import Modal from "../components/Modal";
 
 
-export function CrudProgresTasks({is_tarea}) {
+export function CrudProgresTasks({id_tarea}) {
   console.log("olaaaaa")
   const [formData, setFormData] = useState({
     task_progress_description: "",
@@ -37,12 +37,6 @@ export function CrudProgresTasks({is_tarea}) {
   };
   const closeCreate = () => {
     setIsOpenCreate(false);
-    formData["task_progress_description"] = ""
-    formData["task_progress"] = ""
-    formData["progress_photos"] = ""
-    formData["task_progress_needs"] = ""
-    formData["inspection"] = ""
-    formData["task_progress_id_task"] = ""
   };
 
 
@@ -54,12 +48,6 @@ export function CrudProgresTasks({is_tarea}) {
   };
   const closeEdit = () => {
     setIsOpenEdit(false);
-    formData["task_progress_description"] = ""
-    formData["task_progress"] = ""
-    formData["progress_photos"] = ""
-    formData["task_progress_needs"] = ""
-    formData["inspection"] = ""
-    formData["task_progress_id_task"] = ""
   };
 
 
@@ -142,6 +130,7 @@ export function CrudProgresTasks({is_tarea}) {
               closeModal={closeCreate}
               setFormData={setFormData}
               handleSubmit={handleSubmit}
+              id_padre={id_tarea}
             />
         )}
 
