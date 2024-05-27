@@ -29,7 +29,7 @@ export function CrudTaskPage({id_obra}) {
   const [seleccionado, setSeleccionado] = useState();
 
   const [isOpenCreate, setIsOpenCreate] = useState(false);
-  const [isOpenEdit, setIsOpenEdit]     = useState(false);
+  const [isOpenEdit, setIsOpenEdit]     = useState(true);
   const [isOpenView, setIsOpenView]     = useState(false);
 
 

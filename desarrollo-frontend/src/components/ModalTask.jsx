@@ -163,29 +163,35 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
 
 
         <div className="grid grid-cols-2 gap-4 m-4">
-          <div className="col-span-2 sm:col-span-1">
-            <label
-              htmlFor="task_assignment_date"
-              className="block mb-2 text-sm font-medium"
-            >
-              Fecha de inicio
-            </label>
-            <input
-              type="date"
-              name="task_assignment_date"
-              id="task_assignment_date"
-              value={formData.task_assignment_date}
-              onChange={handleChange}
-              className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder={
-                crudType === "create"
-                  ? "Fecha de inicio"
-                  : objectModel.task_assignment_date
-              }
-              {...(crudType === "create" ? { required: true } : {})}
-            />
-          </div>
+          {crudType === "create"? (
 
+            <div className="col-span-2 sm:col-span-1">
+              <label
+                htmlFor="task_assignment_date"
+                className="block mb-2 text-sm font-medium"
+              >
+                Fecha de inicio
+              </label>
+              <input
+                type="date"
+                name="task_assignment_date"
+                id="task_assignment_date"
+                value={formData.task_assignment_date}
+                onChange={handleChange}
+                className="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                placeholder={
+                  crudType === "create"
+                    ? "Fecha de inicio"
+                    : objectModel.task_assignment_date
+                }
+                {...(crudType === "create" ? { required: true } : {})}
+              />
+            </div>
+          ) : 
+          null}
+          
+
+          {/* 
           <div className="col-span-2 sm:col-span-1">
             <label
               htmlFor="task_finish_date"
@@ -208,6 +214,9 @@ export default function ModalTask({formData, setFormData, handleSubmit, crudType
               {...(crudType === "create" ? { required: true } : {})}
             />
           </div>
+          */}
+
+
         </div>
 
 
