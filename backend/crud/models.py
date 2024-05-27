@@ -65,7 +65,7 @@ class Task(models.Model):
     task_assignment_date = models.DateField()
 
     # Fecha de finalización de la Tarea
-    task_finish_date = models.DateField()
+    task_finish_date = models.DateField(default=None, null=True)
 
     # Estado de la tarea (0: Pendiente, 1: En progreso, 2: Completada) 
     task_status = models.IntegerField(choices=((0, "Pendiente"), (1, "En progreso"), (2, "Completada")))
