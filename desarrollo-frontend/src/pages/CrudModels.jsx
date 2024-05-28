@@ -28,10 +28,10 @@ export function CrudModels({zoro, id_padre=0}) {
   const [isOpenView, setIsOpenView]     = useState(false);
 
   const diccionario = {
-    "usuarios": ["http://127.0.0.1:8000/crud/users/create/", "http://127.0.0.1:8000/crud/users/update/", "users", 1, "users"],
-    "obras": ["http://127.0.0.1:8000/works/", `http://127.0.0.1:8000/works/${seleccionado}/`, "works", 2, "works" ],
-    "tareas": ["http://127.0.0.1:8000/tasks/", `http://127.0.0.1:8000/tasks/${seleccionado}/`, "tasks", 3, "tasks"],
-    "progreso": ["http://127.0.0.1:8000/progress/", `http://127.0.0.1:8000/progress/${seleccionado}/`, "progress", 4,"progress"]
+    "usuarios": ["http://127.0.0.1:8000/crud/users/create/", "http://127.0.0.1:8000/crud/users/update/", "users",  1, "users"],
+    "obras":    ["http://127.0.0.1:8000/works/",    `http://127.0.0.1:8000/works/${seleccionado.id}/`,      "works",    2, "works" ],
+    "tareas":   ["http://127.0.0.1:8000/tasks/",    `http://127.0.0.1:8000/tasks/${seleccionado.id}/`,      "tasks",    3, "tasks"],
+    "progreso": ["http://127.0.0.1:8000/progress/", `http://127.0.0.1:8000/progress/${seleccionado.id}/`,   "progress", 4, "progress"]
 
 
   }

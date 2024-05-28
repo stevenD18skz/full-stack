@@ -5,10 +5,6 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
   const [managers, setManagers] = useState([]);
   const [workers,  setWorkers]  = useState([]);
 
-
-
-
-
   useEffect(() => {
     async function loadUsers() {
       const peticionManagers = await axios.get(`http://127.0.0.1:8000/crud/users/filtroPorRol/?roleBusqueda=Director de obra`);
@@ -35,6 +31,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
     }
     loadUsers();
   }, []);
+
 
 
 
@@ -78,7 +75,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
 
         <div className="grid grid-cols-2 gap-4 m-4">
           <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="name_work" className="block mb-2 text-sm font-medium">
+            <label 
+              htmlFor="name_work" 
+              className="block mb-2 text-sm font-medium"
+            >
               Nombre de la obra
             </label>
             <input

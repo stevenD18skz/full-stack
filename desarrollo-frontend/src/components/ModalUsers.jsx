@@ -62,7 +62,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
 
         <div>
           <label
-            htmlFor="user"
+            htmlFor="username"
             className="block mb-1text-sm font-semibold text-gray-700"
           >
             Nombre de Usuario

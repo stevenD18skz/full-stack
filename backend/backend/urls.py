@@ -55,11 +55,11 @@ urlpatterns = [
   path('admin/', admin.site.urls),
   path('', include(router.urls)),
 
-  #path('usuarios/', UsuarioViewSet.as_view({'get': 'list', 'post': 'create'}), name='usuarios-list'),
-  #path('usuarios/<int:pk>/', UsuarioViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='usuarios-detail'),
-  #path('users/<int:pk>/name/', UsuarioViewSet.as_view({'get': 'get_name'})),
-  #path('usersAc/nombre/', UsuarioViewSet.as_view({'get': 'get_by_email'})),
-  #path('crud/users/name/', serchName.as_view()),
+  path('usuarios/', UsuarioViewSet.as_view({'get': 'list', 'post': 'create'}), name='usuarios-list'),
+  path('usuarios/<int:pk>/', UsuarioViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='usuarios-detail'),
+  path('users/<int:pk>/name/', UsuarioViewSet.as_view({'get': 'get_name'})),
+  path('usersAc/nombre/', UsuarioViewSet.as_view({'get': 'get_by_email'})),
+  path('crud/users/name/', serchName.as_view()),
 
 
   

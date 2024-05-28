@@ -3,22 +3,9 @@ import "../css/ModalView.css";
 import { UserPhoto } from "./UserPhoto";
 
 export default function ModalViewUsers({closeView, formData, setFormData, usuario}) {
-
-
-  console.log(usuario)
-
-
-
   return (
     <div className="modal">
       <div className="modal-content-view">
-        {/* <span className="close" onClick={closeView}>
-          <FontAwesomeIcon
-            icon={faCircleXmark}
-            size="lg"
-            style={{ color: "#6e4398" }}
-          />
-        </span> */}
         <div className ="card">
           <div className="photo-container">
             <div className="profile">
