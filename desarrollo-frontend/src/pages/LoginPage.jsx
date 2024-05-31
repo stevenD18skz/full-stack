@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RecaptchaForm from "../components/RecaptchaForm";
 import { jwtDecode } from "jwt-decode";
@@ -15,6 +15,48 @@ export function LoginPage() {
   const [errorCaptcha, setErrorCaptcha] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function loadUsers() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/users/");
+        console.log(response.data);
+
+        if (response.data && response.data.results) {
+          setUsers(response.data.results);
+        }
+      } catch (error) {
+        console.error("Error cargando los usuarios:", error);
+      }
+    }
+
+    loadUsers();
+  }, []);
+
+  const handleGoogleLoginSuccess = (credentialResponse) => {
+    const token = credentialResponse.credential;
+    const decoded = jwtDecode(token);
+    const email = decoded.email;
+
+    console.log("Token ID:", token);
+    console.log("User Email:", email);
+
+    const userFound = users.find((user) => user.email === email);
+
+    if (userFound) {
+      console.log("Usuario encontrado:", userFound);
+      navigate("/home");
+    } else {
+      console.log("Usuario no encontrado en la plataforma");
+      Swal.fire({
+        icon: "warning",
+        title: "Usuario no encontrado",
+        text: "El email ingresado no se encuentra vinculado a la plataforma.",
+      });
+      return;
+    }
+  };
 
   const verificate = async () => {
     try {
@@ -37,7 +79,7 @@ export function LoginPage() {
         const response = await axios.post("http://localhost:8000/login/", {
           username,
           password,
-          captcha: captchaValue, // Envía el valor del captcha al servidor
+          captcha: captchaValue,
         });
         setError(false);
         navigate("/home");
@@ -128,11 +170,7 @@ export function LoginPage() {
                     O ingresa con tu correo electrónico
                   </p>
                   <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      let decoded = jwtDecode(credentialResponse.credential);
-                      console.log(decoded); //toda la info
-                      console.log(decoded.email); //solo el email
-                    }}
+                    onSuccess={handleGoogleLoginSuccess}
                     onError={() => {
                       console.log("Login Failed");
                     }}
