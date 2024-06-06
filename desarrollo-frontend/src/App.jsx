@@ -3,6 +3,8 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 //IMPORTACION DE PAGINAS
 import { LoginPage } from "./pages/LoginPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { HomePage } from "./pages/HomePage";
 import { ViewWork } from "./pages/ViewWork";
 import { ViewTasks } from "./pages/ViewTasks";
@@ -24,7 +26,8 @@ function App() {
         <Route path="/" element={<Navigate to={'/login'} />} />
         <Route path="/logIn" element={<LoginPage/>} />
         <Route path="/home"  element={<HomePage/>} />
-
+        <Route path="/forgotPassword"  element={<ForgotPasswordPage/>} />
+        <Route path="/resetPassword"  element={<ResetPasswordPage/>} />
 
 
       {/*

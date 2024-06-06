@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RecaptchaForm from "../components/RecaptchaForm";
+import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { FaUser, FaGoogle } from "react-icons/fa";
@@ -50,9 +51,9 @@ export function LoginPage() {
     } else {
       console.log("Usuario no encontrado en la plataforma");
       Swal.fire({
-        icon: "warning",
+        icon: "error",
         title: "Usuario no encontrado",
-        text: "El email ingresado no se encuentra vinculado a la plataforma.",
+        text: "El email ingresado no se encuentra vinculado a la plataforma",
       });
       return;
     }
@@ -65,7 +66,7 @@ export function LoginPage() {
         Swal.fire({
           icon: "warning",
           title: "Captcha requerido",
-          text: "Por favor, completa el reCAPTCHA.",
+          text: "Por favor, completa el reCAPTCHA para continuar",
         });
         return;
       }
@@ -153,9 +154,12 @@ export function LoginPage() {
               </div>
             )}
             <div className="mt-4 flex items-center justify-center">
-              <button className="font-medium text-base text-indigo-800">
+              <Link
+                to="/forgotPassword"
+                className="font-medium text-base text-indigo-800"
+              >
                 ¿Olvidaste tu contraseña?
-              </button>
+              </Link>
             </div>
             <div className="mt-4 flex flex-col gap-y-4">
               <button
