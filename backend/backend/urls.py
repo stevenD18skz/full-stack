@@ -38,6 +38,18 @@ from crud.views import TaskProgressViewSet
 from crud.views import filtroProgressPorTasks
 from crud.views import chageEstateProgress
 
+from paginaDeInicio.views import UsuariosPorRolView
+from paginaDeInicio.views import UsuariosPorGeneroView
+from paginaDeInicio.views import UsuariosPorEstadoView
+
+from crud.views import WorkLocationView
+from crud.views import WorkTypeReportView
+from crud.views import WorkEnabledReportView
+from crud.views import TaskTypeReportView
+from crud.views import TaskStatusReportView
+from crud.views import TaskEnabledReportView
+from crud.views import TaskProgressReportView
+from crud.views import TaskProgressEnabledReportView
 
 
 
@@ -119,5 +131,17 @@ urlpatterns = [
   #delete
   path('crud/progress/change/', chageEstateProgress.as_view()),
 
-  
+  path('api/usuarios-por-rol/', UsuariosPorRolView.as_view(), name='usuarios-por-rol'),
+  path('api/usuarios-por-genero/', UsuariosPorGeneroView.as_view(), name='usuarios-por-genero'),
+  path('api/usuarios-por-estado/', UsuariosPorEstadoView.as_view(), name='usuarios-por-estado'),
+
+  path('api/works/location/', WorkLocationView.as_view(), name='work_location_api'),
+  path('api/work/type/report/', WorkTypeReportView.as_view(), name='work_type_report'),
+  path('api/work/enabled/report/', WorkEnabledReportView.as_view(), name='work_enabled_report'),
+  path('api/task/type/report/', TaskTypeReportView.as_view(), name='task_type_report'),
+  path('api/task/status/report/', TaskStatusReportView.as_view(), name='task_status_report'),
+  path('api/task/enabled/report/', TaskEnabledReportView.as_view(), name='task_enabled_report'),
+  path('api/task/progress/report/', TaskProgressReportView.as_view(), name='task_progress_report'),
+  path('api/task/progress/enabled/report/', TaskProgressEnabledReportView.as_view(), name='task_progress_enabled_report'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

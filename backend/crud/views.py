@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
+from django.db.models import Count
+from django.db.models import Avg
 
 
 #importacion obras
@@ -248,3 +250,124 @@ class chageEstateProgress(APIView):
         # Devolver la respuesta con el objeto actualizado
         return Response(serializer.data)
         """
+
+class WorkLocationView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de ubicaciones y contar obras por ubicación
+        location_counts = Work.objects.values('location_work').annotate(count=Count('id')).order_by('location_work')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': [loc['location_work'] for loc in location_counts],
+            'data': [loc['count'] for loc in location_counts]
+        }
+
+        return Response(data)
+    
+class WorkTypeReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de tipos de obra y contar obras por tipo
+        type_counts = Work.objects.values('type_work').annotate(count=Count('id')).order_by('type_work')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': [entry['type_work'] for entry in type_counts],
+            'data': [entry['count'] for entry in type_counts]
+        }
+
+        return Response(data)
+    
+class WorkEnabledReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de estado de habilitación de obras y contar obras por estado
+        enabled_counts = Work.objects.values('enabled_work').annotate(count=Count('id')).order_by('enabled_work')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': ['Habilitada' if entry['enabled_work'] else 'Inhabilitada' for entry in enabled_counts],
+            'data': [entry['count'] for entry in enabled_counts]
+        }
+
+        return Response(data)
+    
+class TaskTypeReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de tipo de tarea y contar tareas por tipo
+        type_counts = Task.objects.values('task_type').annotate(count=Count('id')).order_by('task_type')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': [entry['task_type'] for entry in type_counts],
+            'data': [entry['count'] for entry in type_counts]
+        }
+
+        return Response(data)
+    
+class TaskStatusReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de estado de tareas y contar tareas por estado
+        status_counts = Task.objects.values('task_status').annotate(count=Count('id')).order_by('task_status')
+
+        # Mapear los valores numéricos de task_status a sus etiquetas correspondientes
+        status_labels = {0: 'Pendiente', 1: 'En progreso', 2: 'Completada'}
+        data = {
+            'labels': [status_labels[entry['task_status']] for entry in status_counts],
+            'data': [entry['count'] for entry in status_counts]
+        }
+
+        return Response(data)
+    
+class TaskEnabledReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de estado de habilitación de tareas y contar tareas por estado
+        enabled_counts = Task.objects.values('task_enabled').annotate(count=Count('id')).order_by('task_enabled')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': ['Habilitada' if entry['task_enabled'] else 'Inhabilitada' for entry in enabled_counts],
+            'data': [entry['count'] for entry in enabled_counts]
+        }
+
+        return Response(data)
+    
+class TaskProgressReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de progreso de tareas y calcular el promedio de avance por tarea
+        progress_data = TaskProgress.objects.values('task_progress_id_task__task_name').annotate(avg_progress=Avg('task_progress')).order_by('task_progress_id_task__task_name')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': [entry['task_progress_id_task__task_name'] for entry in progress_data],
+            'data': [entry['avg_progress'] for entry in progress_data]
+        }
+
+        return Response(data)
+    
+class TaskProgressEnabledReportView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Obtener datos de estado de habilitación de avances de tareas y contar por estado
+        enabled_counts = TaskProgress.objects.values('task_progress_id_task__task_enabled').annotate(count=Count('id')).order_by('task_progress_id_task__task_enabled')
+
+        # Preparar datos en formato adecuado para la respuesta JSON
+        data = {
+            'labels': ['Habilitada' if entry['task_progress_id_task__task_enabled'] else 'Inhabilitada' for entry in enabled_counts],
+            'data': [entry['count'] for entry in enabled_counts]
+        }
+
+        return Response(data)
