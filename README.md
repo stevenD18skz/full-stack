@@ -50,8 +50,7 @@ TailwindCSS: https://v2.tailwindcss.com/docs
 
 # Autores:
 
-Nombre: Brayan Steven Narvaez Valdes
-Correo electrónico: 
+Nombres: Brayan Steven Narvaez Valdes, Ana Sofia Cantillo Bolaños, Laura Camila Betancourt Horta, Natan Gabriel Medina, Laura Camila Leal, Miguel Tami
 
 # Licencia:
 
