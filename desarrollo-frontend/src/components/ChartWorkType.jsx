@@ -43,6 +43,9 @@ export function ChartWorkType() {
                 text: 'Número de obras',
             },
         },
+        title: {
+            text: 'Distribución de obras por nombre'
+        }
     };
 
     const series = [{

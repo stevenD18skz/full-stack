@@ -11,7 +11,7 @@ export function ChartUserGender() {
             },
             labels: [],
             title: {
-                text: 'Distribución de Usuarios por Género'
+                text: 'Distribución de usuarios por género'
             }
         }
     });

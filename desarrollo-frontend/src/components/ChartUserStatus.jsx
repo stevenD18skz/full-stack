@@ -11,7 +11,7 @@ export function ChartUserStatus() {
             },
             labels: [],
             title: {
-                text: 'Distribución de Usuarios por Estado'
+                text: 'Distribución de usuarios por estado'
             }
         }
     });

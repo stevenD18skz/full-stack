@@ -43,6 +43,9 @@ export function ChartTaskStatus() {
                 text: 'Número de tareas',
             },
         },
+        title: {
+            text: 'Distribución de tareas por estado'
+        }
     };
 
     const series = [{

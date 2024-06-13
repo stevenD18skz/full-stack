@@ -43,6 +43,9 @@ export function ChartTaskType() {
                 text: 'Número de tareas',
             },
         },
+        title: {
+            text: 'Distribución de tareas por tipo'
+        }
     };
 
     const series = [{

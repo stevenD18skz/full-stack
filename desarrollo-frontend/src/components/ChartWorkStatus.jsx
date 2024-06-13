@@ -43,6 +43,9 @@ export function ChartWorkStatus() {
                 text: 'Número de obras',
             },
         },
+        title: {
+            text: 'Distribución por obras habilitadas e inhabilitadas'
+        }
     };
 
     const series = [{

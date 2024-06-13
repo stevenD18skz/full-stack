@@ -36,6 +36,9 @@ export function ChartWorkLocation() {
                                 text: 'Número de obras',
                             },
                         },
+                        title: {
+                            text: 'Distribución de obras por localidad'
+                        }
                     }
                 });
             } catch (error) {

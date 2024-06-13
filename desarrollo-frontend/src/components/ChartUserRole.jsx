@@ -27,6 +27,9 @@ export function ChartUserRole() {
         data: data.map((item) => item.count),
       },
     ],
+    title: {
+      text: 'Distribución de usuarios por rol'
+  },
     xaxis: {
       categories: data.map((item) => item["role_user__name_role"]),
     },

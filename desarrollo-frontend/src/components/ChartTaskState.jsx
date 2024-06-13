@@ -43,6 +43,9 @@ export function ChartTaskState() {
                 text: 'Número de tareas',
             },
         },
+        title: {
+            text: 'Distribución por tareas habilitadas e inhabilitadas'
+        }
     };
 
     const series = [{

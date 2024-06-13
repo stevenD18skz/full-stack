@@ -43,6 +43,9 @@ export function ChartProgressTaskStatus() {
                 text: 'Número de avances de tarea',
             },
         },
+        title: {
+            text: 'Distribución por avances habilitados e inhabilitados'
+        }
     };
 
     const series = [{

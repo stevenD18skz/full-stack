@@ -45,6 +45,9 @@ export function ChartProgressTask() {
             min: 0,
             max: 100,
         },
+        title: {
+            text: 'Distribución por promedio de avances'
+        }
     };
 
     const series = [{
