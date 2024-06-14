@@ -3,7 +3,6 @@ import "../css/ModalView.css";
 
 export default function ViewModalProgress({ closeView, formData, setFormData, usuario }) {
   const imageUrl = usuario.progress_photos ? `${usuario.progress_photos}` : null;
-  console.log(imageUrl)
 
   return (
     <div className="modal">
@@ -14,7 +13,7 @@ export default function ViewModalProgress({ closeView, formData, setFormData, us
         
         {imageUrl && (
           <center>
-            <img src={imageUrl} alt="Evidencia del progreso" className="progress-photo" />
+            <img src={imageUrl} alt="Evidencia del progreso" className="rounded-lg shadow-lg max-w-full h-auto align-middle border-none" />
           </center>
         )}
 

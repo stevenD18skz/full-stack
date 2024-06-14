@@ -64,9 +64,12 @@ export default function ModalTask({ formData, setFormData, handleSubmit, crudTyp
       ? "http://127.0.0.1:8000/progress/"
       : `http://127.0.0.1:8000/progress/${objectModel.id}/`;
 
+
     console.log(`URL: ${url}`);
     console.log(`crudType: ${crudType}`);
     console.log(`objectModel.id: ${objectModel.id}`);
+    
+
 
     try {
       await axios({
@@ -77,11 +80,14 @@ export default function ModalTask({ formData, setFormData, handleSubmit, crudTyp
           "Content-Type": "multipart/form-data",
         },
       });
-      // Manejar la respuesta según sea necesario
+       
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
     }
+
   };
+
+
   return (
     <form className="p-2 md:p-3" onSubmit={handleFormSubmit}>
       <div className="pb-8">
