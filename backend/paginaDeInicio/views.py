@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
+from django.db.models import Count
 
 from django.contrib.auth import login, authenticate
 from rest_framework.authtoken.models import Token
@@ -266,3 +267,27 @@ class filtroProRol(APIView):
 
         serializer = UsuarioSerializerCreate(director_usuarios, many=True)  # Serialize for multiple users
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UsuariosPorRolView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Agrupar usuarios por rol y contar cuántos usuarios hay en cada rol
+        roles = User.objects.values('role_user__name_role').annotate(count=Count('id')).order_by('role_user__name_role')
+        return Response(roles)
+    
+class UsuariosPorGeneroView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        generos = User.objects.values('gender_user').annotate(count=Count('id')).order_by('gender_user')
+        return Response(generos)
+    
+class UsuariosPorEstadoView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        estados = User.objects.values('is_active').annotate(count=Count('id')).order_by('is_active')
+        return Response(estados)
+    
