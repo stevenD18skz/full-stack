@@ -47,7 +47,7 @@ export function LoginPage() {
 
     if (userFound) {
       console.log("Usuario encontrado:", userFound);
-      navigate("/home");
+      navigate("/dashboard");
     } else {
       console.log("Usuario no encontrado en la plataforma");
       Swal.fire({
@@ -83,7 +83,7 @@ export function LoginPage() {
           captcha: captchaValue,
         });
         setError(false);
-        navigate("/home");
+        navigate("/dashboard");
       }
     } catch (error) {
       setError(true);
@@ -153,14 +153,6 @@ export function LoginPage() {
                 </p>
               </div>
             )}
-            <div className="mt-4 flex items-center justify-center">
-              <Link
-                to="/forgotPassword"
-                className="font-medium text-base text-indigo-800"
-              >
-                ¿Olvidaste tu contraseña?
-              </Link>
-            </div>
             <div className="mt-4 flex flex-col gap-y-4">
               <button
                 className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out bg-indigo-500 py-3 rounded-xl text-white text-lg font-semibold flex justify-center"

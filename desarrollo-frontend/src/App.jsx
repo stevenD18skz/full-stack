@@ -3,7 +3,6 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 //IMPORTACION DE PAGINAS
 import { LoginPage } from "./pages/LoginPage";
-import { HomePage } from "./pages/HomePage";
 import { ViewWork } from "./pages/ViewWork";
 import { ViewTasks } from "./pages/ViewTasks";
 
@@ -34,7 +33,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to={'/login'} />} />
         <Route path="/logIn" element={<LoginPage/>} />
-        <Route path="/home"  element={<HomePage/>} />
         <Route path="/chartUserRole"  element={<ChartUserRole/>} />
         <Route path="/chartUserGender"  element={<ChartUserGender/>} />
         <Route path="/chartUserStatus"  element={<ChartUserStatus/>} />

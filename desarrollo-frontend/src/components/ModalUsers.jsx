@@ -60,10 +60,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
       <div className="">
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="user"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Nombre de Usuario
           </label>
@@ -82,10 +82,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="name"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Nombres
           </label>
@@ -104,10 +104,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="last_name"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Apellidos
           </label>
@@ -125,10 +125,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="email"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Correo Electrónico
           </label>
@@ -146,10 +146,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="identity"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Tipo de Identificación
           </label>
@@ -159,7 +159,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
            name="doc_type_user"
             value={usuario.doc_type_user}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
           >
             <option value="CC">Cédula de Ciudadanía</option>
             <option value="CE">Cédula de Extranjería</option>
@@ -168,10 +168,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="user_id"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             N° Identificación
           </label>
@@ -192,10 +192,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="gender"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Género
           </label>
@@ -205,7 +205,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
             name="gender_user"
             value={formData.gender_user}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
           >
             <option value="F">Femenino</option>
             <option value="M">Masculino</option>
@@ -213,10 +213,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div>
+        <div className="mt-4">
           <label
             htmlFor="phone"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Celular
           </label>
@@ -234,10 +234,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
         </div>
 
 
-        <div {...(crudType === "edit" ? { className : "col-span-2" } : {})}>
+        <div className="mt-4" {...(crudType === "edit" ? { className : "col-span-2" } : {})}>
           <label
             htmlFor="adress"
-            className="block mb-1text-sm font-semibold text-gray-700"
+            className="block mb-1 text-sm font-semibold text-gray-700"
           >
             Dirección
           </label>
@@ -257,10 +257,10 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
 
 
           {crudType === "create" ? (
-            <div>
+            <div className="mt-4">
               <label 
               htmlFor="rol" 
-              className="block mb-1text-sm font-semibold text-gray-700" >
+              className="block mb-1 text-sm font-semibold text-gray-700" >
                 ROL
               </label>
             <select
@@ -268,7 +268,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
               name="role_user"
               value={formData.role_user}
               onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2 w-full"
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-1.5 w-full"
             >
               {roles.map((item) => (
                   <option key={item.id} value={item.id} >{item.name_role}</option>
@@ -293,7 +293,7 @@ export default function ModalUsers({ formData, setFormData, handleSubmit, crudTy
       <div className="flex justify-center w-100">
         <button
           type="submit"
-          className="inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
+          className="mt-4 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-900 dark:hover:bg-blue-800 dark:focus:ring-blue-800 text-white"
         >
            {crudType === "create" ? "Crear usuario" : "Editar usuario"}
           

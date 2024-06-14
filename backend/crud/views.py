@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 from django.db.models import Avg
+from rest_framework.decorators import api_view
 
 
 #importacion obras
@@ -371,3 +372,11 @@ class TaskProgressEnabledReportView(APIView):
         }
 
         return Response(data)
+
+class TaskProgressCreateView(generics.CreateAPIView):
+    queryset = TaskProgress.objects.all()
+    serializer_class = TaskProgressSerializer
+
+class TaskProgressUpdateView(generics.UpdateAPIView):
+    queryset = TaskProgress.objects.all()
+    serializer_class = TaskProgressSerializer

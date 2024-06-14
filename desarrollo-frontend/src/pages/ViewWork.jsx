@@ -56,8 +56,6 @@ export function ViewWork() {
           <p><b>Tipo de obra: </b> {seleccionado.type_work}</p>
           {/*aqui solo esta el id <p>Directo de obra: {seleccionado.id_manager_work}</p>*/}
           <p><b>Directo de obra: </b> {seleccionado.name_director}</p>
-          <p><b>Fecha de creacion: </b> --------------</p>
-          <p><b>Creado por: </b> --------------</p>
 
           <hr className="h-10" />
 

@@ -47,7 +47,7 @@ class TaskSerializer(serializers.ModelSerializer):
 class TaskProgressSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskProgress
-        fields = '__all__' 
+        fields = '__all__'
 
 
 
